@@ -27,6 +27,14 @@
             scroll-behavior: smooth;
         }
 
+        /* --- CUSTOM SCROLLBAR & SELECTION --- */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-color); }
+        
+        ::selection { background: var(--primary-color); color: #fff; }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
@@ -61,14 +69,8 @@
             box-shadow: 0 0 10px #e11d48, 0 0 20px #e11d48;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
         section { padding: 80px 0; }
-
         h1, h2, h3 { color: var(--text-main); }
         
         h2.section-title {
@@ -107,21 +109,24 @@
         .profile-img {
             width: 160px; height: 160px; border-radius: 50%; object-fit: cover;
             border: 4px solid var(--primary-color); box-shadow: 0 10px 30px rgba(225, 29, 72, 0.3);
-            /* Transisi dikendalikan JS magnetic */
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .profile-img-container:hover .profile-img {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 40px rgba(225, 29, 72, 0.6);
         }
 
-        /* Hero Section (Parallax & Spotlight) */
+        /* Hero Section */
         .hero {
             min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;
-            /* Spotlight dinamis diatur variabel CSS */
             background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(225, 29, 72, 0.15) 0%, transparent 40%), linear-gradient(135deg, rgba(15,23,42,0.9), rgba(30,41,59,0.9)), var(--hero-bg) center/cover;
-            background-attachment: fixed; padding-top: 60px;
-            transition: background 0.1s ease;
+            background-attachment: fixed; padding-top: 60px; transition: background 0.1s ease;
         }
 
-        /* --- GLITCH EFFECT PADA NAMA --- */
+        /* --- TEKS MENGKILAP & GLOW EFFECT (ANTI-BUG) --- */
         .hero h1 {
-            font-size: 3.5rem; font-weight: 700; margin-bottom: 10px; position: relative; display: inline-block;
+            font-size: 3.5rem; font-weight: 700; margin-bottom: 10px; position: relative; 
+            display: inline-block; transition: all 0.3s ease;
         }
         .hero h1 span {
             background: linear-gradient(to right, #e11d48, #f43f5e, #ffb3c1, #e11d48);
@@ -130,21 +135,19 @@
         }
         @keyframes shine { to { background-position: 200% center; } }
         
-        .hero h1:hover { animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite; color: var(--primary-color);}
-        @keyframes glitch {
-            0% { transform: translate(0) }
-            20% { transform: translate(-3px, 3px) }
-            40% { transform: translate(-3px, -3px) }
-            60% { transform: translate(3px, 3px) }
-            80% { transform: translate(3px, -3px) }
-            100% { transform: translate(0) }
+        .hero h1:hover { 
+            transform: scale(1.05); 
+            text-shadow: 0 0 20px rgba(225, 29, 72, 0.6);
         }
 
         .hero h2 { font-size: 1.5rem; font-weight: 300; color: var(--text-muted); margin-bottom: 30px; letter-spacing: 2px; }
 
+        /* --- TYPEWRITER --- */
         .typed-text { color: var(--primary-color); font-weight: 600; }
         .cursor { display: inline-block; width: 3px; background-color: var(--text-main); margin-left: 2px; animation: blink 0.7s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .mobile-break { display: none; } /* Default sembunyikan br */
 
         .hero .quote {
             font-style: italic; font-size: 1.2rem; max-width: 600px; margin: 0 auto 40px auto;
@@ -160,7 +163,6 @@
             display: flex; align-items: center; gap: 10px; background: var(--surface-color);
             padding: 10px 20px; border-radius: 50px; font-size: 0.9rem;
             text-decoration: none; color: inherit; position: relative; overflow: hidden;
-            /* Efek magnetic dikendalikan via JS, transisi css dihapus agar responsif */
         }
 
         .contact-item i { color: var(--primary-color); transition: color 0.3s ease; }
@@ -260,7 +262,7 @@
         .project-card:hover .project-content h3 { color: var(--secondary-color); }
         .project-tag { display: inline-block; background: rgba(225, 29, 72, 0.2); color: #fb7185; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; margin-bottom: 10px; font-weight: 600; }
 
-        /* Modal Lightbox Video */
+        /* Modal Lightbox Video Viewer */
         .video-modal {
             display: none; position: fixed; z-index: 99999; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 3vh 3vw; opacity: 0; transition: opacity 0.3s ease;
@@ -296,6 +298,7 @@
 
         footer { text-align: center; padding: 30px; background: var(--surface-color); color: var(--text-muted); border-top: 1px solid #334155; }
 
+        /* --- RESPONSIVE MOBILE --- */
         @media(max-width: 768px) {
             .about-content, .timeline-grid { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2.5rem; }
@@ -308,6 +311,10 @@
             body { overflow-x: hidden; }
             #backToTopBtn { bottom: 20px; right: 20px; }
             .cursor-dot, .cursor-ring { display: none !important; }
+            
+            /* Anti Lompat Halaman di HP saat Typewriter */
+            .mobile-break { display: block; }
+            .typewriter-text { min-height: 80px; }
         }
     </style>
 </head>
@@ -329,16 +336,19 @@
     <section class="hero" id="heroSection">
         <div class="container">
             
-            <!-- Pastikan div container foto ini tidak terhapus -->
             <div class="profile-img-container hero-element magnetic">
                 <!-- Fallback otomatis jika foto belum diunggah atau salah nama -->
                 <img src="profile.png" alt="Ali Haidar" class="profile-img" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Ali+Haidar&background=e11d48&color=fff&size=160';">
             </div>
+            
             <h2 class="hero-element delay-1">HALO, AKU</h2>
             <h1 class="hero-element delay-2">ALI <span>HAIDAR</span> !</h1>
             
-            <!-- Typewriter Element Update: Hanya 2 Text -->
-            <h2 class="hero-element delay-3">SAYA SEORANG <span id="typed-text" class="typed-text"></span><span class="cursor">|</span></h2>
+            <!-- Menggunakan class tambahan agar tinggi font di HP tidak melompat-lompat -->
+            <h2 class="hero-element delay-3 typewriter-text">
+                SAYA SEORANG <br class="mobile-break">
+                <span id="typed-text" class="typed-text"></span><span class="cursor">|</span>
+            </h2>
             
             <div class="quote hero-element delay-4">
                 "Merangkai momen jadi cerita. Menyusun gambar jadi makna."
@@ -893,7 +903,7 @@
             });
         });
 
-        // --- Efek Kartu 3D Tilt Diperhalus ---
+        // --- Efek Hover Kartu 3D (Tilt Diperhalus) ---
         const cards = document.querySelectorAll('.project-card');
         cards.forEach(card => {
             card.addEventListener('mousemove', e => {
@@ -914,29 +924,41 @@
             card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
         });
 
-        // --- Scroll Reveal Pintar ---
+        // --- Scroll Reveal Pintar (Reset saat keluar layar 100%) ---
         document.addEventListener("DOMContentLoaded", function() {
             const reveals = document.querySelectorAll(".reveal");
             const progressBars = document.querySelectorAll(".progress-bar");
 
             const revealOnScroll = new IntersectionObserver(function(entries) {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting && entry.intersectionRatio > 0) {
+                    // Muncul jika elemen 15% masuk ke layar
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.15) {
                         entry.target.classList.add("active");
+                        
+                        // Menjalankan Progress Bar
                         if(entry.target.classList.contains('about-content')) {
                             progressBars.forEach(bar => {
                                 const targetWidth = bar.getAttribute('data-width');
                                 bar.style.width = targetWidth;
                             });
                         }
-                    } else if (entry.intersectionRatio === 0) {
+                    } 
+                    // Menghilang HANYA jika elemen 100% sudah hilang (0) dari layar
+                    else if (entry.intersectionRatio === 0) {
                         entry.target.classList.remove("active");
+                        
+                        // Reset Progress Bar
                         if(entry.target.classList.contains('about-content')) {
-                            progressBars.forEach(bar => { bar.style.width = '0%'; });
+                            progressBars.forEach(bar => {
+                                bar.style.width = '0%';
+                            });
                         }
                     }
                 });
-            }, { threshold: [0, 0.15] });
+            }, {
+                // Pantau 2 kondisi: pas benar-benar hilang (0), dan pas muncul dikit (0.15)
+                threshold: [0, 0.15] 
+            });
 
             reveals.forEach(reveal => { revealOnScroll.observe(reveal); });
         });
