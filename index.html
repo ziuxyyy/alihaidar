@@ -80,7 +80,7 @@
         }
 
         .hero-element {
-            opacity: 0; /* Default tidak terlihat sebelum animasi jalan */
+            opacity: 0;
             animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
@@ -109,14 +109,16 @@
             box-shadow: 0 15px 40px rgba(225, 29, 72, 0.5);
         }
 
-        /* Hero Section */
+        /* Hero Section (Dengan Efek Parallax) */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
+            /* Efek Parallax background-attachment: fixed */
             background: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(30,41,59,0.9)), url('https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            background-attachment: fixed;
             padding-top: 60px;
         }
 
@@ -136,6 +138,23 @@
             color: var(--text-muted);
             margin-bottom: 30px;
             letter-spacing: 2px;
+        }
+
+        /* Typewriter Cursor */
+        .typed-text {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background-color: var(--text-main);
+            margin-left: 2px;
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         .hero .quote {
@@ -177,6 +196,8 @@
             transition: all 0.3s ease;
             text-decoration: none;
             color: inherit;
+            position: relative;
+            overflow: hidden;
         }
 
         .contact-item:hover {
@@ -207,6 +228,8 @@
             text-decoration: none;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
+            position: relative;
+            overflow: hidden;
         }
         
         .cv-button:hover {
@@ -214,6 +237,22 @@
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(225, 29, 72, 0.6);
             color: #fff;
+        }
+
+        /* Animasi Ripple pada saat diklik */
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: animateRipple 0.6s linear;
+            pointer-events: none;
+        }
+        @keyframes animateRipple {
+            to {
+                transform: translate(-50%, -50%) scale(3);
+                opacity: 0;
+            }
         }
 
         /* --- SCROLL REVEAL CLASS --- */
@@ -270,12 +309,12 @@
             overflow: hidden;
         }
 
-        /* Progress bar animasi jalan dari 0 */
+        /* Progress bar animasi */
         .progress-bar {
             height: 100%;
             background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
             border-radius: 10px;
-            width: 0%; /* Default nol */
+            width: 0%; 
             transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
@@ -368,15 +407,16 @@
             border-radius: 15px;
             overflow: hidden;
             position: relative;
-            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            /* Transisi dihapus untuk efek js 3D Tilt */
             cursor: pointer;
             border: 1px solid #334155;
+            transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease; 
         }
 
         .project-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
             border-color: var(--primary-color);
+            z-index: 2;
         }
 
         .video-preview-wrapper {
@@ -392,7 +432,7 @@
         }
         
         .project-card:hover .video-preview-wrapper img {
-            transform: scale(1.05); /* Gambar ikut sedikit membesar ke dalam saat disentuh */
+            transform: scale(1.05); 
         }
 
         .play-trigger-overlay {
@@ -724,7 +764,9 @@
             </div>
             <h2 class="hero-element delay-1">HALO, AKU</h2>
             <h1 class="hero-element delay-2">ALI <span>HAIDAR</span> !</h1>
-            <h2 class="hero-element delay-3">VIDEO EDITOR & VIDEOGRAPHER</h2>
+            
+            <!-- Typewriter Element -->
+            <h2 class="hero-element delay-3">SAYA SEORANG <span id="typed-text" class="typed-text"></span><span class="cursor">|</span></h2>
             
             <div class="quote hero-element delay-4">
                 "Merangkai momen jadi cerita. Menyusun gambar jadi makna."
@@ -778,7 +820,6 @@
                             <span>94%</span>
                         </div>
                         <div class="progress-bg">
-                            <!-- Animasi Width: data-width disiapkan, width aslinya 0% -->
                             <div class="progress-bar" data-width="94%"></div>
                         </div>
                     </div>
@@ -1121,22 +1162,18 @@
     <script>
         let scrollPosition = 0;
 
-        // Script untuk Modal Video
+        // Script Modal Video
         function openVideoModal(videoId, title) {
             const modal = document.getElementById('videoModal');
             const iframe = document.getElementById('modalIframe');
             const titleElement = document.getElementById('modalVideoTitle');
 
             titleElement.innerText = title;
-            // Set YouTube Embed URL
             iframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
             
-            // Simpan posisi scroll saat ini
             scrollPosition = window.scrollY || document.documentElement.scrollTop;
-            
             modal.classList.add('active');
             
-            // Kunci scroll tanpa membuat halaman lompat ke atas
             document.body.style.position = 'fixed';
             document.body.style.top = `-${scrollPosition}px`;
             document.body.style.width = '100%';
@@ -1149,7 +1186,6 @@
             modal.classList.remove('active');
             iframe.src = ''; 
             
-            // Kembalikan posisi scroll seperti semula
             document.body.style.position = '';
             document.body.style.top = '';
             document.body.style.width = '';
@@ -1158,30 +1194,21 @@
         }
 
         function closeVideoModalOnBg(e) {
-            if (e.target.id === 'videoModal') {
-                closeVideoModal();
-            }
+            if (e.target.id === 'videoModal') { closeVideoModal(); }
         }
 
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeVideoModal();
-            }
+            if (e.key === 'Escape') { closeVideoModal(); }
         });
 
-        // Script untuk Tombol Back to Top dengan fitur Auto-Hide
+        // Script Tombol Back to Top (Auto-Hide)
         let mybutton = document.getElementById("backToTopBtn");
         let scrollTimeout;
 
         window.onscroll = function() {
-            // Tampilkan tombol jika scroll > 400px
             if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
                 mybutton.classList.add("show");
-                
-                // Hapus hitungan mundur sebelumnya
                 clearTimeout(scrollTimeout);
-                
-                // Buat hitungan mundur baru: Sembunyikan tombol setelah 2 detik tidak ada scroll
                 scrollTimeout = setTimeout(function() {
                     mybutton.classList.remove("show");
                 }, 2000);
@@ -1190,13 +1217,11 @@
             }
         };
 
-        // Cegah tombol menghilang jika kursor sedang berada di atas tombol
         mybutton.addEventListener("mouseenter", function() {
             clearTimeout(scrollTimeout);
             mybutton.classList.add("show");
         });
 
-        // Mulai kembali hitungan mundur saat kursor meninggalkan tombol
         mybutton.addEventListener("mouseleave", function() {
             scrollTimeout = setTimeout(function() {
                 mybutton.classList.remove("show");
@@ -1207,7 +1232,88 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        // Script untuk Scroll Reveal (Animasi Muncul Saat Scroll)
+        // Script Teks Ketik Otomatis (Typewriter)
+        const typedTextSpan = document.getElementById("typed-text");
+        const words = ["VIDEO EDITOR", "VIDEOGRAPHER", "3D ARTIST"];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeEffect() {
+            const currentWord = words[wordIndex];
+            
+            if (isDeleting) {
+                typedTextSpan.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typedTextSpan.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                typeSpeed = 1500; // Pause sebelum mulai menghapus
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex++;
+                if (wordIndex >= words.length) wordIndex = 0;
+                typeSpeed = 500; // Pause sebelum mulai kata baru
+            }
+
+            setTimeout(typeEffect, typeSpeed);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            if(words.length) setTimeout(typeEffect, 1000); // Mulai setelah animasi hero selesai
+        });
+
+        // Script Efek Ripple Klik pada Tombol
+        const buttons = document.querySelectorAll('.cv-button, .contact-item');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                let x = e.clientX - e.target.getBoundingClientRect().left;
+                let y = e.clientY - e.target.getBoundingClientRect().top;
+                let ripples = document.createElement('span');
+                ripples.style.left = x + 'px';
+                ripples.style.top = y + 'px';
+                ripples.classList.add('ripple');
+                this.appendChild(ripples);
+                setTimeout(() => { ripples.remove() }, 600);
+            });
+        });
+
+        // Script Efek Hover Kartu 3D (Tilt)
+        const cards = document.querySelectorAll('.project-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                // Rotasi maksimal 8 derajat agar tetap smooth
+                const rotateX = ((y - centerY) / centerY) * -8;
+                const rotateY = ((x - centerX) / centerX) * 8;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                card.style.transition = 'none'; // Matikan transisi css agar instan ikut kursor
+                card.style.zIndex = '2';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+                card.style.transition = 'transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease';
+                card.style.zIndex = '1';
+            });
+            
+            card.addEventListener('mouseenter', () => {
+                card.style.transition = 'none';
+            });
+        });
+
+        // Script Scroll Reveal Berulang
         document.addEventListener("DOMContentLoaded", function() {
             const reveals = document.querySelectorAll(".reveal");
             const progressBars = document.querySelectorAll(".progress-bar");
@@ -1217,17 +1323,26 @@
                     if (entry.isIntersecting) {
                         entry.target.classList.add("active");
                         
-                        // Khusus untuk animasi progress bar
+                        // Menjalankan Progress Bar
                         if(entry.target.classList.contains('about-content')) {
                             progressBars.forEach(bar => {
                                 const targetWidth = bar.getAttribute('data-width');
                                 bar.style.width = targetWidth;
                             });
                         }
+                    } else {
+                        entry.target.classList.remove("active");
+                        
+                        // Reset Progress Bar
+                        if(entry.target.classList.contains('about-content')) {
+                            progressBars.forEach(bar => {
+                                bar.style.width = '0%';
+                            });
+                        }
                     }
                 });
             }, {
-                threshold: 0.15,
+                threshold: 0.1,
                 rootMargin: "0px 0px -50px 0px"
             });
 
