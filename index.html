@@ -28,6 +28,7 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .container {
@@ -72,6 +73,24 @@
             letter-spacing: 1px;
         }
 
+        /* --- ANIMASI PEMBUKA (HERO SECTION) --- */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-element {
+            opacity: 0; /* Default tidak terlihat sebelum animasi jalan */
+            animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+        .delay-6 { animation-delay: 0.6s; }
+
         /* Profile Image */
         .profile-img-container {
             margin-bottom: 25px;
@@ -83,10 +102,11 @@
             object-fit: cover;
             border: 4px solid var(--primary-color);
             box-shadow: 0 10px 30px rgba(225, 29, 72, 0.3);
-            transition: transform 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
         }
         .profile-img:hover {
-            transform: scale(1.05);
+            transform: scale(1.08) rotate(3deg);
+            box-shadow: 0 15px 40px rgba(225, 29, 72, 0.5);
         }
 
         /* Hero Section */
@@ -130,6 +150,11 @@
             background: rgba(255,255,255,0.05);
             padding: 20px;
             border-radius: 0 10px 10px 0;
+            transition: transform 0.3s ease;
+        }
+        
+        .hero .quote:hover {
+            transform: translateX(10px);
         }
 
         .contact-bar {
@@ -149,19 +174,21 @@
             padding: 10px 20px;
             border-radius: 50px;
             font-size: 0.9rem;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
             text-decoration: none;
             color: inherit;
         }
 
         .contact-item:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.05);
             background: var(--secondary-color);
             color: #fff;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
         }
 
         .contact-item i {
             color: var(--primary-color);
+            transition: color 0.3s ease;
         }
         
         .contact-item:hover i {
@@ -184,9 +211,20 @@
         
         .cv-button:hover {
             background-color: #be123c;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(225, 29, 72, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(225, 29, 72, 0.6);
             color: #fff;
+        }
+
+        /* --- SCROLL REVEAL CLASS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* About Section */
@@ -232,10 +270,13 @@
             overflow: hidden;
         }
 
+        /* Progress bar animasi jalan dari 0 */
         .progress-bar {
             height: 100%;
             background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
             border-radius: 10px;
+            width: 0%; /* Default nol */
+            transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .tech-tags {
@@ -252,6 +293,15 @@
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        
+        .tech-tag:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(225, 29, 72, 0.3);
         }
 
         /* Experience Grid */
@@ -266,11 +316,12 @@
             padding: 30px;
             border-radius: 15px;
             border-top: 4px solid var(--secondary-color);
-            transition: transform 0.3s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .timeline-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .timeline-card h3 {
@@ -317,14 +368,14 @@
             border-radius: 15px;
             overflow: hidden;
             position: relative;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
             cursor: pointer;
             border: 1px solid #334155;
         }
 
         .project-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
             border-color: var(--primary-color);
         }
 
@@ -334,6 +385,14 @@
             height: 0;
             background: #0f172a;
             overflow: hidden;
+        }
+
+        .video-preview-wrapper img {
+            transition: transform 0.5s ease;
+        }
+        
+        .project-card:hover .video-preview-wrapper img {
+            transform: scale(1.05); /* Gambar ikut sedikit membesar ke dalam saat disentuh */
         }
 
         .play-trigger-overlay {
@@ -367,11 +426,11 @@
             color: #fff;
             font-size: 1.4rem;
             box-shadow: 0 4px 20px rgba(225, 29, 72, 0.5);
-            transition: transform 0.3s ease, background-color 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease;
         }
 
         .project-card:hover .play-button-icon {
-            transform: scale(1.15);
+            transform: scale(1.2);
             background: #f43f5e;
         }
 
@@ -395,6 +454,11 @@
             margin-bottom: 8px;
             color: var(--text-main);
             word-wrap: break-word;
+            transition: color 0.3s ease;
+        }
+        
+        .project-card:hover .project-content h3 {
+            color: var(--secondary-color);
         }
         
         .project-tag {
@@ -442,13 +506,13 @@
             overflow: hidden;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
             border: 1px solid #334155;
-            animation: modalZoom 0.3s ease-out;
+            animation: modalZoom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
         }
 
         @keyframes modalZoom {
-            from { transform: scale(0.95); opacity: 0; }
+            from { transform: scale(0.8); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
 
@@ -485,12 +549,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s, color 0.2s;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
         }
 
         .modal-close-btn:hover {
             background: var(--primary-color);
             color: #fff;
+            transform: rotate(90deg);
         }
 
         .modal-video-container {
@@ -527,12 +592,25 @@
             padding: 20px;
             border-radius: 10px;
             border-left: 4px solid #fbbf24;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .award-item:hover {
+            transform: translateY(-8px);
+            border-left-color: var(--primary-color);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background: rgba(30, 41, 59, 0.8);
         }
 
         .award-item h3 {
             color: #fbbf24;
             font-size: 1.1rem;
             margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .award-item:hover h3 {
+            color: var(--primary-color);
         }
         
         .award-item p {
@@ -563,11 +641,11 @@
 
         #backToTopBtn.show {
             visibility: visible;
-            opacity: 0.5; /* Agak redup agar tidak mengganggu fokus visual */
+            opacity: 0.5;
         }
 
         #backToTopBtn.show:hover {
-            opacity: 1; /* Menyala pekat saat di-hover */
+            opacity: 1; 
             background-color: #be123c;
             transform: translateY(-5px);
             box-shadow: 0 6px 20px rgba(225, 29, 72, 0.6);
@@ -641,19 +719,18 @@
     <section class="hero">
         <div class="container">
             
-            <div class="profile-img-container">
-                <!-- GANTI TULISAN SRC DI BAWAH INI DENGAN NAMA FILE FOTO KAMU, MISAL: "foto-ali.jpg" -->
-                <img src="https://ui-avatars.com/api/?name=Ali+Haidar&background=e11d48&color=fff&size=160" alt="Ali Haidar" class="profile-img">
+            <div class="profile-img-container hero-element">
+                <img src="profile.png" alt="Ali Haidar" class="profile-img">
             </div>
-            <h2>HALO, AKU</h2>
-            <h1>ALI <span>HAIDAR</span> !</h1>
-            <h2>VIDEO EDITOR & VIDEOGRAPHER</h2>
+            <h2 class="hero-element delay-1">HALO, AKU</h2>
+            <h1 class="hero-element delay-2">ALI <span>HAIDAR</span> !</h1>
+            <h2 class="hero-element delay-3">VIDEO EDITOR & VIDEOGRAPHER</h2>
             
-            <div class="quote">
+            <div class="quote hero-element delay-4">
                 "Merangkai momen jadi cerita. Menyusun gambar jadi makna."
             </div>
 
-            <div class="contact-bar">
+            <div class="contact-bar hero-element delay-5">
                 <a href="mailto:haidarpe185@gmail.com" class="contact-item">
                     <i class="fas fa-envelope"></i> haidarpe185@gmail.com
                 </a>
@@ -668,59 +745,62 @@
                 </div>
             </div>
             
-            <div>
+            <div class="hero-element delay-6">
                 <a href="https://drive.google.com/file/d/1Vrtz60YPLHZeCmYN_5aTNwDvR-MXg2XJ/view?usp=sharing" target="_blank" class="cv-button"><i class="fas fa-file-alt"></i> Lihat CV / Portofolio</a>
             </div>
         </div>
     </section>
 
     <!-- About & Skills Section -->
-    <section id="about" class="container">
-        <h2 class="section-title">Tentang Saya & Keahlian</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <p>Saya adalah seorang kreatif asal Pasuruan yang siap berkarya, termasuk untuk kesempatan di Surabaya. Saya berminat pada dunia videografi, di mana saya senang mengekspresikan sesuatu melalui media video.</p>
-                <p>Dalam proses merangkai momen menjadi cerita, saya memadukan kemampuan editing visual, produksi live streaming, hingga pengoperasian drone dan eksplorasi animasi 3D untuk menghasilkan karya yang komunikatif dan mendalam.</p>
-                
-                <div class="tech-tags">
-                    <span class="tech-tag">Premiere Pro</span>
-                    <span class="tech-tag">DaVinci Resolve</span>
-                    <span class="tech-tag">After Effects</span>
-                    <span class="tech-tag">vMix</span>
-                    <span class="tech-tag">OBS</span>
-                    <span class="tech-tag">Blender (3D)</span>
-                    <span class="tech-tag">Drone Piloting</span>
-                </div>
-            </div>
-
-            <div class="skills-wrapper">
-                <div class="skill-item">
-                    <div class="skill-info">
-                        <span>Video Editor</span>
-                        <span>94%</span>
-                    </div>
-                    <div class="progress-bg">
-                        <div class="progress-bar" style="width: 94%;"></div>
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title reveal">Tentang Saya & Keahlian</h2>
+            <div class="about-content reveal">
+                <div class="about-text">
+                    <p>Saya adalah seorang kreatif asal Pasuruan yang siap berkarya, termasuk untuk kesempatan di Surabaya. Saya berminat pada dunia videografi, di mana saya senang mengekspresikan sesuatu melalui media video.</p>
+                    <p>Dalam proses merangkai momen menjadi cerita, saya memadukan kemampuan editing visual, produksi live streaming, hingga pengoperasian drone dan eksplorasi animasi 3D untuk menghasilkan karya yang komunikatif dan mendalam.</p>
+                    
+                    <div class="tech-tags">
+                        <span class="tech-tag">Premiere Pro</span>
+                        <span class="tech-tag">DaVinci Resolve</span>
+                        <span class="tech-tag">After Effects</span>
+                        <span class="tech-tag">vMix</span>
+                        <span class="tech-tag">OBS</span>
+                        <span class="tech-tag">Blender (3D)</span>
+                        <span class="tech-tag">Drone Piloting</span>
                     </div>
                 </div>
 
-                <div class="skill-item">
-                    <div class="skill-info">
-                        <span>Videographer</span>
-                        <span>87%</span>
+                <div class="skills-wrapper">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Video Editor</span>
+                            <span>94%</span>
+                        </div>
+                        <div class="progress-bg">
+                            <!-- Animasi Width: data-width disiapkan, width aslinya 0% -->
+                            <div class="progress-bar" data-width="94%"></div>
+                        </div>
                     </div>
-                    <div class="progress-bg">
-                        <div class="progress-bar" style="width: 87%;"></div>
-                    </div>
-                </div>
 
-                <div class="skill-item">
-                    <div class="skill-info">
-                        <span>3D Artist</span>
-                        <span>75%</span>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Videographer</span>
+                            <span>87%</span>
+                        </div>
+                        <div class="progress-bg">
+                            <div class="progress-bar" data-width="87%"></div>
+                        </div>
                     </div>
-                    <div class="progress-bg">
-                        <div class="progress-bar" style="width: 75%;"></div>
+
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>3D Artist</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="progress-bg">
+                            <div class="progress-bar" data-width="75%"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -730,12 +810,12 @@
     <!-- Experience & Education -->
     <section id="experience" style="background-color: var(--surface-color);">
         <div class="container">
-            <h2 class="section-title">Pengalaman & Pendidikan</h2>
+            <h2 class="section-title reveal">Pengalaman & Pendidikan</h2>
             <div class="timeline-grid">
                 
                 <!-- Experience -->
                 <div class="timeline-column">
-                    <div class="timeline-card" style="margin-bottom: 20px;">
+                    <div class="timeline-card reveal" style="margin-bottom: 20px;">
                         <h3>Digital Marketing</h3>
                         <h4>Taman Ria Suropati</h4>
                         <span class="date-badge">2025 - Sekarang</span>
@@ -746,7 +826,7 @@
                         </ul>
                     </div>
 
-                    <div class="timeline-card" style="margin-bottom: 20px;">
+                    <div class="timeline-card reveal" style="margin-bottom: 20px; transition-delay: 0.1s;">
                         <h3>Freelance Video Editor</h3>
                         <span class="date-badge">2023 - Sekarang</span>
                         <ul>
@@ -756,7 +836,7 @@
                         </ul>
                     </div>
 
-                    <div class="timeline-card">
+                    <div class="timeline-card reveal" style="transition-delay: 0.2s;">
                         <h3>Freelance Videografer</h3>
                         <span class="date-badge">2023 - Sekarang</span>
                         <ul>
@@ -768,7 +848,7 @@
 
                 <!-- Magang & Education -->
                 <div class="timeline-column">
-                    <div class="timeline-card" style="margin-bottom: 20px;">
+                    <div class="timeline-card reveal" style="margin-bottom: 20px; transition-delay: 0.1s;">
                         <h3>Desain Komunikasi Visual</h3>
                         <h4>SMK Negeri 1 Pasuruan</h4>
                         <span class="date-badge">2022 - 2025</span>
@@ -779,7 +859,7 @@
                         </ul>
                     </div>
                     
-                    <div class="timeline-card">
+                    <div class="timeline-card reveal" style="transition-delay: 0.2s;">
                         <h3>Tim Kreatif (Magang)</h3>
                         <h4>Dinas Pariwisata Kota Pasuruan</h4>
                         <span class="date-badge">Juli - Desember 2024</span>
@@ -796,226 +876,228 @@
     </section>
 
     <!-- Portfolio Projects Grid -->
-    <section id="portfolio" class="container">
-        <h2 class="section-title">Proyek Portofolio</h2>
-        
-        <!-- KATEGORI: VIDEO PENDEK -->
-        <h3 class="category-title">Video Pendek</h3>
-        <div class="projects-grid">
+    <section id="portfolio">
+        <div class="container">
+            <h2 class="section-title reveal">Proyek Portofolio</h2>
             
-            <div class="project-card" onclick="openVideoModal('JynhUiy4Tmg', '2025-UJIAN KOMPETENSI KEAHLIAN SMKN 1 KOTA PASURUAN-TOURISM PASURUAN')">
-                <div class="video-preview-wrapper">
-                    <img src="https://img.youtube.com/vi/JynhUiy4Tmg/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                    <div class="play-trigger-overlay">
-                        <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                        <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+            <!-- KATEGORI: VIDEO PENDEK -->
+            <h3 class="category-title reveal">Video Pendek</h3>
+            <div class="projects-grid">
+                
+                <div class="project-card reveal" onclick="openVideoModal('JynhUiy4Tmg', '2025-UJIAN KOMPETENSI KEAHLIAN SMKN 1 KOTA PASURUAN-TOURISM PASURUAN')">
+                    <div class="video-preview-wrapper">
+                        <img src="https://img.youtube.com/vi/JynhUiy4Tmg/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
+                        <div class="play-trigger-overlay">
+                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
+                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Video Pendek</span>
+                        <h3>2025-UJIAN KOMPETENSI KEAHLIAN SMKN 1 KOTA PASURUAN-TOURISM PASURUAN</h3>
                     </div>
                 </div>
-                <div class="project-content">
-                    <span class="project-tag">Video Pendek</span>
-                    <h3>2025-UJIAN KOMPETENSI KEAHLIAN SMKN 1 KOTA PASURUAN-TOURISM PASURUAN</h3>
-                </div>
-            </div>
-
-            <div class="project-card" onclick="openVideoModal('lChZ86fDel0', '2026-KEGIATAN MOTOTRIL')">
-                <div class="video-preview-wrapper">
-                    <img src="https://img.youtube.com/vi/lChZ86fDel0/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                    <div class="play-trigger-overlay">
-                        <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                        <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+    
+                <div class="project-card reveal" onclick="openVideoModal('lChZ86fDel0', '2026-KEGIATAN MOTOTRIL')" style="transition-delay: 0.1s;">
+                    <div class="video-preview-wrapper">
+                        <img src="https://img.youtube.com/vi/lChZ86fDel0/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
+                        <div class="play-trigger-overlay">
+                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
+                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Video Pendek</span>
+                        <h3>2026-KEGIATAN MOTOTRIL</h3>
                     </div>
                 </div>
-                <div class="project-content">
-                    <span class="project-tag">Video Pendek</span>
-                    <h3>2026-KEGIATAN MOTOTRIL</h3>
-                </div>
-            </div>
-
-            <div class="project-card" onclick="openVideoModal('wka77D1-lpU', '2025-LOMBA HUT INDONESIA KE 80-TOURISM PASURUAN')">
-                <div class="video-preview-wrapper">
-                    <img src="https://img.youtube.com/vi/wka77D1-lpU/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                    <div class="play-trigger-overlay">
-                        <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                        <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+    
+                <div class="project-card reveal" onclick="openVideoModal('wka77D1-lpU', '2025-LOMBA HUT INDONESIA KE 80-TOURISM PASURUAN')" style="transition-delay: 0.2s;">
+                    <div class="video-preview-wrapper">
+                        <img src="https://img.youtube.com/vi/wka77D1-lpU/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
+                        <div class="play-trigger-overlay">
+                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
+                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Video Pendek</span>
+                        <h3>2025-LOMBA HUT INDONESIA KE 80-TOURISM PASURUAN</h3>
                     </div>
                 </div>
-                <div class="project-content">
-                    <span class="project-tag">Video Pendek</span>
-                    <h3>2025-LOMBA HUT INDONESIA KE 80-TOURISM PASURUAN</h3>
-                </div>
-            </div>
-
-            <div class="project-card" onclick="openVideoModal('ZFBhkDm8E5g', '2025-TAMAN RIA SUROPATI-APA KATA MEREKA?')">
-                <div class="video-preview-wrapper">
-                    <img src="https://img.youtube.com/vi/ZFBhkDm8E5g/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                    <div class="play-trigger-overlay">
-                        <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                        <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+    
+                <div class="project-card reveal" onclick="openVideoModal('ZFBhkDm8E5g', '2025-TAMAN RIA SUROPATI-APA KATA MEREKA?')">
+                    <div class="video-preview-wrapper">
+                        <img src="https://img.youtube.com/vi/ZFBhkDm8E5g/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
+                        <div class="play-trigger-overlay">
+                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
+                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Video Pendek</span>
+                        <h3>2025-TAMAN RIA SUROPATI-APA KATA MEREKA?</h3>
                     </div>
                 </div>
-                <div class="project-content">
-                    <span class="project-tag">Video Pendek</span>
-                    <h3>2025-TAMAN RIA SUROPATI-APA KATA MEREKA?</h3>
-                </div>
-            </div>
-
-            <div class="project-card" onclick="openVideoModal('CRa5FznJtKg', '2025-LOMBA PROMOSI PERUMAHAN-PASURUAN GRAND CITY')">
-                <div class="video-preview-wrapper">
-                    <img src="https://img.youtube.com/vi/CRa5FznJtKg/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                    <div class="play-trigger-overlay">
-                        <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                        <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+    
+                <div class="project-card reveal" onclick="openVideoModal('CRa5FznJtKg', '2025-LOMBA PROMOSI PERUMAHAN-PASURUAN GRAND CITY')" style="transition-delay: 0.1s;">
+                    <div class="video-preview-wrapper">
+                        <img src="https://img.youtube.com/vi/CRa5FznJtKg/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
+                        <div class="play-trigger-overlay">
+                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
+                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Video Pendek</span>
+                        <h3>2025-LOMBA PROMOSI PERUMAHAN-PASURUAN GRAND CITY</h3>
                     </div>
                 </div>
-                <div class="project-content">
-                    <span class="project-tag">Video Pendek</span>
-                    <h3>2025-LOMBA PROMOSI PERUMAHAN-PASURUAN GRAND CITY</h3>
-                </div>
-            </div>
-
-            <div class="project-card" onclick="openVideoModal('Sui12qEU4I8', '2024-VIDEO COMPETITION-KOTA LAMA SURABAYA')">
-                <div class="video-preview-wrapper">
-                    <img src="https://img.youtube.com/vi/Sui12qEU4I8/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                    <div class="play-trigger-overlay">
-                        <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                        <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+    
+                <div class="project-card reveal" onclick="openVideoModal('Sui12qEU4I8', '2024-VIDEO COMPETITION-KOTA LAMA SURABAYA')" style="transition-delay: 0.2s;">
+                    <div class="video-preview-wrapper">
+                        <img src="https://img.youtube.com/vi/Sui12qEU4I8/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
+                        <div class="play-trigger-overlay">
+                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
+                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Video Pendek</span>
+                        <h3>2024-VIDEO COMPETITION-KOTA LAMA SURABAYA</h3>
                     </div>
                 </div>
-                <div class="project-content">
-                    <span class="project-tag">Video Pendek</span>
-                    <h3>2024-VIDEO COMPETITION-KOTA LAMA SURABAYA</h3>
-                </div>
-            </div>
-
-            <div class="project-card" onclick="openVideoModal('ysvCdYin3WU', '2024-LOMBA HUT INDONESIA KE 79-TOURISM PASURUAN')">
-                <div class="video-preview-wrapper">
-                    <img src="https://img.youtube.com/vi/ysvCdYin3WU/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                    <div class="play-trigger-overlay">
-                        <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                        <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+    
+                <div class="project-card reveal" onclick="openVideoModal('ysvCdYin3WU', '2024-LOMBA HUT INDONESIA KE 79-TOURISM PASURUAN')">
+                    <div class="video-preview-wrapper">
+                        <img src="https://img.youtube.com/vi/ysvCdYin3WU/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
+                        <div class="play-trigger-overlay">
+                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
+                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Video Pendek</span>
+                        <h3>2024-LOMBA HUT INDONESIA KE 79-TOURISM PASURUAN</h3>
                     </div>
                 </div>
-                <div class="project-content">
-                    <span class="project-tag">Video Pendek</span>
-                    <h3>2024-LOMBA HUT INDONESIA KE 79-TOURISM PASURUAN</h3>
-                </div>
             </div>
-
-        </div>
-
-        <!-- KATEGORI: FILM PENDEK -->
-        <h3 class="category-title" style="margin-top: 80px;">Film Pendek</h3>
-        <div class="projects-grid">
-            
-            <div class="project-card" onclick="openVideoModal('-N4Ia7-W1uM', '2025-FILM COMPETITON-LANGEN BANYU')">
-                <div class="video-preview-wrapper">
-                    <img src="https://img.youtube.com/vi/-N4Ia7-W1uM/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                    <div class="play-trigger-overlay">
-                        <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                        <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+    
+            <!-- KATEGORI: FILM PENDEK -->
+            <h3 class="category-title reveal" style="margin-top: 80px;">Film Pendek</h3>
+            <div class="projects-grid">
+                
+                <div class="project-card reveal" onclick="openVideoModal('-N4Ia7-W1uM', '2025-FILM COMPETITON-LANGEN BANYU')">
+                    <div class="video-preview-wrapper">
+                        <img src="https://img.youtube.com/vi/-N4Ia7-W1uM/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
+                        <div class="play-trigger-overlay">
+                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
+                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Film Pendek</span>
+                        <h3>2025-FILM COMPETITON-LANGEN BANYU</h3>
                     </div>
                 </div>
-                <div class="project-content">
-                    <span class="project-tag">Film Pendek</span>
-                    <h3>2025-FILM COMPETITON-LANGEN BANYU</h3>
-                </div>
-            </div>
-
-            <div class="project-card" onclick="openVideoModal('XFgKyNl7T80', '2024-AMIKOM VIDEO COMPETITION-ANTARA')">
-                <div class="video-preview-wrapper">
-                    <img src="https://img.youtube.com/vi/XFgKyNl7T80/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                    <div class="play-trigger-overlay">
-                        <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                        <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+    
+                <div class="project-card reveal" onclick="openVideoModal('XFgKyNl7T80', '2024-AMIKOM VIDEO COMPETITION-ANTARA')" style="transition-delay: 0.1s;">
+                    <div class="video-preview-wrapper">
+                        <img src="https://img.youtube.com/vi/XFgKyNl7T80/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
+                        <div class="play-trigger-overlay">
+                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
+                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Film Pendek</span>
+                        <h3>2024-AMIKOM VIDEO COMPETITION-ANTARA</h3>
                     </div>
                 </div>
-                <div class="project-content">
-                    <span class="project-tag">Film Pendek</span>
-                    <h3>2024-AMIKOM VIDEO COMPETITION-ANTARA</h3>
-                </div>
-            </div>
-
-            <div class="project-card" onclick="openVideoModal('cZUakY7kyng', '2023-NAFIFEST-A NGORMATI')">
-                <div class="video-preview-wrapper">
-                    <img src="https://img.youtube.com/vi/cZUakY7kyng/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                    <div class="play-trigger-overlay">
-                        <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                        <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+    
+                <div class="project-card reveal" onclick="openVideoModal('cZUakY7kyng', '2023-NAFIFEST-A NGORMATI')" style="transition-delay: 0.2s;">
+                    <div class="video-preview-wrapper">
+                        <img src="https://img.youtube.com/vi/cZUakY7kyng/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
+                        <div class="play-trigger-overlay">
+                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
+                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Film Pendek</span>
+                        <h3>2023-NAFIFEST-A NGORMATI</h3>
                     </div>
                 </div>
-                <div class="project-content">
-                    <span class="project-tag">Film Pendek</span>
-                    <h3>2023-NAFIFEST-A NGORMATI</h3>
-                </div>
-            </div>
-
-            <div class="project-card" onclick="openVideoModal('rchFVJnkm0Y', '2023-AMIKOM VIDEO COMPETITION-TRIASIH')">
-                <div class="video-preview-wrapper">
-                    <img src="https://img.youtube.com/vi/rchFVJnkm0Y/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                    <div class="play-trigger-overlay">
-                        <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                        <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+    
+                <div class="project-card reveal" onclick="openVideoModal('rchFVJnkm0Y', '2023-AMIKOM VIDEO COMPETITION-TRIASIH')">
+                    <div class="video-preview-wrapper">
+                        <img src="https://img.youtube.com/vi/rchFVJnkm0Y/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
+                        <div class="play-trigger-overlay">
+                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
+                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Film Pendek</span>
+                        <h3>2023-AMIKOM VIDEO COMPETITION-TRIASIH</h3>
                     </div>
                 </div>
-                <div class="project-content">
-                    <span class="project-tag">Film Pendek</span>
-                    <h3>2023-AMIKOM VIDEO COMPETITION-TRIASIH</h3>
-                </div>
             </div>
-
         </div>
     </section>
 
     <!-- Awards Section -->
-    <section id="awards" class="container">
-        <h2 class="section-title">Penghargaan</h2>
-        <div class="awards-container">
-            
-            <div class="award-item">
-                <h3><i class="fas fa-trophy" style="margin-right: 10px;"></i> Juara 1 Lomba Promosi Perumahan</h3>
-                <p>Video Pendek "PASURUAN GRAND CITY" (2025)</p>
-            </div>
-            
-            <div class="award-item">
-                <h3><i class="fas fa-award" style="margin-right: 10px;"></i> Juara 2 Lomba HUT Indonesia Ke 80</h3>
-                <p>Video Pendek "TOURISM PASURUAN" (2025)</p>
-            </div>
+    <section id="awards" style="background-color: var(--surface-color);">
+        <div class="container">
+            <h2 class="section-title reveal">Penghargaan</h2>
+            <div class="awards-container">
+                
+                <div class="award-item reveal">
+                    <h3><i class="fas fa-trophy" style="margin-right: 10px;"></i> Juara 1 Lomba Promosi Perumahan</h3>
+                    <p>Video Pendek "PASURUAN GRAND CITY" (2025)</p>
+                </div>
+                
+                <div class="award-item reveal" style="transition-delay: 0.1s;">
+                    <h3><i class="fas fa-award" style="margin-right: 10px;"></i> Juara 2 Lomba HUT Indonesia Ke 80</h3>
+                    <p>Video Pendek "TOURISM PASURUAN" (2025)</p>
+                </div>
 
-            <div class="award-item">
-                <h3><i class="fas fa-trophy" style="margin-right: 10px;"></i> Juara 1 Lomba HUT Indonesia Ke 79</h3>
-                <p>Video Pendek "TOURISM PASURUAN" (2024)</p>
-            </div>
+                <div class="award-item reveal" style="transition-delay: 0.2s;">
+                    <h3><i class="fas fa-trophy" style="margin-right: 10px;"></i> Juara 1 Lomba HUT Indonesia Ke 79</h3>
+                    <p>Video Pendek "TOURISM PASURUAN" (2024)</p>
+                </div>
 
-            <div class="award-item">
-                <h3><i class="fas fa-medal" style="margin-right: 10px;"></i> Juara 3 Video Competition</h3>
-                <p>Kota Lama Surabaya (2024)</p>
-            </div>
-            
-            <div class="award-item">
-                <h3><i class="fas fa-trophy" style="margin-right: 10px;"></i> Juara 1 Kategori TikTok - "Anden Lakon"</h3>
-                <p>Amikom Video Competition 2023 (Diselenggarakan oleh Universitas AMIKOM Yogyakarta & Cabdin Wilayah Pasuruan).</p>
-            </div>
-            
-            <div class="award-item">
-                <h3><i class="fas fa-award" style="margin-right: 10px;"></i> Juara 2 Kategori Cinematography - "Anden Lakon"</h3>
-                <p>Amikom Video Competition 2023.</p>
-            </div>
+                <div class="award-item reveal">
+                    <h3><i class="fas fa-medal" style="margin-right: 10px;"></i> Juara 3 Video Competition</h3>
+                    <p>Kota Lama Surabaya (2024)</p>
+                </div>
+                
+                <div class="award-item reveal" style="transition-delay: 0.1s;">
+                    <h3><i class="fas fa-trophy" style="margin-right: 10px;"></i> Juara 1 Kategori TikTok - "Anden Lakon"</h3>
+                    <p>Amikom Video Competition 2023 (Diselenggarakan oleh Universitas AMIKOM Yogyakarta & Cabdin Wilayah Pasuruan).</p>
+                </div>
+                
+                <div class="award-item reveal" style="transition-delay: 0.2s;">
+                    <h3><i class="fas fa-award" style="margin-right: 10px;"></i> Juara 2 Kategori Cinematography - "Anden Lakon"</h3>
+                    <p>Amikom Video Competition 2023.</p>
+                </div>
 
-            <div class="award-item">
-                <h3><i class="fas fa-medal" style="margin-right: 10px;"></i> Juara 2 Kategori Drama - "TRIASIH"</h3>
-                <p>Amikom Video Competition 2023.</p>
-            </div>
+                <div class="award-item reveal">
+                    <h3><i class="fas fa-medal" style="margin-right: 10px;"></i> Juara 2 Kategori Drama - "TRIASIH"</h3>
+                    <p>Amikom Video Competition 2023.</p>
+                </div>
 
-            <div class="award-item">
-                <h3><i class="fas fa-film" style="margin-right: 10px;"></i> Film Favorit - "A NGORMATI"</h3>
-                <p>Navi Film Festival (NAFIFEST) 2023 - UIN K.H Abdurrahman Wahid Pekalongan.</p>
-            </div>
-            
-            <div class="award-item">
-                <h3><i class="fas fa-star" style="margin-right: 10px;"></i> Peserta Terkreatif</h3>
-                <p>Gerakan Kolaborasi Aksi Forum Anak Jawa Timur (GALAKSI FAJAR 3.0) 2023 - Forum Anak Jatim, PLATO Foundation, & UNICEF.</p>
-            </div>
+                <div class="award-item reveal" style="transition-delay: 0.1s;">
+                    <h3><i class="fas fa-film" style="margin-right: 10px;"></i> Film Favorit - "A NGORMATI"</h3>
+                    <p>Navi Film Festival (NAFIFEST) 2023 - UIN K.H Abdurrahman Wahid Pekalongan.</p>
+                </div>
+                
+                <div class="award-item reveal" style="transition-delay: 0.2s;">
+                    <h3><i class="fas fa-star" style="margin-right: 10px;"></i> Peserta Terkreatif</h3>
+                    <p>Gerakan Kolaborasi Aksi Forum Anak Jawa Timur (GALAKSI FAJAR 3.0) 2023 - Forum Anak Jatim, PLATO Foundation, & UNICEF.</p>
+                </div>
 
+            </div>
         </div>
     </section>
 
@@ -1124,6 +1206,35 @@
         function scrollToTop() {
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
+
+        // Script untuk Scroll Reveal (Animasi Muncul Saat Scroll)
+        document.addEventListener("DOMContentLoaded", function() {
+            const reveals = document.querySelectorAll(".reveal");
+            const progressBars = document.querySelectorAll(".progress-bar");
+
+            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        
+                        // Khusus untuk animasi progress bar
+                        if(entry.target.classList.contains('about-content')) {
+                            progressBars.forEach(bar => {
+                                const targetWidth = bar.getAttribute('data-width');
+                                bar.style.width = targetWidth;
+                            });
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            reveals.forEach(reveal => {
+                revealOnScroll.observe(reveal);
+            });
+        });
     </script>
 
 </body>
