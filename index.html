@@ -91,9 +91,17 @@
         .delay-5 { animation-delay: 0.5s; }
         .delay-6 { animation-delay: 0.6s; }
 
+        /* --- EFEK LEVITASI (MELAYANG) --- */
+        @keyframes levitate {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
         /* Profile Image */
         .profile-img-container {
             margin-bottom: 25px;
+            animation: levitate 4s ease-in-out infinite; /* Foto melayang */
         }
         .profile-img {
             width: 160px;
@@ -105,8 +113,9 @@
             transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
         }
         .profile-img:hover {
-            transform: scale(1.08) rotate(3deg);
-            box-shadow: 0 15px 40px rgba(225, 29, 72, 0.5);
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 40px rgba(225, 29, 72, 0.6);
+            animation-play-state: paused;
         }
 
         /* Hero Section (Dengan Efek Parallax) */
@@ -116,7 +125,6 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            /* Efek Parallax background-attachment: fixed */
             background: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(30,41,59,0.9)), url('https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
             background-attachment: fixed;
             padding-top: 60px;
@@ -174,6 +182,7 @@
         
         .hero .quote:hover {
             transform: translateX(10px);
+            border-left-color: var(--primary-color);
         }
 
         .contact-bar {
@@ -216,7 +225,13 @@
             color: #fff;
         }
 
-        /* Tombol CV */
+        /* --- EFEK DENYUT (PULSE) PADA TOMBOL CV --- */
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.6); }
+            70% { box-shadow: 0 0 0 15px rgba(225, 29, 72, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+        }
+
         .cv-button {
             display: inline-block;
             background-color: var(--primary-color);
@@ -227,14 +242,15 @@
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
             position: relative;
             overflow: hidden;
+            animation: pulseGlow 2s infinite; /* Efek menyala */
         }
         
         .cv-button:hover {
+            animation: none; /* Berhenti denyut saat disentuh */
             background-color: #be123c;
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.05);
             box-shadow: 0 8px 25px rgba(225, 29, 72, 0.6);
             color: #fff;
         }
@@ -325,6 +341,12 @@
             gap: 10px;
         }
 
+        /* Efek melayang pada Tag Keahlian */
+        @keyframes floatTag {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        
         .tech-tag {
             background: #334155;
             color: var(--text-main);
@@ -334,13 +356,19 @@
             font-weight: 600;
             transition: all 0.3s ease;
             cursor: default;
+            animation: floatTag 3s ease-in-out infinite;
+        }
+
+        .tech-tag:nth-child(even) {
+            animation-delay: 1.5s; /* Jeda agar melayang bergantian */
         }
         
         .tech-tag:hover {
+            animation-play-state: paused;
             background: var(--primary-color);
-            transform: translateY(-5px);
+            transform: translateY(-8px) scale(1.1);
             color: #fff;
-            box-shadow: 0 4px 10px rgba(225, 29, 72, 0.3);
+            box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
         }
 
         /* Experience Grid */
@@ -355,18 +383,20 @@
             padding: 30px;
             border-radius: 15px;
             border-top: 4px solid var(--secondary-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
         }
 
         .timeline-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: translateY(-10px);
+            border-top-color: var(--primary-color);
+            box-shadow: 0 15px 35px rgba(225, 29, 72, 0.15); /* Glow merah elegan */
         }
 
         .timeline-card h3 {
             font-size: 1.3rem;
             color: var(--primary-color);
             margin-bottom: 5px;
+            transition: color 0.3s ease;
         }
 
         .timeline-card h4 {
@@ -376,13 +406,19 @@
         
         .date-badge {
             display: inline-block;
-            background: rgba(59, 130, 246, 0.2);
+            background: rgba(59, 130, 246, 0.15);
             color: #60a5fa;
             padding: 4px 10px;
             border-radius: 4px;
             font-size: 0.8rem;
             font-weight: 600;
             margin-bottom: 15px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .timeline-card:hover .date-badge {
+            background: rgba(225, 29, 72, 0.15);
+            color: #fb7185;
         }
 
         .timeline-card ul {
@@ -407,14 +443,13 @@
             border-radius: 15px;
             overflow: hidden;
             position: relative;
-            /* Transisi dihapus untuk efek js 3D Tilt */
             cursor: pointer;
             border: 1px solid #334155;
-            transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; 
         }
 
         .project-card:hover {
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
             border-color: var(--primary-color);
             z-index: 2;
         }
@@ -428,11 +463,11 @@
         }
 
         .video-preview-wrapper img {
-            transition: transform 0.5s ease;
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         
         .project-card:hover .video-preview-wrapper img {
-            transform: scale(1.05); 
+            transform: scale(1.08); 
         }
 
         .play-trigger-overlay {
@@ -447,7 +482,7 @@
             align-items: center;
             justify-content: center;
             opacity: 0; 
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
             z-index: 5;
         }
 
@@ -466,11 +501,12 @@
             color: #fff;
             font-size: 1.4rem;
             box-shadow: 0 4px 20px rgba(225, 29, 72, 0.5);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease;
+            transform: scale(0.5);
         }
 
         .project-card:hover .play-button-icon {
-            transform: scale(1.2);
+            transform: scale(1.15);
             background: #f43f5e;
         }
 
@@ -483,10 +519,19 @@
             padding: 4px 12px;
             border-radius: 20px;
             backdrop-filter: blur(4px);
+            transform: translateY(15px);
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover .play-text {
+            transform: translateY(0);
         }
 
         .project-content {
             padding: 20px;
+            position: relative;
+            background: var(--surface-color);
+            z-index: 10;
         }
 
         .project-content h3 {
@@ -632,13 +677,13 @@
             padding: 20px;
             border-radius: 10px;
             border-left: 4px solid #fbbf24;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease;
         }
         
         .award-item:hover {
-            transform: translateY(-8px);
+            transform: translateY(-8px) scale(1.03);
             border-left-color: var(--primary-color);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 25px rgba(225, 29, 72, 0.15);
             background: rgba(30, 41, 59, 0.8);
         }
 
@@ -765,7 +810,7 @@
             <h2 class="hero-element delay-1">HALO, AKU</h2>
             <h1 class="hero-element delay-2">ALI <span>HAIDAR</span> !</h1>
             
-            <!-- Typewriter Element -->
+            <!-- Typewriter Element Update -->
             <h2 class="hero-element delay-3">SAYA SEORANG <span id="typed-text" class="typed-text"></span><span class="cursor">|</span></h2>
             
             <div class="quote hero-element delay-4">
@@ -1232,9 +1277,9 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        // Script Teks Ketik Otomatis (Typewriter)
+        // Script Teks Ketik Otomatis (Typewriter) Update: Hanya 2 Skill
         const typedTextSpan = document.getElementById("typed-text");
-        const words = ["VIDEO EDITOR", "VIDEOGRAPHER", "3D ARTIST"];
+        const words = ["VIDEO EDITOR", "VIDEOGRAPHER"];
         let wordIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
@@ -1253,20 +1298,20 @@
             let typeSpeed = isDeleting ? 50 : 100;
 
             if (!isDeleting && charIndex === currentWord.length) {
-                typeSpeed = 1500; // Pause sebelum mulai menghapus
+                typeSpeed = 1500; 
                 isDeleting = true;
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
                 wordIndex++;
                 if (wordIndex >= words.length) wordIndex = 0;
-                typeSpeed = 500; // Pause sebelum mulai kata baru
+                typeSpeed = 500; 
             }
 
             setTimeout(typeEffect, typeSpeed);
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            if(words.length) setTimeout(typeEffect, 1000); // Mulai setelah animasi hero selesai
+            if(words.length) setTimeout(typeEffect, 1000); 
         });
 
         // Script Efek Ripple Klik pada Tombol
@@ -1284,7 +1329,7 @@
             });
         });
 
-        // Script Efek Hover Kartu 3D (Tilt)
+        // Script Efek Hover Kartu 3D (Tilt) Canggih
         const cards = document.querySelectorAll('.project-card');
         cards.forEach(card => {
             card.addEventListener('mousemove', e => {
@@ -1293,18 +1338,18 @@
                 const y = e.clientY - rect.top;
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                // Rotasi maksimal 8 derajat agar tetap smooth
-                const rotateX = ((y - centerY) / centerY) * -8;
-                const rotateY = ((x - centerX) / centerX) * 8;
                 
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-                card.style.transition = 'none'; // Matikan transisi css agar instan ikut kursor
+                const rotateX = ((y - centerY) / centerY) * -10;
+                const rotateY = ((x - centerX) / centerX) * 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
+                card.style.transition = 'none'; 
                 card.style.zIndex = '2';
             });
             
             card.addEventListener('mouseleave', () => {
                 card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
-                card.style.transition = 'transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease';
+                card.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease, border-color 0.5s ease';
                 card.style.zIndex = '1';
             });
             
@@ -1313,14 +1358,15 @@
             });
         });
 
-        // Script Scroll Reveal Berulang
+        // Script Scroll Reveal Berulang yang Disempurnakan (Hilang saat 0% terlihat)
         document.addEventListener("DOMContentLoaded", function() {
             const reveals = document.querySelectorAll(".reveal");
             const progressBars = document.querySelectorAll(".progress-bar");
 
             const revealOnScroll = new IntersectionObserver(function(entries, observer) {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
+                    // Memicu animasi masuk jika elemen terlihat lebih dari 15%
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.15) {
                         entry.target.classList.add("active");
                         
                         // Menjalankan Progress Bar
@@ -1330,7 +1376,9 @@
                                 bar.style.width = targetWidth;
                             });
                         }
-                    } else {
+                    } 
+                    // Menghilangkan elemen hanya jika 100% sudah keluar layar (intersectionRatio 0)
+                    else if (entry.intersectionRatio === 0) {
                         entry.target.classList.remove("active");
                         
                         // Reset Progress Bar
@@ -1342,8 +1390,7 @@
                     }
                 });
             }, {
-                threshold: 0.1,
-                rootMargin: "0px 0px -50px 0px"
+                threshold: [0, 0.15] // 0 untuk deteksi keluar penuh, 0.15 untuk deteksi masuk
             });
 
             reveals.forEach(reveal => {
