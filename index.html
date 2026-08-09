@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
+            /* --- TARUH LINK GAMBAR BACKGROUND PREMIERE PRO KAMU DI SINI --- */
+            --hero-bg: url('https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); 
+            
             --bg-color: #0f172a;
             --surface-color: #1e293b;
             --primary-color: #e11d48;
@@ -31,9 +34,9 @@
             overflow-x: hidden;
         }
 
-        /* --- KURSOR KUSTOM (HANYA UNTUK LAPTOP/PC) --- */
+        /* --- KURSOR KUSTOM --- */
         @media (pointer: fine) {
-            body, a, button, .project-card, .contact-item { cursor: none !important; }
+            body, a, button, .project-card, .contact-item, .magnetic { cursor: none !important; }
         }
         
         .cursor-dot {
@@ -64,40 +67,22 @@
             padding: 0 20px;
         }
 
-        section {
-            padding: 80px 0;
-        }
+        section { padding: 80px 0; }
 
-        h1, h2, h3 {
-            color: var(--text-main);
-        }
+        h1, h2, h3 { color: var(--text-main); }
         
         h2.section-title {
-            font-size: 2.2rem;
-            margin-bottom: 40px;
-            text-align: center;
-            position: relative;
+            font-size: 2.2rem; margin-bottom: 40px; text-align: center; position: relative;
         }
-
         h2.section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background-color: var(--primary-color);
-            margin: 10px auto 0;
-            border-radius: 2px;
+            content: ''; display: block; width: 60px; height: 4px;
+            background-color: var(--primary-color); margin: 10px auto 0; border-radius: 2px;
         }
 
         .category-title {
-            font-size: 1.6rem;
-            color: var(--text-main);
-            margin: 50px 0 25px;
-            text-align: left;
-            border-left: 4px solid var(--secondary-color);
-            padding-left: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 1.6rem; color: var(--text-main); margin: 50px 0 25px;
+            text-align: left; border-left: 4px solid var(--secondary-color);
+            padding-left: 15px; text-transform: uppercase; letter-spacing: 1px;
         }
 
         /* --- ANIMASI PEMBUKA --- */
@@ -110,7 +95,6 @@
             opacity: 0;
             animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
-
         .delay-1 { animation-delay: 0.1s; }
         .delay-2 { animation-delay: 0.2s; }
         .delay-3 { animation-delay: 0.3s; }
@@ -118,145 +102,69 @@
         .delay-5 { animation-delay: 0.5s; }
         .delay-6 { animation-delay: 0.6s; }
 
-        @keyframes levitate {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
-            100% { transform: translateY(0px); }
-        }
-
         /* Profile Image */
-        .profile-img-container {
-            margin-bottom: 25px;
-            animation: levitate 4s ease-in-out infinite;
-        }
+        .profile-img-container { margin-bottom: 25px; }
         .profile-img {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--primary-color);
-            box-shadow: 0 10px 30px rgba(225, 29, 72, 0.3);
-            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
-        }
-        .profile-img:hover {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 15px 40px rgba(225, 29, 72, 0.6);
-            animation-play-state: paused;
+            width: 160px; height: 160px; border-radius: 50%; object-fit: cover;
+            border: 4px solid var(--primary-color); box-shadow: 0 10px 30px rgba(225, 29, 72, 0.3);
+            /* Transisi dikendalikan JS magnetic */
         }
 
-        /* Hero Section */
+        /* Hero Section (Parallax & Spotlight) */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(30,41,59,0.9)), url('https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
-            background-attachment: fixed;
-            padding-top: 60px;
+            min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;
+            /* Spotlight dinamis diatur variabel CSS */
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(225, 29, 72, 0.15) 0%, transparent 40%), linear-gradient(135deg, rgba(15,23,42,0.9), rgba(30,41,59,0.9)), var(--hero-bg) center/cover;
+            background-attachment: fixed; padding-top: 60px;
+            transition: background 0.1s ease;
         }
 
+        /* --- GLITCH EFFECT PADA NAMA --- */
         .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        /* --- ANIMASI TEKS MENGKILAP --- */
-        @keyframes shine {
-            to { background-position: 200% center; }
+            font-size: 3.5rem; font-weight: 700; margin-bottom: 10px; position: relative; display: inline-block;
         }
         .hero h1 span {
             background: linear-gradient(to right, #e11d48, #f43f5e, #ffb3c1, #e11d48);
-            background-size: 200% auto;
-            color: transparent;
-            -webkit-background-clip: text;
-            animation: shine 3s linear infinite;
+            background-size: 200% auto; color: transparent; -webkit-background-clip: text;
+            animation: shine 3s linear infinite; display: inline-block;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+        
+        .hero h1:hover { animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite; color: var(--primary-color);}
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-3px, 3px) }
+            40% { transform: translate(-3px, -3px) }
+            60% { transform: translate(3px, 3px) }
+            80% { transform: translate(3px, -3px) }
+            100% { transform: translate(0) }
         }
 
-        .hero h2 {
-            font-size: 1.5rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            margin-bottom: 30px;
-            letter-spacing: 2px;
-        }
+        .hero h2 { font-size: 1.5rem; font-weight: 300; color: var(--text-muted); margin-bottom: 30px; letter-spacing: 2px; }
 
-        .typed-text {
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-        .cursor {
-            display: inline-block;
-            width: 3px;
-            background-color: var(--text-main);
-            margin-left: 2px;
-            animation: blink 0.7s infinite;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
+        .typed-text { color: var(--primary-color); font-weight: 600; }
+        .cursor { display: inline-block; width: 3px; background-color: var(--text-main); margin-left: 2px; animation: blink 0.7s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
         .hero .quote {
-            font-style: italic;
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto 40px auto;
-            color: var(--text-main);
-            border-left: 4px solid var(--secondary-color);
-            padding-left: 15px;
-            text-align: left;
-            background: rgba(255,255,255,0.05);
-            padding: 20px;
-            border-radius: 0 10px 10px 0;
-            transition: transform 0.3s ease;
+            font-style: italic; font-size: 1.2rem; max-width: 600px; margin: 0 auto 40px auto;
+            color: var(--text-main); border-left: 4px solid var(--secondary-color);
+            padding-left: 15px; text-align: left; background: rgba(255,255,255,0.05);
+            padding: 20px; border-radius: 0 10px 10px 0; transition: transform 0.3s ease;
         }
-        
-        .hero .quote:hover {
-            transform: translateX(10px);
-            border-left-color: var(--primary-color);
-        }
+        .hero .quote:hover { transform: translateX(10px); border-left-color: var(--primary-color); }
 
-        .contact-bar {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 30px;
-            margin-bottom: 35px;
-        }
+        .contact-bar { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px; margin-bottom: 35px; }
 
         .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--surface-color);
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-            position: relative;
-            overflow: hidden;
+            display: flex; align-items: center; gap: 10px; background: var(--surface-color);
+            padding: 10px 20px; border-radius: 50px; font-size: 0.9rem;
+            text-decoration: none; color: inherit; position: relative; overflow: hidden;
+            /* Efek magnetic dikendalikan via JS, transisi css dihapus agar responsif */
         }
 
-        .contact-item:hover {
-            transform: translateY(-5px) scale(1.05);
-            background: var(--secondary-color);
-            color: #fff;
-            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
-        }
-
-        .contact-item i {
-            color: var(--primary-color);
-            transition: color 0.3s ease;
-        }
-        
-        .contact-item:hover i {
-            color: #fff;
-        }
+        .contact-item i { color: var(--primary-color); transition: color 0.3s ease; }
+        .contact-item:hover i { color: #fff; }
 
         @keyframes pulseGlow {
             0% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.6); }
@@ -265,295 +173,124 @@
         }
 
         .cv-button {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: #fff;
-            padding: 12px 32px;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            display: inline-block; background-color: var(--primary-color); color: #fff;
+            padding: 12px 32px; border-radius: 30px; font-size: 1rem; font-weight: 600;
+            text-decoration: none; position: relative; overflow: hidden;
             animation: pulseGlow 2s infinite; 
         }
-        
-        .cv-button:hover {
-            animation: none; 
-            background-color: #be123c;
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(225, 29, 72, 0.6);
-            color: #fff;
-        }
+        .cv-button:hover { animation: none; color: #fff; }
 
         .ripple {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            animation: animateRipple 0.6s linear;
-            pointer-events: none;
+            position: absolute; background: rgba(255, 255, 255, 0.6); border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0); animation: animateRipple 0.6s linear; pointer-events: none;
         }
-        @keyframes animateRipple {
-            to { transform: translate(-50%, -50%) scale(3); opacity: 0; }
-        }
+        @keyframes animateRipple { to { transform: translate(-50%, -50%) scale(3); opacity: 0; } }
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* SCROLL REVEAL */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* About Section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .about-text p {
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            font-size: 1.05rem;
-        }
-
-        .skills-wrapper {
-            background: var(--surface-color);
-            padding: 30px;
-            border-radius: 15px;
-        }
-
+        /* About & Skills */
+        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .about-text p { color: var(--text-muted); margin-bottom: 20px; font-size: 1.05rem; }
+        .skills-wrapper { background: var(--surface-color); padding: 30px; border-radius: 15px; }
         .skill-item { margin-bottom: 25px; }
         .skill-item:last-child { margin-bottom: 0; }
-        .skill-info {
-            display: flex; justify-content: space-between;
-            margin-bottom: 8px; font-weight: 600;
-        }
+        .skill-info { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 600; }
+        .progress-bg { width: 100%; height: 12px; background: #334155; border-radius: 10px; overflow: hidden; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, var(--secondary-color), var(--primary-color)); border-radius: 10px; width: 0%; transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
 
-        .progress-bg {
-            width: 100%; height: 12px;
-            background: #334155; border-radius: 10px; overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
-            border-radius: 10px; width: 0%; 
-            transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .tech-tags {
-            margin-top: 25px; display: flex; flex-wrap: wrap; gap: 10px;
-        }
-
-        @keyframes floatTag {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
-        }
-        
+        /* Tags */
+        .tech-tags { margin-top: 25px; display: flex; flex-wrap: wrap; gap: 10px; }
+        @keyframes floatTag { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
         .tech-tag {
-            background: #334155; color: var(--text-main);
-            padding: 5px 15px; border-radius: 20px;
-            font-size: 0.85rem; font-weight: 600;
-            transition: all 0.3s ease;
-            animation: floatTag 3s ease-in-out infinite;
+            background: #334155; color: var(--text-main); padding: 5px 15px; border-radius: 20px;
+            font-size: 0.85rem; font-weight: 600; transition: all 0.3s ease; animation: floatTag 3s ease-in-out infinite;
         }
-
         .tech-tag:nth-child(even) { animation-delay: 1.5s; }
-        
-        .tech-tag:hover {
-            animation-play-state: paused;
-            background: var(--primary-color);
-            transform: translateY(-8px) scale(1.1);
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
-        }
+        .tech-tag:hover { animation-play-state: paused; background: var(--primary-color); transform: translateY(-8px) scale(1.1); color: #fff; box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4); }
 
         /* Experience Grid */
-        .timeline-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
-        }
-
+        .timeline-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
         .timeline-card {
             background: var(--surface-color); padding: 30px; border-radius: 15px;
-            border-top: 4px solid var(--secondary-color);
-            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            border-top: 4px solid var(--secondary-color); transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
         }
-
-        .timeline-card:hover {
-            transform: translateY(-10px);
-            border-top-color: var(--primary-color);
-            box-shadow: 0 15px 35px rgba(225, 29, 72, 0.15); 
-        }
-
-        .timeline-card h3 {
-            font-size: 1.3rem; color: var(--primary-color);
-            margin-bottom: 5px; transition: color 0.3s ease;
-        }
-
+        .timeline-card:hover { transform: translateY(-10px); border-top-color: var(--primary-color); box-shadow: 0 15px 35px rgba(225, 29, 72, 0.15); }
+        .timeline-card h3 { font-size: 1.3rem; color: var(--primary-color); margin-bottom: 5px; transition: color 0.3s ease; }
         .timeline-card h4 { font-size: 1.1rem; margin-bottom: 15px; }
-        
         .date-badge {
-            display: inline-block; background: rgba(59, 130, 246, 0.15);
-            color: #60a5fa; padding: 4px 10px; border-radius: 4px;
-            font-size: 0.8rem; font-weight: 600; margin-bottom: 15px;
-            transition: background 0.3s ease, color 0.3s ease;
+            display: inline-block; background: rgba(59, 130, 246, 0.15); color: #60a5fa; padding: 4px 10px; border-radius: 4px;
+            font-size: 0.8rem; font-weight: 600; margin-bottom: 15px; transition: background 0.3s ease, color 0.3s ease;
         }
-
         .timeline-card:hover .date-badge { background: rgba(225, 29, 72, 0.15); color: #fb7185; }
-
         .timeline-card ul { list-style-position: inside; color: var(--text-muted); margin-bottom: 10px; }
         .timeline-card ul li { margin-bottom: 8px; }
 
         /* Projects Section */
-        .projects-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;
-        }
-
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .project-card {
-            background: var(--surface-color); border-radius: 15px;
-            overflow: hidden; position: relative; border: 1px solid #334155;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; 
+            background: var(--surface-color); border-radius: 15px; overflow: hidden; position: relative;
+            cursor: pointer; border: 1px solid #334155; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; 
         }
-
-        .project-card:hover {
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-            border-color: var(--primary-color);
-            z-index: 2;
-        }
-
-        .video-preview-wrapper {
-            position: relative; padding-bottom: 56.25%;
-            height: 0; background: #0f172a; overflow: hidden;
-        }
-
+        .project-card:hover { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6); border-color: var(--primary-color); z-index: 2; }
+        .video-preview-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: #0f172a; overflow: hidden; }
         .video-preview-wrapper img { transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .project-card:hover .video-preview-wrapper img { transform: scale(1.08); }
 
         .play-trigger-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.6); display: flex; flex-direction: column;
-            align-items: center; justify-content: center; opacity: 0; 
-            transition: opacity 0.4s ease; z-index: 5;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s ease; z-index: 5;
         }
-
         .project-card:hover .play-trigger-overlay { opacity: 1; }
-
         .play-button-icon {
-            width: 60px; height: 60px; background: var(--primary-color);
-            border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; color: #fff; font-size: 1.4rem;
-            box-shadow: 0 4px 20px rgba(225, 29, 72, 0.5);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease;
-            transform: scale(0.5);
+            width: 60px; height: 60px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; color: #fff; font-size: 1.4rem; box-shadow: 0 4px 20px rgba(225, 29, 72, 0.5);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease; transform: scale(0.5);
         }
-
-        .project-card:hover .play-button-icon {
-            transform: scale(1.15); background: #f43f5e;
-        }
-
+        .project-card:hover .play-button-icon { transform: scale(1.15); background: #f43f5e; }
         .play-text {
-            margin-top: 12px; color: #f8fafc; font-size: 0.85rem; font-weight: 600;
-            background: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 20px;
-            backdrop-filter: blur(4px); transform: translateY(15px); transition: transform 0.4s ease;
+            margin-top: 12px; color: #f8fafc; font-size: 0.85rem; font-weight: 600; background: rgba(0,0,0,0.6);
+            padding: 4px 12px; border-radius: 20px; backdrop-filter: blur(4px); transform: translateY(15px); transition: transform 0.4s ease;
         }
-
         .project-card:hover .play-text { transform: translateY(0); }
 
-        .project-content {
-            padding: 20px; position: relative; background: var(--surface-color); z-index: 10;
-        }
-
-        .project-content h3 {
-            font-size: 1.1rem; margin-bottom: 8px; color: var(--text-main);
-            word-wrap: break-word; transition: color 0.3s ease;
-        }
-        
+        .project-content { padding: 20px; position: relative; background: var(--surface-color); z-index: 10; }
+        .project-content h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--text-main); word-wrap: break-word; transition: color 0.3s ease; }
         .project-card:hover .project-content h3 { color: var(--secondary-color); }
-        
-        .project-tag {
-            display: inline-block; background: rgba(225, 29, 72, 0.2);
-            color: #fb7185; padding: 4px 10px; border-radius: 4px;
-            font-size: 0.75rem; margin-bottom: 10px; font-weight: 600;
-        }
+        .project-tag { display: inline-block; background: rgba(225, 29, 72, 0.2); color: #fb7185; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; margin-bottom: 10px; font-weight: 600; }
 
-        /* Modal Video Viewer */
+        /* Modal Lightbox Video */
         .video-modal {
             display: none; position: fixed; z-index: 99999; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px);
-            align-items: center; justify-content: center; padding: 3vh 3vw; opacity: 0; transition: opacity 0.3s ease;
+            background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 3vh 3vw; opacity: 0; transition: opacity 0.3s ease;
         }
-
         .video-modal.active { display: flex; opacity: 1; }
-
         .modal-box {
-            position: relative; width: 100%; max-width: 1200px; height: 90vh; background: #0f172a;
-            border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-            border: 1px solid #334155; animation: modalZoom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex; flex-direction: column;
+            position: relative; width: 100%; max-width: 1200px; height: 90vh; background: #0f172a; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); border: 1px solid #334155; animation: modalZoom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column;
         }
-
-        @keyframes modalZoom {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-header {
-            display: flex; justify-content: space-between; align-items: center; padding: 12px 20px;
-            background: #1e293b; border-bottom: 1px solid #334155; flex-shrink: 0;
-        }
-
-        .modal-header h3 {
-            font-size: 1.05rem; font-weight: 600; color: #f8fafc;
-            max-width: 85%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: 0;
-        }
-
-        .modal-close-btn {
-            background: rgba(225, 29, 72, 0.1); border: none; color: #fb7185; width: 32px; height: 32px;
-            border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center;
-            justify-content: center; transition: background 0.2s, color 0.2s, transform 0.2s;
-        }
-
+        @keyframes modalZoom { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: #1e293b; border-bottom: 1px solid #334155; flex-shrink: 0; }
+        .modal-header h3 { font-size: 1.05rem; font-weight: 600; color: #f8fafc; max-width: 85%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: 0; }
+        .modal-close-btn { background: rgba(225, 29, 72, 0.1); border: none; color: #fb7185; width: 32px; height: 32px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, color 0.2s, transform 0.2s; }
         .modal-close-btn:hover { background: var(--primary-color); color: #fff; transform: rotate(90deg); }
-
         .modal-video-container { position: relative; width: 100%; height: 100%; flex-grow: 1; background: #000; display: flex; }
         .modal-video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
         /* Awards Section */
-        .awards-container {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;
-            background: linear-gradient(135deg, var(--surface-color), #0f172a); border-radius: 15px;
-            padding: 40px; border: 1px solid #334155;
-        }
-
-        .award-item {
-            background: rgba(15, 23, 42, 0.5); padding: 20px; border-radius: 10px;
-            border-left: 4px solid #fbbf24; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .award-item:hover {
-            transform: translateY(-8px) scale(1.03); border-left-color: var(--primary-color);
-            box-shadow: 0 10px 25px rgba(225, 29, 72, 0.15); background: rgba(30, 41, 59, 0.8);
-        }
-
+        .awards-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; background: linear-gradient(135deg, var(--surface-color), #0f172a); border-radius: 15px; padding: 40px; border: 1px solid #334155; }
+        .award-item { background: rgba(15, 23, 42, 0.5); padding: 20px; border-radius: 10px; border-left: 4px solid #fbbf24; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease; }
+        .award-item:hover { transform: translateY(-8px) scale(1.03); border-left-color: var(--primary-color); box-shadow: 0 10px 25px rgba(225, 29, 72, 0.15); background: rgba(30, 41, 59, 0.8); }
         .award-item h3 { color: #fbbf24; font-size: 1.1rem; margin-bottom: 10px; transition: color 0.3s ease; }
         .award-item:hover h3 { color: var(--primary-color); }
         .award-item p { color: var(--text-muted); font-size: 0.9rem; }
 
         /* Back to Top Button */
         #backToTopBtn {
-            visibility: hidden; opacity: 0; position: fixed; bottom: 30px; right: 30px; z-index: 99; 
-            font-size: 18px; border: none; outline: none; background-color: var(--primary-color);
-            color: white; width: 50px; height: 50px; border-radius: 50%;
-            box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4); transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.3s ease;
+            visibility: hidden; opacity: 0; position: fixed; bottom: 30px; right: 30px; z-index: 99; font-size: 18px; border: none; outline: none; background-color: var(--primary-color);
+            color: white; width: 50px; height: 50px; border-radius: 50%; box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4); transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.3s ease;
         }
-
         #backToTopBtn.show { visibility: visible; opacity: 0.5; }
         #backToTopBtn.show:hover { opacity: 1; background-color: #be123c; transform: translateY(-5px); box-shadow: 0 6px 20px rgba(225, 29, 72, 0.6); }
 
@@ -568,8 +305,8 @@
             .modal-video-container { height: 100vh; height: 100dvh; }
             .projects-grid { grid-template-columns: 1fr; }
             .awards-container { grid-template-columns: 1fr; padding: 20px; }
+            body { overflow-x: hidden; }
             #backToTopBtn { bottom: 20px; right: 20px; }
-            /* Mematikan Kursor di HP */
             .cursor-dot, .cursor-ring { display: none !important; }
         }
     </style>
@@ -584,22 +321,23 @@
     <div class="scroll-progress" id="scrollProgress"></div>
 
     <!-- Back to Top Button -->
-    <button onclick="scrollToTop()" id="backToTopBtn" title="Kembali ke atas">
+    <button onclick="scrollToTop()" id="backToTopBtn" title="Kembali ke atas" class="magnetic">
         <i class="fas fa-arrow-up"></i>
     </button>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="heroSection">
         <div class="container">
             
-            <div class="profile-img-container hero-element">
-                <!-- Fallback otomatis jika foto belum diunggah -->
+            <!-- Pastikan div container foto ini tidak terhapus -->
+            <div class="profile-img-container hero-element magnetic">
+                <!-- Fallback otomatis jika foto belum diunggah atau salah nama -->
                 <img src="profile.png" alt="Ali Haidar" class="profile-img" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Ali+Haidar&background=e11d48&color=fff&size=160';">
             </div>
             <h2 class="hero-element delay-1">HALO, AKU</h2>
             <h1 class="hero-element delay-2">ALI <span>HAIDAR</span> !</h1>
             
-            <!-- Typewriter Element -->
+            <!-- Typewriter Element Update: Hanya 2 Text -->
             <h2 class="hero-element delay-3">SAYA SEORANG <span id="typed-text" class="typed-text"></span><span class="cursor">|</span></h2>
             
             <div class="quote hero-element delay-4">
@@ -607,22 +345,22 @@
             </div>
 
             <div class="contact-bar hero-element delay-5">
-                <a href="mailto:haidarpe185@gmail.com" class="contact-item">
+                <a href="mailto:haidarpe185@gmail.com" class="contact-item magnetic">
                     <i class="fas fa-envelope"></i> haidarpe185@gmail.com
                 </a>
-                <a href="https://wa.me/6285883930873" target="_blank" class="contact-item">
+                <a href="https://wa.me/6285883930873" target="_blank" class="contact-item magnetic">
                     <i class="fab fa-whatsapp"></i> 085883930873
                 </a>
-                <a href="https://www.instagram.com/haidar_185/" target="_blank" class="contact-item">
+                <a href="https://www.instagram.com/haidar_185/" target="_blank" class="contact-item magnetic">
                     <i class="fab fa-instagram"></i> @haidar_185
                 </a>
-                <div class="contact-item" style="cursor: default;">
+                <div class="contact-item magnetic" style="cursor: default;">
                     <i class="fas fa-map-marker-alt"></i> Pasuruan, Jawa Timur
                 </div>
             </div>
             
             <div class="hero-element delay-6">
-                <a href="https://drive.google.com/file/d/1Vrtz60YPLHZeCmYN_5aTNwDvR-MXg2XJ/view?usp=sharing" target="_blank" class="cv-button"><i class="fas fa-file-alt"></i> Lihat CV / Portofolio</a>
+                <a href="https://drive.google.com/file/d/1Vrtz60YPLHZeCmYN_5aTNwDvR-MXg2XJ/view?usp=sharing" target="_blank" class="cv-button magnetic"><i class="fas fa-file-alt"></i> Lihat CV / Portofolio</a>
             </div>
         </div>
     </section>
@@ -996,12 +734,11 @@
     <script>
         let scrollPosition = 0;
 
-        // Custom Cursor Logic
+        // --- Custom Cursor Logic ---
         const dot = document.querySelector('.cursor-dot');
         const ring = document.querySelector('.cursor-ring');
         let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
 
-        // Cek jika layar sentuh, sembunyikan kursor kustom
         if (window.matchMedia("(pointer: fine)").matches) {
             document.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX; mouseY = e.clientY;
@@ -1018,7 +755,7 @@
             }
             renderCursor();
 
-            document.querySelectorAll('a, button, .project-card, .contact-item').forEach(el => {
+            document.querySelectorAll('a, button, .project-card, .contact-item, .magnetic').forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     ring.style.width = '55px'; ring.style.height = '55px';
                     ring.style.backgroundColor = 'rgba(225, 29, 72, 0.15)';
@@ -1030,25 +767,51 @@
             });
         }
 
-        // Scroll Progress Bar
+        // --- Efek Magnetic pada Tombol ---
+        const magnetics = document.querySelectorAll('.magnetic');
+        magnetics.forEach((elem) => {
+            elem.addEventListener('mousemove', (e) => {
+                const rect = elem.getBoundingClientRect();
+                const h = rect.width / 2;
+                const w = rect.height / 2;
+                const x = e.clientX - rect.left - h;
+                const y = e.clientY - rect.top - w;
+                elem.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px) scale(1.05)`;
+                elem.style.transition = 'transform 0.1s ease-out';
+            });
+            elem.addEventListener('mouseleave', () => {
+                elem.style.transform = 'translate(0px, 0px) scale(1)';
+                elem.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)';
+            });
+        });
+
+        // --- Efek Mouse Spotlight Parallax ---
+        const heroSection = document.getElementById('heroSection');
+        if (window.matchMedia("(pointer: fine)").matches) {
+            heroSection.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth) * 100;
+                const y = (e.clientY / window.innerHeight) * 100;
+                heroSection.style.setProperty('--mouse-x', `${x}%`);
+                heroSection.style.setProperty('--mouse-y', `${y}%`);
+            });
+        }
+
+        // --- Progress Bar Atas ---
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             document.getElementById("scrollProgress").style.width = (winScroll / height) * 100 + "%";
         });
 
-        // Script Modal Video
+        // --- Modal Video ---
         function openVideoModal(videoId, title) {
             const modal = document.getElementById('videoModal');
             const iframe = document.getElementById('modalIframe');
             const titleElement = document.getElementById('modalVideoTitle');
-
             titleElement.innerText = title;
             iframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
-            
             scrollPosition = window.scrollY || document.documentElement.scrollTop;
             modal.classList.add('active');
-            
             document.body.style.position = 'fixed';
             document.body.style.top = `-${scrollPosition}px`;
             document.body.style.width = '100%';
@@ -1057,31 +820,22 @@
         function closeVideoModal() {
             const modal = document.getElementById('videoModal');
             const iframe = document.getElementById('modalIframe');
-
             modal.classList.remove('active');
             iframe.src = ''; 
-            
             document.body.style.position = '';
             document.body.style.top = '';
             document.body.style.width = '';
-            
             window.scrollTo(0, scrollPosition);
         }
 
-        function closeVideoModalOnBg(e) {
-            if (e.target.id === 'videoModal') { closeVideoModal(); }
-        }
+        function closeVideoModalOnBg(e) { if (e.target.id === 'videoModal') { closeVideoModal(); } }
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { closeVideoModal(); } });
 
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') { closeVideoModal(); }
-        });
-
-        // Script Tombol Back to Top (Auto-Hide)
+        // --- Tombol Back to Top ---
         let mybutton = document.getElementById("backToTopBtn");
         let scrollTimeout;
 
         window.onscroll = function() {
-            // Update progress bar
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             document.getElementById("scrollProgress").style.width = (winScroll / height) * 100 + "%";
@@ -1089,39 +843,23 @@
             if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
                 mybutton.classList.add("show");
                 clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(function() {
-                    mybutton.classList.remove("show");
-                }, 2000);
+                scrollTimeout = setTimeout(function() { mybutton.classList.remove("show"); }, 2000);
             } else {
                 mybutton.classList.remove("show");
             }
         };
 
-        mybutton.addEventListener("mouseenter", function() {
-            clearTimeout(scrollTimeout);
-            mybutton.classList.add("show");
-        });
+        mybutton.addEventListener("mouseenter", function() { clearTimeout(scrollTimeout); mybutton.classList.add("show"); });
+        mybutton.addEventListener("mouseleave", function() { scrollTimeout = setTimeout(function() { mybutton.classList.remove("show"); }, 2000); });
+        function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
 
-        mybutton.addEventListener("mouseleave", function() {
-            scrollTimeout = setTimeout(function() {
-                mybutton.classList.remove("show");
-            }, 2000);
-        });
-
-        function scrollToTop() {
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
-
-        // Script Teks Ketik Otomatis (Hanya Editor & Videografer)
+        // --- Typewriter Hanya 2 Skill ---
         const typedTextSpan = document.getElementById("typed-text");
         const words = ["VIDEO EDITOR", "VIDEOGRAPHER"];
-        let wordIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
+        let wordIndex = 0; let charIndex = 0; let isDeleting = false;
 
         function typeEffect() {
             const currentWord = words[wordIndex];
-            
             if (isDeleting) {
                 typedTextSpan.textContent = currentWord.substring(0, charIndex - 1);
                 charIndex--;
@@ -1131,107 +869,76 @@
             }
 
             let typeSpeed = isDeleting ? 50 : 100;
-
             if (!isDeleting && charIndex === currentWord.length) {
-                typeSpeed = 1500; 
-                isDeleting = true;
+                typeSpeed = 2000; isDeleting = true;
             } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                wordIndex++;
+                isDeleting = false; wordIndex++;
                 if (wordIndex >= words.length) wordIndex = 0;
                 typeSpeed = 500; 
             }
-
             setTimeout(typeEffect, typeSpeed);
         }
+        document.addEventListener("DOMContentLoaded", function() { if(words.length) setTimeout(typeEffect, 1000); });
 
-        document.addEventListener("DOMContentLoaded", function() {
-            if(words.length) setTimeout(typeEffect, 1000); 
-        });
-
-        // Script Efek Ripple
+        // --- Efek Ripple Klik ---
         const buttons = document.querySelectorAll('.cv-button, .contact-item');
         buttons.forEach(btn => {
             btn.addEventListener('click', function(e) {
                 let x = e.clientX - e.target.getBoundingClientRect().left;
                 let y = e.clientY - e.target.getBoundingClientRect().top;
                 let ripples = document.createElement('span');
-                ripples.style.left = x + 'px';
-                ripples.style.top = y + 'px';
-                ripples.classList.add('ripple');
-                this.appendChild(ripples);
+                ripples.style.left = x + 'px'; ripples.style.top = y + 'px';
+                ripples.classList.add('ripple'); this.appendChild(ripples);
                 setTimeout(() => { ripples.remove() }, 600);
             });
         });
 
-        // Script Efek Hover Kartu 3D (Tilt Diperhalus)
+        // --- Efek Kartu 3D Tilt Diperhalus ---
         const cards = document.querySelectorAll('.project-card');
         cards.forEach(card => {
             card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
+                const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+                const centerX = rect.width / 2; const centerY = rect.height / 2;
                 const rotateX = ((y - centerY) / centerY) * -12;
                 const rotateY = ((x - centerX) / centerX) * 12;
                 
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04, 1.04, 1.04)`;
-                card.style.transition = 'none'; 
-                card.style.zIndex = '2';
+                card.style.transition = 'none'; card.style.zIndex = '2';
             });
-            
             card.addEventListener('mouseleave', () => {
                 card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
                 card.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease, border-color 0.5s ease';
                 card.style.zIndex = '1';
             });
-            
-            card.addEventListener('mouseenter', () => {
-                card.style.transition = 'none';
-            });
+            card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
         });
 
-        // Script Scroll Reveal Pintar (Reset saat keluar layar 100%)
+        // --- Scroll Reveal Pintar ---
         document.addEventListener("DOMContentLoaded", function() {
             const reveals = document.querySelectorAll(".reveal");
             const progressBars = document.querySelectorAll(".progress-bar");
 
             const revealOnScroll = new IntersectionObserver(function(entries) {
                 entries.forEach(entry => {
-                    // Muncul jika elemen 15% masuk ke layar
-                    if (entry.isIntersecting && entry.intersectionRatio >= 0.15) {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0) {
                         entry.target.classList.add("active");
-                        
-                        // Menjalankan Progress Bar
                         if(entry.target.classList.contains('about-content')) {
                             progressBars.forEach(bar => {
                                 const targetWidth = bar.getAttribute('data-width');
                                 bar.style.width = targetWidth;
                             });
                         }
-                    } 
-                    // Menghilang HANYA jika elemen 100% sudah hilang (0) dari layar
-                    else if (entry.intersectionRatio === 0) {
+                    } else if (entry.intersectionRatio === 0) {
                         entry.target.classList.remove("active");
-                        
-                        // Reset Progress Bar
                         if(entry.target.classList.contains('about-content')) {
-                            progressBars.forEach(bar => {
-                                bar.style.width = '0%';
-                            });
+                            progressBars.forEach(bar => { bar.style.width = '0%'; });
                         }
                     }
                 });
-            }, {
-                // Pantau 2 kondisi: pas benar-benar hilang (0), dan pas muncul dikit (0.15)
-                threshold: [0, 0.15] 
-            });
+            }, { threshold: [0, 0.15] });
 
-            reveals.forEach(reveal => {
-                revealOnScroll.observe(reveal);
-            });
+            reveals.forEach(reveal => { revealOnScroll.observe(reveal); });
         });
     </script>
 
