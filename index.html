@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio | Mochamad Ali Haidar</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title id="pageTitleTag">Portofolio | Mochamad Ali Haidar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            /* --- TARUH LINK GAMBAR BACKGROUND PREMIERE PRO KAMU DI SINI --- */
             --hero-bg: url('https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); 
-            
             --bg-color: #0f172a;
             --surface-color: #1e293b;
             --primary-color: #e11d48;
@@ -44,7 +42,18 @@
 
         /* --- KURSOR KUSTOM --- */
         @media (pointer: fine) {
-            body, a, button, .project-card, .contact-item, .magnetic { cursor: none !important; }
+            body:not(.admin-open),
+            body:not(.admin-open) a,
+            body:not(.admin-open) button,
+            body:not(.admin-open) .project-card,
+            body:not(.admin-open) .contact-item,
+            body:not(.admin-open) .magnetic {
+                cursor: none !important;
+            }
+        }
+        body.admin-open .cursor-dot,
+        body.admin-open .cursor-ring {
+            opacity: 0 !important;
         }
         
         .cursor-dot {
@@ -52,25 +61,26 @@
             background: var(--primary-color);
             position: fixed; border-radius: 50%; pointer-events: none;
             z-index: 999999; transform: translate(-50%, -50%);
+            transition: opacity 0.2s;
         }
         .cursor-ring {
             width: 34px; height: 34px;
             border: 2px solid var(--primary-color);
             position: fixed; border-radius: 50%; pointer-events: none;
             z-index: 999998; transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            transition: width 0.3s, height 0.3s, background-color 0.3s, opacity 0.2s;
         }
 
         /* --- SCROLL PROGRESS BAR --- */
         .scroll-progress {
             position: fixed; top: 0; left: 0; height: 4px;
-            background: linear-gradient(90deg, #f43f5e, #e11d48);
-            width: 0%; z-index: 999999;
-            box-shadow: 0 0 10px #e11d48, 0 0 20px #e11d48;
+            background: linear-gradient(90deg, #f43f5e, var(--primary-color));
+            width: 0%; z-index: 99990;
+            box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color);
         }
 
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        section { padding: 80px 0; }
+        section { padding: 80px 0; position: relative; }
         h1, h2, h3 { color: var(--text-main); }
         
         h2.section-title {
@@ -105,7 +115,7 @@
         .delay-6 { animation-delay: 0.6s; }
 
         /* Profile Image */
-        .profile-img-container { margin-bottom: 25px; }
+        .profile-img-container { margin-bottom: 25px; display: inline-block; position: relative; }
         .profile-img {
             width: 160px; height: 160px; border-radius: 50%; object-fit: cover;
             border: 4px solid var(--primary-color); box-shadow: 0 10px 30px rgba(225, 29, 72, 0.3);
@@ -120,17 +130,17 @@
         .hero {
             min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;
             background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(225, 29, 72, 0.15) 0%, transparent 40%), linear-gradient(135deg, rgba(15,23,42,0.9), rgba(30,41,59,0.9)), var(--hero-bg) center/cover;
-            background-attachment: fixed; padding-top: 60px; transition: background 0.1s ease;
+            background-attachment: fixed; padding-top: 60px; padding-bottom: 60px; transition: background 0.1s ease;
         }
 
-        /* --- TEKS MENGKILAP & GLOW EFFECT (ANTI-BUG) --- */
+        /* --- TEKS MENGKILAP & GLOW EFFECT --- */
         .hero h1 {
             font-size: 3.5rem; font-weight: 700; margin-bottom: 10px; position: relative; 
             display: inline-block; transition: all 0.3s ease;
         }
         .hero h1 span {
-            background: linear-gradient(to right, #e11d48, #f43f5e, #ffb3c1, #e11d48);
-            background-size: 200% auto; color: transparent; -webkit-background-clip: text;
+            background: linear-gradient(to right, var(--primary-color), #f43f5e, #ffb3c1, var(--primary-color));
+            background-size: 200% auto; color: transparent; -webkit-background-clip: text; background-clip: text;
             animation: shine 3s linear infinite; display: inline-block;
         }
         @keyframes shine { to { background-position: 200% center; } }
@@ -147,13 +157,13 @@
         .cursor { display: inline-block; width: 3px; background-color: var(--text-main); margin-left: 2px; animation: blink 0.7s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        .mobile-break { display: none; } /* Default sembunyikan br */
+        .mobile-break { display: none; }
 
         .hero .quote {
             font-style: italic; font-size: 1.2rem; max-width: 600px; margin: 0 auto 40px auto;
             color: var(--text-main); border-left: 4px solid var(--secondary-color);
             padding-left: 15px; text-align: left; background: rgba(255,255,255,0.05);
-            padding: 20px; border-radius: 0 10px 10px 0; transition: transform 0.3s ease;
+            padding: 20px; border-radius: 0 10px 10px 0; transition: transform 0.3s ease, border-color 0.3s ease;
         }
         .hero .quote:hover { transform: translateX(10px); border-left-color: var(--primary-color); }
 
@@ -163,6 +173,7 @@
             display: flex; align-items: center; gap: 10px; background: var(--surface-color);
             padding: 10px 20px; border-radius: 50px; font-size: 0.9rem;
             text-decoration: none; color: inherit; position: relative; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .contact-item i { color: var(--primary-color); transition: color 0.3s ease; }
@@ -174,11 +185,21 @@
             100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
         }
 
+        .hero-buttons-wrap {
+            display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;
+        }
+
         .cv-button {
-            display: inline-block; background-color: var(--primary-color); color: #fff;
+            display: inline-flex; align-items: center; gap: 8px;
+            background-color: var(--primary-color); color: #fff;
             padding: 12px 32px; border-radius: 30px; font-size: 1rem; font-weight: 600;
             text-decoration: none; position: relative; overflow: hidden;
-            animation: pulseGlow 2s infinite; 
+            animation: pulseGlow 2s infinite; border: none;
+        }
+        .cv-button.secondary-btn {
+            background-color: var(--surface-color);
+            border: 2px solid var(--secondary-color);
+            animation: none;
         }
         .cv-button:hover { animation: none; color: #fff; }
 
@@ -195,7 +216,7 @@
         /* About & Skills */
         .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
         .about-text p { color: var(--text-muted); margin-bottom: 20px; font-size: 1.05rem; }
-        .skills-wrapper { background: var(--surface-color); padding: 30px; border-radius: 15px; }
+        .skills-wrapper { background: var(--surface-color); padding: 30px; border-radius: 15px; border: 1px solid #334155; }
         .skill-item { margin-bottom: 25px; }
         .skill-item:last-child { margin-bottom: 0; }
         .skill-info { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 600; }
@@ -217,7 +238,9 @@
         .timeline-card {
             background: var(--surface-color); padding: 30px; border-radius: 15px;
             border-top: 4px solid var(--secondary-color); transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            margin-bottom: 20px;
         }
+        .timeline-card:last-child { margin-bottom: 0; }
         .timeline-card:hover { transform: translateY(-10px); border-top-color: var(--primary-color); box-shadow: 0 15px 35px rgba(225, 29, 72, 0.15); }
         .timeline-card h3 { font-size: 1.3rem; color: var(--primary-color); margin-bottom: 5px; transition: color 0.3s ease; }
         .timeline-card h4 { font-size: 1.1rem; margin-bottom: 15px; }
@@ -262,6 +285,50 @@
         .project-card:hover .project-content h3 { color: var(--secondary-color); }
         .project-tag { display: inline-block; background: rgba(225, 29, 72, 0.2); color: #fb7185; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; margin-bottom: 10px; font-weight: 600; }
 
+        /* Quick On-Page Edit Controls when Quick Edit Mode is enabled */
+        .quick-card-controls {
+            display: none;
+            position: absolute; top: 10px; right: 10px; z-index: 30;
+            gap: 6px; background: rgba(15, 23, 42, 0.9); padding: 6px;
+            border-radius: 10px; border: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(6px);
+        }
+        body.quick-edit-active .quick-card-controls {
+            display: flex;
+        }
+        .quick-btn {
+            width: 30px; height: 30px; border-radius: 6px; border: none;
+            background: #1e293b; color: #f8fafc; font-size: 0.8rem;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer !important; transition: all 0.2s;
+        }
+        .quick-btn:hover { background: var(--primary-color); color: #fff; transform: scale(1.08); }
+        .quick-btn.danger:hover { background: #ef4444; }
+
+        .section-quick-edit-btn {
+            display: none;
+            margin: 0 auto 25px auto;
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            border: 1px dashed #3b82f6;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer !important;
+            transition: all 0.2s;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-quick-edit-btn:hover {
+            background: #3b82f6;
+            color: #fff;
+        }
+        body.quick-edit-active .section-quick-edit-btn {
+            display: flex;
+            width: fit-content;
+        }
+
         /* Modal Lightbox Video Viewer */
         .video-modal {
             display: none; position: fixed; z-index: 99999; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -282,7 +349,7 @@
 
         /* Awards Section */
         .awards-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; background: linear-gradient(135deg, var(--surface-color), #0f172a); border-radius: 15px; padding: 40px; border: 1px solid #334155; }
-        .award-item { background: rgba(15, 23, 42, 0.5); padding: 20px; border-radius: 10px; border-left: 4px solid #fbbf24; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease; }
+        .award-item { position: relative; background: rgba(15, 23, 42, 0.5); padding: 20px; border-radius: 10px; border-left: 4px solid #fbbf24; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease; }
         .award-item:hover { transform: translateY(-8px) scale(1.03); border-left-color: var(--primary-color); box-shadow: 0 10px 25px rgba(225, 29, 72, 0.15); background: rgba(30, 41, 59, 0.8); }
         .award-item h3 { color: #fbbf24; font-size: 1.1rem; margin-bottom: 10px; transition: color 0.3s ease; }
         .award-item:hover h3 { color: var(--primary-color); }
@@ -293,12 +360,434 @@
             visibility: hidden; opacity: 0; position: fixed; bottom: 30px; right: 30px; z-index: 99; font-size: 18px; border: none; outline: none; background-color: var(--primary-color);
             color: white; width: 50px; height: 50px; border-radius: 50%; box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4); transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.3s ease;
         }
-        #backToTopBtn.show { visibility: visible; opacity: 0.5; }
+        #backToTopBtn.show { visibility: visible; opacity: 0.7; }
         #backToTopBtn.show:hover { opacity: 1; background-color: #be123c; transform: translateY(-5px); box-shadow: 0 6px 20px rgba(225, 29, 72, 0.6); }
 
-        footer { text-align: center; padding: 30px; background: var(--surface-color); color: var(--text-muted); border-top: 1px solid #334155; }
+        footer { text-align: center; padding: 30px; background: var(--surface-color); color: var(--text-muted); border-top: 1px solid #334155; user-select: none; }
+
+        /* --- FLOATING ADMIN BAR --- */
+        .admin-fab-group {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 9990;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .admin-fab-group.hidden-in-prod {
+            display: none;
+        }
+        .admin-fab-btn {
+            background: linear-gradient(135deg, #e11d48, #be123c);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 11px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            box-shadow: 0 10px 25px rgba(225, 29, 72, 0.45);
+            cursor: pointer !important;
+            transition: all 0.25s ease;
+        }
+        .admin-fab-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 14px 30px rgba(225, 29, 72, 0.65);
+        }
+        .admin-quick-toggle {
+            background: rgba(30, 41, 59, 0.92);
+            backdrop-filter: blur(8px);
+            color: #cbd5e1;
+            border: 1px solid #475569;
+            padding: 10px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            cursor: pointer !important;
+            transition: all 0.25s ease;
+        }
+        .admin-quick-toggle.active {
+            background: #2563eb;
+            color: #fff;
+            border-color: #60a5fa;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        /* --- ADMIN CMS MODAL / DRAWER --- */
+        .admin-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.82);
+            backdrop-filter: blur(8px);
+            z-index: 100000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+        }
+        .admin-overlay.open {
+            display: flex;
+        }
+        .admin-panel {
+            width: 100%;
+            max-width: 1180px;
+            height: 92vh;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+            animation: modalZoom 0.28s ease-out;
+        }
+        .admin-topbar {
+            background: #1e293b;
+            padding: 16px 24px;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .admin-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .admin-brand-badge {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary-color), #3b82f6);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1.1rem;
+        }
+        .admin-brand h2 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #f8fafc;
+            margin: 0;
+        }
+        .admin-brand p {
+            font-size: 0.78rem;
+            color: #94a3b8;
+            margin: 0;
+        }
+        .admin-top-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .adm-btn {
+            padding: 9px 16px;
+            border-radius: 10px;
+            font-size: 0.84rem;
+            font-weight: 600;
+            border: 1px solid transparent;
+            cursor: pointer !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: all 0.2s;
+            color: #f8fafc;
+            background: #334155;
+        }
+        .adm-btn:hover { background: #475569; }
+        .adm-btn.primary {
+            background: var(--primary-color);
+            color: #fff;
+        }
+        .adm-btn.primary:hover { background: #be123c; }
+        .adm-btn.success {
+            background: #10b981;
+            color: #fff;
+        }
+        .adm-btn.success:hover { background: #059669; }
+        .adm-btn.blue {
+            background: #2563eb;
+            color: #fff;
+        }
+        .adm-btn.blue:hover { background: #1d4ed8; }
+        .adm-btn.danger {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+        .adm-btn.danger:hover {
+            background: #ef4444;
+            color: #fff;
+        }
+        .adm-btn.sm {
+            padding: 6px 11px;
+            font-size: 0.78rem;
+            border-radius: 8px;
+        }
+
+        .admin-body {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            flex: 1;
+            min-height: 0;
+        }
+        .admin-sidebar {
+            background: #131c31;
+            border-right: 1px solid #334155;
+            padding: 18px 12px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .admin-tab-btn {
+            width: 100%;
+            text-align: left;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: none;
+            background: transparent;
+            color: #94a3b8;
+            font-size: 0.88rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            cursor: pointer !important;
+            transition: all 0.2s;
+        }
+        .admin-tab-btn i { width: 18px; text-align: center; font-size: 0.95rem; }
+        .admin-tab-btn:hover {
+            background: rgba(255,255,255,0.05);
+            color: #f8fafc;
+        }
+        .admin-tab-btn.active {
+            background: linear-gradient(90deg, rgba(225, 29, 72, 0.22), rgba(225, 29, 72, 0.05));
+            color: #fff;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .admin-content {
+            padding: 24px 28px;
+            overflow-y: auto;
+            background: #0f172a;
+        }
+        .admin-pane {
+            display: none;
+        }
+        .admin-pane.active {
+            display: block;
+        }
+
+        /* Admin Form Cards & Controls */
+        .adm-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .adm-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .adm-card-title {
+            font-size: 1.02rem;
+            font-weight: 700;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .adm-card-title i { color: var(--primary-color); }
+
+        .adm-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .adm-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .adm-field {
+            margin-bottom: 14px;
+        }
+        .adm-field:last-child { margin-bottom: 0; }
+        .adm-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 6px;
+        }
+        .adm-hint {
+            font-size: 0.74rem;
+            color: #64748b;
+            margin-top: 4px;
+        }
+        .adm-input, .adm-textarea, .adm-select {
+            width: 100%;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 9px;
+            padding: 10px 13px;
+            color: #f8fafc;
+            font-size: 0.88rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .adm-textarea {
+            min-height: 85px;
+            resize: vertical;
+        }
+        .adm-input:focus, .adm-textarea:focus, .adm-select:focus {
+            border-color: var(--primary-color);
+        }
+
+        /* Image Upload Preview Box */
+        .adm-img-box {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: #0f172a;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px dashed #475569;
+            margin-bottom: 12px;
+        }
+        .adm-img-preview {
+            width: 78px;
+            height: 78px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+            flex-shrink: 0;
+            background: #1e293b;
+        }
+        .adm-img-preview.circle { border-radius: 50%; }
+
+        /* Reorderable Item Row */
+        .adm-list-item {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .adm-list-item:hover {
+            border-color: #475569;
+        }
+        .adm-list-item.dragging {
+            opacity: 0.5;
+            border: 2px dashed var(--primary-color);
+        }
+        .adm-item-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .adm-pos-badge {
+            background: #1e293b;
+            color: #60a5fa;
+            border: 1px solid #334155;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .adm-order-controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        /* Portfolio Admin Item with Thumbnail */
+        .adm-portfolio-row {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            gap: 16px;
+            align-items: start;
+        }
+        .adm-yt-thumb {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid #334155;
+            background: #020617;
+        }
+
+        /* Toast Notification */
+        .toast-wrap {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 200000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+        .toast-msg {
+            background: #1e293b;
+            color: #f8fafc;
+            border-left: 4px solid #10b981;
+            padding: 12px 18px;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+            font-size: 0.86rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeUp 0.25s ease-out;
+            border: 1px solid #334155;
+        }
 
         /* --- RESPONSIVE MOBILE --- */
+        @media(max-width: 860px) {
+            .admin-body { grid-template-columns: 1fr; }
+            .admin-sidebar {
+                flex-direction: row;
+                overflow-x: auto;
+                border-right: none;
+                border-bottom: 1px solid #334155;
+                padding: 10px;
+                flex-shrink: 0;
+            }
+            .admin-tab-btn {
+                width: auto;
+                white-space: nowrap;
+                padding: 9px 14px;
+            }
+            .adm-grid-2, .adm-grid-3, .adm-portfolio-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media(max-width: 768px) {
             .about-content, .timeline-grid { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2.5rem; }
@@ -311,10 +800,9 @@
             body { overflow-x: hidden; }
             #backToTopBtn { bottom: 20px; right: 20px; }
             .cursor-dot, .cursor-ring { display: none !important; }
-            
-            /* Anti Lompat Halaman di HP saat Typewriter */
             .mobile-break { display: block; }
             .typewriter-text { min-height: 80px; }
+            .admin-fab-group { bottom: 16px; left: 16px; right: 80px; }
         }
     </style>
 </head>
@@ -324,6 +812,9 @@
     <div class="cursor-dot"></div>
     <div class="cursor-ring"></div>
     
+    <!-- Toast Container -->
+    <div class="toast-wrap" id="toastWrap"></div>
+
     <!-- Progress Bar Scroll Area -->
     <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -332,45 +823,45 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
+    <!-- Floating Admin Access Controls -->
+    <div class="admin-fab-group" id="adminFabGroup">
+        <button class="admin-fab-btn" onclick="openAdminPanel('hero')" title="Buka Dashboard Admin untuk mengedit semua isi website">
+            <i class="fas fa-sliders-h"></i> Edit Website (Admin)
+        </button>
+        <button class="admin-quick-toggle" id="quickEditToggleBtn" onclick="toggleQuickEditMode()" title="Tampilkan tombol geser urutan & edit langsung di atas kartu halaman">
+            <i class="fas fa-arrows-alt"></i> Mode Atur Posisi Cepat
+        </button>
+    </div>
+
     <!-- Hero Section -->
     <section class="hero" id="heroSection">
         <div class="container">
-            
+            <button class="section-quick-edit-btn" onclick="openAdminPanel('hero')">
+                <i class="fas fa-pen"></i> Edit Bagian Hero, Foto & CV
+            </button>
+
             <div class="profile-img-container hero-element magnetic">
-                <!-- Fallback otomatis jika foto belum diunggah atau salah nama -->
-                <img src="profile.png" alt="Ali Haidar" class="profile-img" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Ali+Haidar&background=e11d48&color=fff&size=160';">
+                <img id="heroProfileImg" src="profile.png" alt="Ali Haidar" class="profile-img" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Ali+Haidar&background=e11d48&color=fff&size=160';">
             </div>
             
-            <h2 class="hero-element delay-1">HALO, AKU</h2>
-            <h1 class="hero-element delay-2">ALI <span>HAIDAR</span> !</h1>
+            <h2 class="hero-element delay-1" id="heroGreeting">HALO, AKU</h2>
+            <h1 class="hero-element delay-2" id="heroNameHeading">ALI <span>HAIDAR</span> !</h1>
             
-            <!-- Menggunakan class tambahan agar tinggi font di HP tidak melompat-lompat -->
             <h2 class="hero-element delay-3 typewriter-text">
-                SAYA SEORANG <br class="mobile-break">
+                <span id="heroRolePrefix">SAYA SEORANG</span> <br class="mobile-break">
                 <span id="typed-text" class="typed-text"></span><span class="cursor">|</span>
             </h2>
             
-            <div class="quote hero-element delay-4">
+            <div class="quote hero-element delay-4" id="heroQuote">
                 "Merangkai momen jadi cerita. Menyusun gambar jadi makna."
             </div>
 
-            <div class="contact-bar hero-element delay-5">
-                <a href="mailto:haidarpe185@gmail.com" class="contact-item magnetic">
-                    <i class="fas fa-envelope"></i> haidarpe185@gmail.com
-                </a>
-                <a href="https://wa.me/6285883930873" target="_blank" class="contact-item magnetic">
-                    <i class="fab fa-whatsapp"></i> 085883930873
-                </a>
-                <a href="https://www.instagram.com/haidar_185/" target="_blank" class="contact-item magnetic">
-                    <i class="fab fa-instagram"></i> @haidar_185
-                </a>
-                <div class="contact-item magnetic" style="cursor: default;">
-                    <i class="fas fa-map-marker-alt"></i> Pasuruan, Jawa Timur
-                </div>
+            <div class="contact-bar hero-element delay-5" id="heroContactBar">
+                <!-- Dirender secara dinamis dari state data -->
             </div>
             
-            <div class="hero-element delay-6">
-                <a href="https://drive.google.com/file/d/1Vrtz60YPLHZeCmYN_5aTNwDvR-MXg2XJ/view?usp=sharing" target="_blank" class="cv-button magnetic"><i class="fas fa-file-alt"></i> Lihat CV / Portofolio</a>
+            <div class="hero-element delay-6 hero-buttons-wrap" id="heroButtonsWrap">
+                <!-- Dirender secara dinamis dari state data -->
             </div>
         </div>
     </section>
@@ -378,53 +869,18 @@
     <!-- About & Skills Section -->
     <section id="about">
         <div class="container">
-            <h2 class="section-title reveal">Tentang Saya & Keahlian</h2>
-            <div class="about-content reveal">
+            <h2 class="section-title reveal" id="aboutSectionTitle">Tentang Saya & Keahlian</h2>
+            <button class="section-quick-edit-btn" onclick="openAdminPanel('about')">
+                <i class="fas fa-pen"></i> Edit Tentang Saya & Keahlian
+            </button>
+            <div class="about-content reveal" id="aboutContentBox">
                 <div class="about-text">
-                    <p>Saya adalah seorang kreatif asal Pasuruan yang siap berkarya, termasuk untuk kesempatan di Surabaya. Saya berminat pada dunia videografi, di mana saya senang mengekspresikan sesuatu melalui media video.</p>
-                    <p>Dalam proses merangkai momen menjadi cerita, saya memadukan kemampuan editing visual, produksi live streaming, hingga pengoperasian drone dan eksplorasi animasi 3D untuk menghasilkan karya yang komunikatif dan mendalam.</p>
-                    
-                    <div class="tech-tags">
-                        <span class="tech-tag">Premiere Pro</span>
-                        <span class="tech-tag">DaVinci Resolve</span>
-                        <span class="tech-tag">After Effects</span>
-                        <span class="tech-tag">vMix</span>
-                        <span class="tech-tag">OBS</span>
-                        <span class="tech-tag">Blender (3D)</span>
-                        <span class="tech-tag">Drone Piloting</span>
-                    </div>
+                    <div id="aboutParagraphsWrap"></div>
+                    <div class="tech-tags" id="aboutTechTagsWrap"></div>
                 </div>
 
-                <div class="skills-wrapper">
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>Video Editor</span>
-                            <span>94%</span>
-                        </div>
-                        <div class="progress-bg">
-                            <div class="progress-bar" data-width="94%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>Videographer</span>
-                            <span>87%</span>
-                        </div>
-                        <div class="progress-bg">
-                            <div class="progress-bar" data-width="87%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>3D Artist</span>
-                            <span>75%</span>
-                        </div>
-                        <div class="progress-bg">
-                            <div class="progress-bar" data-width="75%"></div>
-                        </div>
-                    </div>
+                <div class="skills-wrapper" id="aboutSkillsWrap">
+                    <!-- Dirender dinamis -->
                 </div>
             </div>
         </div>
@@ -433,67 +889,12 @@
     <!-- Experience & Education -->
     <section id="experience" style="background-color: var(--surface-color);">
         <div class="container">
-            <h2 class="section-title reveal">Pengalaman & Pendidikan</h2>
-            <div class="timeline-grid">
-                
-                <!-- Experience -->
-                <div class="timeline-column">
-                    <div class="timeline-card reveal" style="margin-bottom: 20px;">
-                        <h3>Digital Marketing</h3>
-                        <h4>Taman Ria Suropati</h4>
-                        <span class="date-badge">2025 - Sekarang</span>
-                        <ul>
-                            <li>Memproduksi video promosi dan konten kreatif untuk kebutuhan publikasi Digital Marketing.</li>
-                            <li>Bertanggung jawab penuh sebagai spesialis Video Editor dan Videografer internal.</li>
-                            <li>Mengelola strategi penceritaan visual untuk meningkatkan engagement penonton.</li>
-                        </ul>
-                    </div>
-
-                    <div class="timeline-card reveal" style="margin-bottom: 20px; transition-delay: 0.1s;">
-                        <h3>Freelance Video Editor</h3>
-                        <span class="date-badge">2023 - Sekarang</span>
-                        <ul>
-                            <li>Menerima dan memahami brief dari klien terkait jenis video yang dibutuhkan.</li>
-                            <li>Menyusun footage menjadi alur cerita yang menarik serta komunikatif.</li>
-                            <li>Mengelola arsip dokumentasi untuk keperluan publikasi di media sosial.</li>
-                        </ul>
-                    </div>
-
-                    <div class="timeline-card reveal" style="transition-delay: 0.2s;">
-                        <h3>Freelance Videografer</h3>
-                        <span class="date-badge">2023 - Sekarang</span>
-                        <ul>
-                            <li>Bergabung bersama rekan kerja untuk mengabadikan momen pernikahan, rapat organisasi, dan acara sekolah.</li>
-                            <li>Memproduksi video dokumentasi untuk promosi pariwisata.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Magang & Education -->
-                <div class="timeline-column">
-                    <div class="timeline-card reveal" style="margin-bottom: 20px; transition-delay: 0.1s;">
-                        <h3>Desain Komunikasi Visual</h3>
-                        <h4>SMK Negeri 1 Pasuruan</h4>
-                        <span class="date-badge">2022 - 2025</span>
-                        <ul>
-                            <li>Video pendek "Revitalisasi Kota Pasuruan" - Juara 1 Tingkat Kota.</li>
-                            <li>Terlibat dalam dokumentasi Hari Jadi Kota Pasuruan.</li>
-                            <li>Proyek UKK bertema "Pasuruan Dalam Dua Waktu".</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="timeline-card reveal" style="transition-delay: 0.2s;">
-                        <h3>Tim Kreatif (Magang)</h3>
-                        <h4>Dinas Pariwisata Kota Pasuruan</h4>
-                        <span class="date-badge">Juli - Desember 2024</span>
-                        <ul>
-                            <li>Dokumentasi video acara resmi & promosi wisata.</li>
-                            <li>Editing video kegiatan dinas menggunakan Premiere Pro & DaVinci Resolve.</li>
-                            <li>Produksi konten promosi untuk platform media sosial.</li>
-                        </ul>
-                    </div>
-                </div>
-
+            <h2 class="section-title reveal" id="expSectionTitle">Pengalaman & Pendidikan</h2>
+            <button class="section-quick-edit-btn" onclick="openAdminPanel('experience')">
+                <i class="fas fa-pen"></i> Edit Pengalaman & Pendidikan
+            </button>
+            <div class="timeline-grid" id="experienceTimelineGrid">
+                <!-- Dirender dinamis 2 kolom -->
             </div>
         </div>
     </section>
@@ -501,170 +902,12 @@
     <!-- Portfolio Projects Grid -->
     <section id="portfolio">
         <div class="container">
-            <h2 class="section-title reveal">Proyek Portofolio</h2>
-            
-            <!-- KATEGORI: VIDEO PENDEK -->
-            <h3 class="category-title reveal">Video Pendek</h3>
-            <div class="projects-grid">
-                
-                <div class="project-card reveal" onclick="openVideoModal('JynhUiy4Tmg', '2025-UJIAN KOMPETENSI KEAHLIAN SMKN 1 KOTA PASURUAN-TOURISM PASURUAN')">
-                    <div class="video-preview-wrapper">
-                        <img src="https://img.youtube.com/vi/JynhUiy4Tmg/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                        <div class="play-trigger-overlay">
-                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-tag">Video Pendek</span>
-                        <h3>2025-UJIAN KOMPETENSI KEAHLIAN SMKN 1 KOTA PASURUAN-TOURISM PASURUAN</h3>
-                    </div>
-                </div>
-    
-                <div class="project-card reveal" onclick="openVideoModal('lChZ86fDel0', '2026-KEGIATAN MOTOTRIL')" style="transition-delay: 0.1s;">
-                    <div class="video-preview-wrapper">
-                        <img src="https://img.youtube.com/vi/lChZ86fDel0/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                        <div class="play-trigger-overlay">
-                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-tag">Video Pendek</span>
-                        <h3>2026-KEGIATAN MOTOTRIL</h3>
-                    </div>
-                </div>
-    
-                <div class="project-card reveal" onclick="openVideoModal('wka77D1-lpU', '2025-LOMBA HUT INDONESIA KE 80-TOURISM PASURUAN')" style="transition-delay: 0.2s;">
-                    <div class="video-preview-wrapper">
-                        <img src="https://img.youtube.com/vi/wka77D1-lpU/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                        <div class="play-trigger-overlay">
-                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-tag">Video Pendek</span>
-                        <h3>2025-LOMBA HUT INDONESIA KE 80-TOURISM PASURUAN</h3>
-                    </div>
-                </div>
-    
-                <div class="project-card reveal" onclick="openVideoModal('ZFBhkDm8E5g', '2025-TAMAN RIA SUROPATI-APA KATA MEREKA?')">
-                    <div class="video-preview-wrapper">
-                        <img src="https://img.youtube.com/vi/ZFBhkDm8E5g/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                        <div class="play-trigger-overlay">
-                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-tag">Video Pendek</span>
-                        <h3>2025-TAMAN RIA SUROPATI-APA KATA MEREKA?</h3>
-                    </div>
-                </div>
-    
-                <div class="project-card reveal" onclick="openVideoModal('CRa5FznJtKg', '2025-LOMBA PROMOSI PERUMAHAN-PASURUAN GRAND CITY')" style="transition-delay: 0.1s;">
-                    <div class="video-preview-wrapper">
-                        <img src="https://img.youtube.com/vi/CRa5FznJtKg/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                        <div class="play-trigger-overlay">
-                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-tag">Video Pendek</span>
-                        <h3>2025-LOMBA PROMOSI PERUMAHAN-PASURUAN GRAND CITY</h3>
-                    </div>
-                </div>
-    
-                <div class="project-card reveal" onclick="openVideoModal('Sui12qEU4I8', '2024-VIDEO COMPETITION-KOTA LAMA SURABAYA')" style="transition-delay: 0.2s;">
-                    <div class="video-preview-wrapper">
-                        <img src="https://img.youtube.com/vi/Sui12qEU4I8/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                        <div class="play-trigger-overlay">
-                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-tag">Video Pendek</span>
-                        <h3>2024-VIDEO COMPETITION-KOTA LAMA SURABAYA</h3>
-                    </div>
-                </div>
-    
-                <div class="project-card reveal" onclick="openVideoModal('ysvCdYin3WU', '2024-LOMBA HUT INDONESIA KE 79-TOURISM PASURUAN')">
-                    <div class="video-preview-wrapper">
-                        <img src="https://img.youtube.com/vi/ysvCdYin3WU/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                        <div class="play-trigger-overlay">
-                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-tag">Video Pendek</span>
-                        <h3>2024-LOMBA HUT INDONESIA KE 79-TOURISM PASURUAN</h3>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- KATEGORI: FILM PENDEK -->
-            <h3 class="category-title reveal" style="margin-top: 80px;">Film Pendek</h3>
-            <div class="projects-grid">
-                
-                <div class="project-card reveal" onclick="openVideoModal('-N4Ia7-W1uM', '2025-FILM COMPETITON-LANGEN BANYU')">
-                    <div class="video-preview-wrapper">
-                        <img src="https://img.youtube.com/vi/-N4Ia7-W1uM/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                        <div class="play-trigger-overlay">
-                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-tag">Film Pendek</span>
-                        <h3>2025-FILM COMPETITON-LANGEN BANYU</h3>
-                    </div>
-                </div>
-    
-                <div class="project-card reveal" onclick="openVideoModal('XFgKyNl7T80', '2024-AMIKOM VIDEO COMPETITION-ANTARA')" style="transition-delay: 0.1s;">
-                    <div class="video-preview-wrapper">
-                        <img src="https://img.youtube.com/vi/XFgKyNl7T80/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                        <div class="play-trigger-overlay">
-                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-tag">Film Pendek</span>
-                        <h3>2024-AMIKOM VIDEO COMPETITION-ANTARA</h3>
-                    </div>
-                </div>
-    
-                <div class="project-card reveal" onclick="openVideoModal('cZUakY7kyng', '2023-NAFIFEST-A NGORMATI')" style="transition-delay: 0.2s;">
-                    <div class="video-preview-wrapper">
-                        <img src="https://img.youtube.com/vi/cZUakY7kyng/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                        <div class="play-trigger-overlay">
-                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-tag">Film Pendek</span>
-                        <h3>2023-NAFIFEST-A NGORMATI</h3>
-                    </div>
-                </div>
-    
-                <div class="project-card reveal" onclick="openVideoModal('rchFVJnkm0Y', '2023-AMIKOM VIDEO COMPETITION-TRIASIH')">
-                    <div class="video-preview-wrapper">
-                        <img src="https://img.youtube.com/vi/rchFVJnkm0Y/hqdefault.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                        <div class="play-trigger-overlay">
-                            <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-                            <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-tag">Film Pendek</span>
-                        <h3>2023-AMIKOM VIDEO COMPETITION-TRIASIH</h3>
-                    </div>
-                </div>
+            <h2 class="section-title reveal" id="portfolioSectionTitle">Proyek Portofolio</h2>
+            <button class="section-quick-edit-btn" onclick="openAdminPanel('portfolio')">
+                <i class="fas fa-plus-circle"></i> Tambah / Atur Posisi Video Portofolio
+            </button>
+            <div id="portfolioCategoriesContainer">
+                <!-- Kategori dan kartu proyek dirender dinamis -->
             </div>
         </div>
     </section>
@@ -672,54 +915,12 @@
     <!-- Awards Section -->
     <section id="awards" style="background-color: var(--surface-color);">
         <div class="container">
-            <h2 class="section-title reveal">Penghargaan</h2>
-            <div class="awards-container">
-                
-                <div class="award-item reveal">
-                    <h3><i class="fas fa-trophy" style="margin-right: 10px;"></i> Juara 1 Lomba Promosi Perumahan</h3>
-                    <p>Video Pendek "PASURUAN GRAND CITY" (2025)</p>
-                </div>
-                
-                <div class="award-item reveal" style="transition-delay: 0.1s;">
-                    <h3><i class="fas fa-award" style="margin-right: 10px;"></i> Juara 2 Lomba HUT Indonesia Ke 80</h3>
-                    <p>Video Pendek "TOURISM PASURUAN" (2025)</p>
-                </div>
-
-                <div class="award-item reveal" style="transition-delay: 0.2s;">
-                    <h3><i class="fas fa-trophy" style="margin-right: 10px;"></i> Juara 1 Lomba HUT Indonesia Ke 79</h3>
-                    <p>Video Pendek "TOURISM PASURUAN" (2024)</p>
-                </div>
-
-                <div class="award-item reveal">
-                    <h3><i class="fas fa-medal" style="margin-right: 10px;"></i> Juara 3 Video Competition</h3>
-                    <p>Kota Lama Surabaya (2024)</p>
-                </div>
-                
-                <div class="award-item reveal" style="transition-delay: 0.1s;">
-                    <h3><i class="fas fa-trophy" style="margin-right: 10px;"></i> Juara 1 Kategori TikTok - "Anden Lakon"</h3>
-                    <p>Amikom Video Competition 2023 (Diselenggarakan oleh Universitas AMIKOM Yogyakarta & Cabdin Wilayah Pasuruan).</p>
-                </div>
-                
-                <div class="award-item reveal" style="transition-delay: 0.2s;">
-                    <h3><i class="fas fa-award" style="margin-right: 10px;"></i> Juara 2 Kategori Cinematography - "Anden Lakon"</h3>
-                    <p>Amikom Video Competition 2023.</p>
-                </div>
-
-                <div class="award-item reveal">
-                    <h3><i class="fas fa-medal" style="margin-right: 10px;"></i> Juara 2 Kategori Drama - "TRIASIH"</h3>
-                    <p>Amikom Video Competition 2023.</p>
-                </div>
-
-                <div class="award-item reveal" style="transition-delay: 0.1s;">
-                    <h3><i class="fas fa-film" style="margin-right: 10px;"></i> Film Favorit - "A NGORMATI"</h3>
-                    <p>Navi Film Festival (NAFIFEST) 2023 - UIN K.H Abdurrahman Wahid Pekalongan.</p>
-                </div>
-                
-                <div class="award-item reveal" style="transition-delay: 0.2s;">
-                    <h3><i class="fas fa-star" style="margin-right: 10px;"></i> Peserta Terkreatif</h3>
-                    <p>Gerakan Kolaborasi Aksi Forum Anak Jawa Timur (GALAKSI FAJAR 3.0) 2023 - Forum Anak Jatim, PLATO Foundation, & UNICEF.</p>
-                </div>
-
+            <h2 class="section-title reveal" id="awardsSectionTitle">Penghargaan</h2>
+            <button class="section-quick-edit-btn" onclick="openAdminPanel('awards')">
+                <i class="fas fa-trophy"></i> Edit Daftar Penghargaan
+            </button>
+            <div class="awards-container" id="awardsGridContainer">
+                <!-- Dirender dinamis -->
             </div>
         </div>
     </section>
@@ -737,14 +938,569 @@
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 Mochamad Ali Haidar. All rights reserved.</p>
+    <footer id="siteFooter" onclick="handleFooterSecretClick()" title="Klik 3x untuk membuka Panel Admin">
+        <p id="footerText">&copy; 2026 Mochamad Ali Haidar. All rights reserved.</p>
     </footer>
 
-    <script>
-        let scrollPosition = 0;
+    <!-- ==================== ADMIN CMS PANEL ==================== -->
+    <div class="admin-overlay" id="adminOverlay">
+        <div class="admin-panel">
+            <!-- Admin Header -->
+            <div class="admin-topbar">
+                <div class="admin-brand">
+                    <div class="admin-brand-badge"><i class="fas fa-wand-magic-sparkles"></i></div>
+                    <div>
+                        <h2>Admin Studio Portofolio</h2>
+                        <p>Edit teks, tombol CV, gambar, & atur urutan portofolio dengan instan</p>
+                    </div>
+                </div>
+                <div class="admin-top-actions">
+                    <button class="adm-btn success" onclick="exportUpdatedHtmlFile()" title="Download file index.html baru yang sudah berisi semua perubahanmu">
+                        <i class="fas fa-download"></i> Download HTML Terbaru
+                    </button>
+                    <button class="adm-btn primary" onclick="closeAdminPanel()">
+                        <i class="fas fa-check"></i> Selesai & Lihat Hasil
+                    </button>
+                </div>
+            </div>
 
-        // --- Custom Cursor Logic ---
+            <!-- Admin Body -->
+            <div class="admin-body">
+                <!-- Sidebar Navigation -->
+                <div class="admin-sidebar">
+                    <button class="admin-tab-btn active" data-tab="hero" onclick="switchAdminTab('hero')">
+                        <i class="fas fa-id-badge"></i> Hero, Gambar & CV
+                    </button>
+                    <button class="admin-tab-btn" data-tab="portfolio" onclick="switchAdminTab('portfolio')">
+                        <i class="fas fa-film"></i> Proyek Portofolio
+                    </button>
+                    <button class="admin-tab-btn" data-tab="about" onclick="switchAdminTab('about')">
+                        <i class="fas fa-user-astronaut"></i> Tentang & Skill
+                    </button>
+                    <button class="admin-tab-btn" data-tab="experience" onclick="switchAdminTab('experience')">
+                        <i class="fas fa-briefcase"></i> Pengalaman & Edukasi
+                    </button>
+                    <button class="admin-tab-btn" data-tab="awards" onclick="switchAdminTab('awards')">
+                        <i class="fas fa-trophy"></i> Penghargaan
+                    </button>
+                    <button class="admin-tab-btn" data-tab="settings" onclick="switchAdminTab('settings')">
+                        <i class="fas fa-cloud-upload-alt"></i> Tema & Simpan / GitHub
+                    </button>
+                </div>
+
+                <!-- Main Tab Panes -->
+                <div class="admin-content">
+                    <!-- TAB 1: HERO, GAMBAR & CV -->
+                    <div class="admin-pane active" id="pane-hero"></div>
+
+                    <!-- TAB 2: PORTOFOLIO & POSISI -->
+                    <div class="admin-pane" id="pane-portfolio"></div>
+
+                    <!-- TAB 3: TENTANG SAYA & SKILL -->
+                    <div class="admin-pane" id="pane-about"></div>
+
+                    <!-- TAB 4: PENGALAMAN & PENDIDIKAN -->
+                    <div class="admin-pane" id="pane-experience"></div>
+
+                    <!-- TAB 5: PENGHARGAAN -->
+                    <div class="admin-pane" id="pane-awards"></div>
+
+                    <!-- TAB 6: TEMA, EXPORT & GITHUB -->
+                    <div class="admin-pane" id="pane-settings"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script id="portfolioDataScript">
+        // === DATA UTAMA PORTOFOLIO (Otomatis diperbarui saat di-export) ===
+        const DEFAULT_PORTFOLIO_DATA = {
+            meta: {
+                pageTitle: "Portofolio | Mochamad Ali Haidar",
+                footerText: "© 2026 Mochamad Ali Haidar. All rights reserved.",
+                showAdminButton: true
+            },
+            theme: {
+                bgColor: "#0f172a",
+                surfaceColor: "#1e293b",
+                primaryColor: "#e11d48",
+                secondaryColor: "#3b82f6"
+            },
+            hero: {
+                profileImg: "profile.png",
+                heroBg: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+                greeting: "HALO, AKU",
+                firstName: "ALI",
+                highlightName: "HAIDAR",
+                nameSuffix: "!",
+                rolePrefix: "SAYA SEORANG",
+                typewriterWords: ["VIDEO EDITOR", "VIDEOGRAPHER"],
+                quote: "\"Merangkai momen jadi cerita. Menyusun gambar jadi makna.\"",
+                contacts: [
+                    { id: "c1", icon: "fas fa-envelope", text: "haidarpe185@gmail.com", url: "mailto:haidarpe185@gmail.com" },
+                    { id: "c2", icon: "fab fa-whatsapp", text: "085883930873", url: "https://wa.me/6285883930873" },
+                    { id: "c3", icon: "fab fa-instagram", text: "@haidar_185", url: "https://www.instagram.com/haidar_185/" },
+                    { id: "c4", icon: "fas fa-map-marker-alt", text: "Pasuruan, Jawa Timur", url: "" }
+                ],
+                buttons: [
+                    {
+                        id: "b1",
+                        text: "Lihat CV / Portofolio",
+                        url: "https://drive.google.com/file/d/1Vrtz60YPLHZeCmYN_5aTNwDvR-MXg2XJ/view?usp=sharing",
+                        icon: "fas fa-file-alt",
+                        style: "primary",
+                        newTab: true
+                    }
+                ]
+            },
+            about: {
+                sectionTitle: "Tentang Saya & Keahlian",
+                paragraphs: [
+                    "Saya adalah seorang kreatif asal Pasuruan yang siap berkarya, termasuk untuk kesempatan di Surabaya. Saya berminat pada dunia videografi, di mana saya senang mengekspresikan sesuatu melalui media video.",
+                    "Dalam proses merangkai momen menjadi cerita, saya memadukan kemampuan editing visual, produksi live streaming, hingga pengoperasian drone dan eksplorasi animasi 3D untuk menghasilkan karya yang komunikatif dan mendalam."
+                ],
+                techTags: [
+                    "Premiere Pro",
+                    "DaVinci Resolve",
+                    "After Effects",
+                    "vMix",
+                    "OBS",
+                    "Blender (3D)",
+                    "Drone Piloting"
+                ],
+                skills: [
+                    { id: "s1", name: "Video Editor", percent: 94 },
+                    { id: "s2", name: "Videographer", percent: 87 },
+                    { id: "s3", name: "3D Artist", percent: 75 }
+                ]
+            },
+            experience: {
+                sectionTitle: "Pengalaman & Pendidikan",
+                leftColumn: [
+                    {
+                        id: "exp1",
+                        role: "Digital Marketing",
+                        company: "Taman Ria Suropati",
+                        date: "2025 - Sekarang",
+                        bullets: [
+                            "Memproduksi video promosi dan konten kreatif untuk kebutuhan publikasi Digital Marketing.",
+                            "Bertanggung jawab penuh sebagai spesialis Video Editor dan Videografer internal.",
+                            "Mengelola strategi penceritaan visual untuk meningkatkan engagement penonton."
+                        ]
+                    },
+                    {
+                        id: "exp2",
+                        role: "Freelance Video Editor",
+                        company: "",
+                        date: "2023 - Sekarang",
+                        bullets: [
+                            "Menerima dan memahami brief dari klien terkait jenis video yang dibutuhkan.",
+                            "Menyusun footage menjadi alur cerita yang menarik serta komunikatif.",
+                            "Mengelola arsip dokumentasi untuk keperluan publikasi di media sosial."
+                        ]
+                    },
+                    {
+                        id: "exp3",
+                        role: "Freelance Videografer",
+                        company: "",
+                        date: "2023 - Sekarang",
+                        bullets: [
+                            "Bergabung bersama rekan kerja untuk mengabadikan momen pernikahan, rapat organisasi, dan acara sekolah.",
+                            "Memproduksi video dokumentasi untuk promosi pariwisata."
+                        ]
+                    }
+                ],
+                rightColumn: [
+                    {
+                        id: "edu1",
+                        role: "Desain Komunikasi Visual",
+                        company: "SMK Negeri 1 Pasuruan",
+                        date: "2022 - 2025",
+                        bullets: [
+                            "Video pendek \"Revitalisasi Kota Pasuruan\" - Juara 1 Tingkat Kota.",
+                            "Terlibat dalam dokumentasi Hari Jadi Kota Pasuruan.",
+                            "Proyek UKK bertema \"Pasuruan Dalam Dua Waktu\"."
+                        ]
+                    },
+                    {
+                        id: "edu2",
+                        role: "Tim Kreatif (Magang)",
+                        company: "Dinas Pariwisata Kota Pasuruan",
+                        date: "Juli - Desember 2024",
+                        bullets: [
+                            "Dokumentasi video acara resmi & promosi wisata.",
+                            "Editing video kegiatan dinas menggunakan Premiere Pro & DaVinci Resolve.",
+                            "Produksi konten promosi untuk platform media sosial."
+                        ]
+                    }
+                ]
+            },
+            portfolio: {
+                sectionTitle: "Proyek Portofolio",
+                categories: [
+                    { id: "cat_vp", name: "Video Pendek" },
+                    { id: "cat_fp", name: "Film Pendek" }
+                ],
+                items: [
+                    { id: "p1", categoryId: "cat_vp", tag: "Video Pendek", videoId: "JynhUiy4Tmg", title: "2025-UJIAN KOMPETENSI KEAHLIAN SMKN 1 KOTA PASURUAN-TOURISM PASURUAN", customThumb: "" },
+                    { id: "p2", categoryId: "cat_vp", tag: "Video Pendek", videoId: "lChZ86fDel0", title: "2026-KEGIATAN MOTOTRIL", customThumb: "" },
+                    { id: "p3", categoryId: "cat_vp", tag: "Video Pendek", videoId: "wka77D1-lpU", title: "2025-LOMBA HUT INDONESIA KE 80-TOURISM PASURUAN", customThumb: "" },
+                    { id: "p4", categoryId: "cat_vp", tag: "Video Pendek", videoId: "ZFBhkDm8E5g", title: "2025-TAMAN RIA SUROPATI-APA KATA MEREKA?", customThumb: "" },
+                    { id: "p5", categoryId: "cat_vp", tag: "Video Pendek", videoId: "CRa5FznJtKg", title: "2025-LOMBA PROMOSI PERUMAHAN-PASURUAN GRAND CITY", customThumb: "" },
+                    { id: "p6", categoryId: "cat_vp", tag: "Video Pendek", videoId: "Sui12qEU4I8", title: "2024-VIDEO COMPETITION-KOTA LAMA SURABAYA", customThumb: "" },
+                    { id: "p7", categoryId: "cat_vp", tag: "Video Pendek", videoId: "ysvCdYin3WU", title: "2024-LOMBA HUT INDONESIA KE 79-TOURISM PASURUAN", customThumb: "" },
+                    { id: "p8", categoryId: "cat_fp", tag: "Film Pendek", videoId: "-N4Ia7-W1uM", title: "2025-FILM COMPETITON-LANGEN BANYU", customThumb: "" },
+                    { id: "p9", categoryId: "cat_fp", tag: "Film Pendek", videoId: "XFgKyNl7T80", title: "2024-AMIKOM VIDEO COMPETITION-ANTARA", customThumb: "" },
+                    { id: "p10", categoryId: "cat_fp", tag: "Film Pendek", videoId: "cZUakY7kyng", title: "2023-NAFIFEST-A NGORMATI", customThumb: "" },
+                    { id: "p11", categoryId: "cat_fp", tag: "Film Pendek", videoId: "rchFVJnkm0Y", title: "2023-AMIKOM VIDEO COMPETITION-TRIASIH", customThumb: "" }
+                ]
+            },
+            awards: {
+                sectionTitle: "Penghargaan",
+                items: [
+                    { id: "a1", icon: "fas fa-trophy", title: "Juara 1 Lomba Promosi Perumahan", desc: "Video Pendek \"PASURUAN GRAND CITY\" (2025)" },
+                    { id: "a2", icon: "fas fa-award", title: "Juara 2 Lomba HUT Indonesia Ke 80", desc: "Video Pendek \"TOURISM PASURUAN\" (2025)" },
+                    { id: "a3", icon: "fas fa-trophy", title: "Juara 1 Lomba HUT Indonesia Ke 79", desc: "Video Pendek \"TOURISM PASURUAN\" (2024)" },
+                    { id: "a4", icon: "fas fa-medal", title: "Juara 3 Video Competition", desc: "Kota Lama Surabaya (2024)" },
+                    { id: "a5", icon: "fas fa-trophy", title: "Juara 1 Kategori TikTok - \"Anden Lakon\"", desc: "Amikom Video Competition 2023 (Diselenggarakan oleh Universitas AMIKOM Yogyakarta & Cabdin Wilayah Pasuruan)." },
+                    { id: "a6", icon: "fas fa-award", title: "Juara 2 Kategori Cinematography - \"Anden Lakon\"", desc: "Amikom Video Competition 2023." },
+                    { id: "a7", icon: "fas fa-medal", title: "Juara 2 Kategori Drama - \"TRIASIH\"", desc: "Amikom Video Competition 2023." },
+                    { id: "a8", icon: "fas fa-film", title: "Film Favorit - \"A NGORMATI\"", desc: "Navi Film Festival (NAFIFEST) 2023 - UIN K.H Abdurrahman Wahid Pekalongan." },
+                    { id: "a9", icon: "fas fa-star", title: "Peserta Terkreatif", desc: "Gerakan Kolaborasi Aksi Forum Anak Jawa Timur (GALAKSI FAJAR 3.0) 2023 - Forum Anak Jatim, PLATO Foundation, & UNICEF." }
+                ]
+            }
+        };
+    </script>
+
+    <script>
+        const STORAGE_KEY = 'ali_haidar_portfolio_cms_v1';
+        let siteData = loadSiteData();
+        let activeAdminTab = 'hero';
+        let selectedPortfolioCatFilter = 'ALL';
+        let scrollPosition = 0;
+        let revealObserver = null;
+
+        function loadSiteData() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    return JSON.parse(saved);
+                }
+            } catch (e) {
+                console.warn('Gagal membaca localStorage:', e);
+            }
+            return JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA));
+        }
+
+        function saveSiteData(silent = false) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(siteData));
+                renderFullPortfolio();
+                if (!silent) showToast('Perubahan berhasil disimpan!');
+            } catch (e) {
+                showToast('Penyimpanan browser penuh, gunakan tombol Download HTML Terbaru.', true);
+            }
+        }
+
+        function showToast(message, isError = false) {
+            const wrap = document.getElementById('toastWrap');
+            const el = document.createElement('div');
+            el.className = 'toast-msg';
+            if (isError) el.style.borderLeftColor = '#ef4444';
+            el.innerHTML = `<i class="fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'}" style="color:${isError ? '#ef4444' : '#10b981'}"></i> <span>${escapeHtml(message)}</span>`;
+            wrap.appendChild(el);
+            setTimeout(() => {
+                el.style.opacity = '0';
+                el.style.transition = 'opacity 0.3s';
+                setTimeout(() => el.remove(), 300);
+            }, 2600);
+        }
+
+        function escapeHtml(str) {
+            if (str === null || str === undefined) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function extractYouTubeId(input) {
+            if (!input) return '';
+            const trimmed = input.trim();
+            if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) return trimmed;
+            const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+            const match = trimmed.match(regex);
+            return match ? match[1] : trimmed;
+        }
+
+        // === RENDER PORTFOLIO PUBLIC VIEW ===
+        function renderFullPortfolio() {
+            // 1. Theme & Meta
+            document.title = siteData.meta.pageTitle || 'Portofolio | Mochamad Ali Haidar';
+            const root = document.documentElement;
+            root.style.setProperty('--bg-color', siteData.theme.bgColor || '#0f172a');
+            root.style.setProperty('--surface-color', siteData.theme.surfaceColor || '#1e293b');
+            root.style.setProperty('--primary-color', siteData.theme.primaryColor || '#e11d48');
+            root.style.setProperty('--secondary-color', siteData.theme.secondaryColor || '#3b82f6');
+            root.style.setProperty('--hero-bg', `url('${siteData.hero.heroBg}')`);
+
+            const fabGroup = document.getElementById('adminFabGroup');
+            const isHashAdmin = window.location.hash === '#admin';
+            if (siteData.meta.showAdminButton || isHashAdmin) {
+                fabGroup.classList.remove('hidden-in-prod');
+            } else {
+                fabGroup.classList.add('hidden-in-prod');
+            }
+
+            // 2. Hero
+            const profileImg = document.getElementById('heroProfileImg');
+            profileImg.src = siteData.hero.profileImg || 'profile.png';
+            document.getElementById('heroGreeting').textContent = siteData.hero.greeting;
+            document.getElementById('heroNameHeading').innerHTML = `${escapeHtml(siteData.hero.firstName)} <span>${escapeHtml(siteData.hero.highlightName)}</span> ${escapeHtml(siteData.hero.nameSuffix)}`;
+            document.getElementById('heroRolePrefix').textContent = siteData.hero.rolePrefix;
+            document.getElementById('heroQuote').textContent = siteData.hero.quote;
+
+            // Contacts
+            const contactBar = document.getElementById('heroContactBar');
+            contactBar.innerHTML = siteData.hero.contacts.map((c, idx) => {
+                const inner = `<i class="${escapeHtml(c.icon)}"></i> ${escapeHtml(c.text)}`;
+                if (c.url && c.url.trim() !== '') {
+                    const isExternal = c.url.startsWith('http');
+                    return `<a href="${escapeHtml(c.url)}" ${isExternal ? 'target="_blank"' : ''} class="contact-item magnetic">${inner}</a>`;
+                } else {
+                    return `<div class="contact-item magnetic" style="cursor: default;">${inner}</div>`;
+                }
+            }).join('');
+
+            // Hero Buttons (CV / Portofolio)
+            const buttonsWrap = document.getElementById('heroButtonsWrap');
+            buttonsWrap.innerHTML = siteData.hero.buttons.map(btn => {
+                const cls = btn.style === 'secondary' ? 'cv-button secondary-btn magnetic' : 'cv-button magnetic';
+                const targetAttr = btn.newTab ? 'target="_blank"' : '';
+                return `<a href="${escapeHtml(btn.url)}" ${targetAttr} class="${cls}">
+                    ${btn.icon ? `<i class="${escapeHtml(btn.icon)}"></i>` : ''} ${escapeHtml(btn.text)}
+                </a>`;
+            }).join('');
+
+            // 3. About & Skills
+            document.getElementById('aboutSectionTitle').textContent = siteData.about.sectionTitle;
+            document.getElementById('aboutParagraphsWrap').innerHTML = siteData.about.paragraphs
+                .map(p => `<p>${escapeHtml(p)}</p>`).join('');
+            document.getElementById('aboutTechTagsWrap').innerHTML = siteData.about.techTags
+                .map(t => `<span class="tech-tag">${escapeHtml(t)}</span>`).join('');
+            document.getElementById('aboutSkillsWrap').innerHTML = siteData.about.skills
+                .map(s => `
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>${escapeHtml(s.name)}</span>
+                            <span>${Number(s.percent)}%</span>
+                        </div>
+                        <div class="progress-bg">
+                            <div class="progress-bar" data-width="${Number(s.percent)}%" style="width: ${Number(s.percent)}%;"></div>
+                        </div>
+                    </div>
+                `).join('');
+
+            // 4. Experience & Education
+            document.getElementById('expSectionTitle').textContent = siteData.experience.sectionTitle;
+            const renderExpCol = (list, colKey) => list.map((item, idx) => `
+                <div class="timeline-card reveal active" style="position:relative;">
+                    <div class="quick-card-controls">
+                        <button class="quick-btn" onclick="moveExperienceItem('${colKey}', ${idx}, -1)" title="Geser Naik"><i class="fas fa-arrow-up"></i></button>
+                        <button class="quick-btn" onclick="moveExperienceItem('${colKey}', ${idx}, 1)" title="Geser Turun"><i class="fas fa-arrow-down"></i></button>
+                        <button class="quick-btn" onclick="switchExperienceColumn('${colKey}', ${idx})" title="Pindah Kolom Kiri/Kanan"><i class="fas fa-exchange-alt"></i></button>
+                        <button class="quick-btn" onclick="openAdminPanel('experience')" title="Edit Detail"><i class="fas fa-pen"></i></button>
+                    </div>
+                    <h3>${escapeHtml(item.role)}</h3>
+                    ${item.company ? `<h4>${escapeHtml(item.company)}</h4>` : ''}
+                    <span class="date-badge">${escapeHtml(item.date)}</span>
+                    <ul>
+                        ${(item.bullets || []).map(b => `<li>${escapeHtml(b)}</li>`).join('')}
+                    </ul>
+                </div>
+            `).join('');
+
+            document.getElementById('experienceTimelineGrid').innerHTML = `
+                <div class="timeline-column">${renderExpCol(siteData.experience.leftColumn, 'leftColumn')}</div>
+                <div class="timeline-column">${renderExpCol(siteData.experience.rightColumn, 'rightColumn')}</div>
+            `;
+
+            // 5. Portfolio Categories & Projects
+            document.getElementById('portfolioSectionTitle').textContent = siteData.portfolio.sectionTitle;
+            const portContainer = document.getElementById('portfolioCategoriesContainer');
+            portContainer.innerHTML = siteData.portfolio.categories.map((cat, catIdx) => {
+                const catItems = siteData.portfolio.items.filter(item => item.categoryId === cat.id);
+                const cardsHtml = catItems.map((item, localIdx) => {
+                    const thumbUrl = item.customThumb && item.customThumb.trim() !== ''
+                        ? item.customThumb
+                        : `https://img.youtube.com/vi/${encodeURIComponent(item.videoId)}/hqdefault.jpg`;
+                    const safeTitleAttr = escapeHtml(item.title).replace(/'/g, "\\'");
+                    const safeVidAttr = escapeHtml(item.videoId).replace(/'/g, "\\'");
+                    return `
+                        <div class="project-card reveal active" onclick="openVideoModal('${safeVidAttr}', '${safeTitleAttr}')">
+                            <div class="quick-card-controls" onclick="event.stopPropagation();">
+                                <button class="quick-btn" onclick="movePortfolioItemWithinCat('${item.id}', -1)" title="Geser Maju / Kiri"><i class="fas fa-arrow-left"></i></button>
+                                <button class="quick-btn" onclick="movePortfolioItemWithinCat('${item.id}', 1)" title="Geser Mundur / Kanan"><i class="fas fa-arrow-right"></i></button>
+                                <button class="quick-btn" onclick="openAdminPanelAndFocusProject('${item.id}')" title="Edit Video Ini"><i class="fas fa-pen"></i></button>
+                                <button class="quick-btn danger" onclick="deletePortfolioItem('${item.id}')" title="Hapus Video"><i class="fas fa-trash"></i></button>
+                            </div>
+                            <div class="video-preview-wrapper">
+                                <img src="${escapeHtml(thumbUrl)}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
+                                <div class="play-trigger-overlay">
+                                    <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
+                                    <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <span class="project-tag">${escapeHtml(item.tag || cat.name)}</span>
+                                <h3>${escapeHtml(item.title)}</h3>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                return `
+                    <div class="portfolio-category-block" style="${catIdx > 0 ? 'margin-top: 80px;' : ''}">
+                        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+                            <h3 class="category-title reveal active" style="margin-top: ${catIdx === 0 ? '20px' : '0'};">${escapeHtml(cat.name)}</h3>
+                            <div class="quick-card-controls" style="position:static;">
+                                <button class="quick-btn" onclick="moveCategory(${catIdx}, -1)" title="Geser Kategori Naik"><i class="fas fa-arrow-up"></i></button>
+                                <button class="quick-btn" onclick="moveCategory(${catIdx}, 1)" title="Geser Kategori Turun"><i class="fas fa-arrow-down"></i></button>
+                            </div>
+                        </div>
+                        <div class="projects-grid">
+                            ${cardsHtml || `<p style="color:var(--text-muted); font-style:italic;">Belum ada proyek di kategori ini.</p>`}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // 6. Awards
+            document.getElementById('awardsSectionTitle').textContent = siteData.awards.sectionTitle;
+            document.getElementById('awardsGridContainer').innerHTML = siteData.awards.items.map((aw, idx) => `
+                <div class="award-item reveal active">
+                    <div class="quick-card-controls">
+                        <button class="quick-btn" onclick="moveAwardItem(${idx}, -1)" title="Geser Maju"><i class="fas fa-arrow-left"></i></button>
+                        <button class="quick-btn" onclick="moveAwardItem(${idx}, 1)" title="Geser Mundur"><i class="fas fa-arrow-right"></i></button>
+                        <button class="quick-btn" onclick="openAdminPanel('awards')" title="Edit"><i class="fas fa-pen"></i></button>
+                    </div>
+                    <h3><i class="${escapeHtml(aw.icon)}" style="margin-right: 10px;"></i> ${escapeHtml(aw.title)}</h3>
+                    <p>${escapeHtml(aw.desc)}</p>
+                </div>
+            `).join('');
+
+            // 7. Footer
+            document.getElementById('footerText').textContent = siteData.meta.footerText;
+
+            // Re-bind interactive effects (magnetic, ripple, 3d tilt, custom cursor hover, scroll reveal)
+            bindInteractiveEffects();
+        }
+
+        // === INTERACTIVE EFFECTS BINDING ===
+        function bindInteractiveEffects() {
+            const ring = document.querySelector('.cursor-ring');
+            if (window.matchMedia("(pointer: fine)").matches && ring) {
+                document.querySelectorAll('a, button, .project-card, .contact-item, .magnetic').forEach(el => {
+                    if (el.dataset.cursorBound) return;
+                    el.dataset.cursorBound = "1";
+                    el.addEventListener('mouseenter', () => {
+                        ring.style.width = '55px'; ring.style.height = '55px';
+                        ring.style.backgroundColor = 'rgba(225, 29, 72, 0.15)';
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        ring.style.width = '34px'; ring.style.height = '34px';
+                        ring.style.backgroundColor = 'transparent';
+                    });
+                });
+            }
+
+            // Magnetic Effect
+            document.querySelectorAll('.magnetic').forEach((elem) => {
+                if (elem.dataset.magneticBound) return;
+                elem.dataset.magneticBound = "1";
+                elem.addEventListener('mousemove', (e) => {
+                    const rect = elem.getBoundingClientRect();
+                    const h = rect.width / 2;
+                    const w = rect.height / 2;
+                    const x = e.clientX - rect.left - h;
+                    const y = e.clientY - rect.top - w;
+                    elem.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px) scale(1.05)`;
+                    elem.style.transition = 'transform 0.1s ease-out';
+                });
+                elem.addEventListener('mouseleave', () => {
+                    elem.style.transform = 'translate(0px, 0px) scale(1)';
+                    elem.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)';
+                });
+            });
+
+            // Ripple Click
+            document.querySelectorAll('.cv-button, .contact-item').forEach(btn => {
+                if (btn.dataset.rippleBound) return;
+                btn.dataset.rippleBound = "1";
+                btn.addEventListener('click', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    let x = e.clientX - rect.left;
+                    let y = e.clientY - rect.top;
+                    let ripples = document.createElement('span');
+                    ripples.style.left = x + 'px'; ripples.style.top = y + 'px';
+                    ripples.classList.add('ripple'); this.appendChild(ripples);
+                    setTimeout(() => { ripples.remove(); }, 600);
+                });
+            });
+
+            // 3D Card Tilt
+            document.querySelectorAll('.project-card').forEach(card => {
+                if (card.dataset.tiltBound) return;
+                card.dataset.tiltBound = "1";
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2; const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -12;
+                    const rotateY = ((x - centerX) / centerX) * 12;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04, 1.04, 1.04)`;
+                    card.style.transition = 'none'; card.style.zIndex = '2';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+                    card.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease, border-color 0.5s ease';
+                    card.style.zIndex = '1';
+                });
+                card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
+            });
+
+            // IntersectionObserver Reveal
+            if (revealObserver) revealObserver.disconnect();
+            const reveals = document.querySelectorAll(".reveal");
+            const progressBars = document.querySelectorAll(".progress-bar");
+
+            revealObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.12) {
+                        entry.target.classList.add("active");
+                        if (entry.target.classList.contains('about-content')) {
+                            progressBars.forEach(bar => {
+                                bar.style.width = bar.getAttribute('data-width');
+                            });
+                        }
+                    } else if (entry.intersectionRatio === 0) {
+                        entry.target.classList.remove("active");
+                        if (entry.target.classList.contains('about-content')) {
+                            progressBars.forEach(bar => {
+                                bar.style.width = '0%';
+                            });
+                        }
+                    }
+                });
+            }, { threshold: [0, 0.12] });
+
+            reveals.forEach(reveal => revealObserver.observe(reveal));
+        }
+
+        // === CORE ORIGINAL SCRIPTS (Cursor, Spotlight, Typewriter, Video Modal) ===
         const dot = document.querySelector('.cursor-dot');
         const ring = document.querySelector('.cursor-ring');
         let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
@@ -764,38 +1520,8 @@
                 requestAnimationFrame(renderCursor);
             }
             renderCursor();
-
-            document.querySelectorAll('a, button, .project-card, .contact-item, .magnetic').forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    ring.style.width = '55px'; ring.style.height = '55px';
-                    ring.style.backgroundColor = 'rgba(225, 29, 72, 0.15)';
-                });
-                el.addEventListener('mouseleave', () => {
-                    ring.style.width = '34px'; ring.style.height = '34px';
-                    ring.style.backgroundColor = 'transparent';
-                });
-            });
         }
 
-        // --- Efek Magnetic pada Tombol ---
-        const magnetics = document.querySelectorAll('.magnetic');
-        magnetics.forEach((elem) => {
-            elem.addEventListener('mousemove', (e) => {
-                const rect = elem.getBoundingClientRect();
-                const h = rect.width / 2;
-                const w = rect.height / 2;
-                const x = e.clientX - rect.left - h;
-                const y = e.clientY - rect.top - w;
-                elem.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px) scale(1.05)`;
-                elem.style.transition = 'transform 0.1s ease-out';
-            });
-            elem.addEventListener('mouseleave', () => {
-                elem.style.transform = 'translate(0px, 0px) scale(1)';
-                elem.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)';
-            });
-        });
-
-        // --- Efek Mouse Spotlight Parallax ---
         const heroSection = document.getElementById('heroSection');
         if (window.matchMedia("(pointer: fine)").matches) {
             heroSection.addEventListener('mousemove', (e) => {
@@ -806,14 +1532,6 @@
             });
         }
 
-        // --- Progress Bar Atas ---
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            document.getElementById("scrollProgress").style.width = (winScroll / height) * 100 + "%";
-        });
-
-        // --- Modal Video ---
         function openVideoModal(videoId, title) {
             const modal = document.getElementById('videoModal');
             const iframe = document.getElementById('modalIframe');
@@ -830,6 +1548,7 @@
         function closeVideoModal() {
             const modal = document.getElementById('videoModal');
             const iframe = document.getElementById('modalIframe');
+            if (!modal.classList.contains('active')) return;
             modal.classList.remove('active');
             iframe.src = ''; 
             document.body.style.position = '';
@@ -839,18 +1558,26 @@
         }
 
         function closeVideoModalOnBg(e) { if (e.target.id === 'videoModal') { closeVideoModal(); } }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { closeVideoModal(); } });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeVideoModal();
+            }
+            // Shortcut Ctrl + Shift + A untuk buka Admin
+            if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+                e.preventDefault();
+                openAdminPanel('hero');
+            }
+        });
 
-        // --- Tombol Back to Top ---
+        // Back to Top & Scroll Progress
         let mybutton = document.getElementById("backToTopBtn");
         let scrollTimeout;
-
         window.onscroll = function() {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            document.getElementById("scrollProgress").style.width = (winScroll / height) * 100 + "%";
+            document.getElementById("scrollProgress").style.width = (height > 0 ? (winScroll / height) * 100 : 0) + "%";
 
-            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+            if (winScroll > 400) {
                 mybutton.classList.add("show");
                 clearTimeout(scrollTimeout);
                 scrollTimeout = setTimeout(function() { mybutton.classList.remove("show"); }, 2000);
@@ -858,18 +1585,19 @@
                 mybutton.classList.remove("show");
             }
         };
-
         mybutton.addEventListener("mouseenter", function() { clearTimeout(scrollTimeout); mybutton.classList.add("show"); });
         mybutton.addEventListener("mouseleave", function() { scrollTimeout = setTimeout(function() { mybutton.classList.remove("show"); }, 2000); });
         function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
 
-        // --- Typewriter Hanya 2 Skill ---
+        // Typewriter
         const typedTextSpan = document.getElementById("typed-text");
-        const words = ["VIDEO EDITOR", "VIDEOGRAPHER"];
         let wordIndex = 0; let charIndex = 0; let isDeleting = false;
-
         function typeEffect() {
-            const currentWord = words[wordIndex];
+            const words = (siteData.hero.typewriterWords && siteData.hero.typewriterWords.length)
+                ? siteData.hero.typewriterWords
+                : ["VIDEO EDITOR"];
+            if (wordIndex >= words.length) wordIndex = 0;
+            const currentWord = words[wordIndex] || "";
             if (isDeleting) {
                 typedTextSpan.textContent = currentWord.substring(0, charIndex - 1);
                 charIndex--;
@@ -879,88 +1607,1193 @@
             }
 
             let typeSpeed = isDeleting ? 50 : 100;
-            if (!isDeleting && charIndex === currentWord.length) {
+            if (!isDeleting && charIndex >= currentWord.length) {
                 typeSpeed = 2000; isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
+            } else if (isDeleting && charIndex <= 0) {
                 isDeleting = false; wordIndex++;
                 if (wordIndex >= words.length) wordIndex = 0;
                 typeSpeed = 500; 
             }
             setTimeout(typeEffect, typeSpeed);
         }
-        document.addEventListener("DOMContentLoaded", function() { if(words.length) setTimeout(typeEffect, 1000); });
 
-        // --- Efek Ripple Klik ---
-        const buttons = document.querySelectorAll('.cv-button, .contact-item');
-        buttons.forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                let x = e.clientX - e.target.getBoundingClientRect().left;
-                let y = e.clientY - e.target.getBoundingClientRect().top;
-                let ripples = document.createElement('span');
-                ripples.style.left = x + 'px'; ripples.style.top = y + 'px';
-                ripples.classList.add('ripple'); this.appendChild(ripples);
-                setTimeout(() => { ripples.remove() }, 600);
+        // Secret 3x click on Footer to open Admin even when button is hidden
+        let footerClickCount = 0;
+        let footerClickTimer = null;
+        function handleFooterSecretClick() {
+            footerClickCount++;
+            clearTimeout(footerClickTimer);
+            if (footerClickCount >= 3) {
+                footerClickCount = 0;
+                openAdminPanel('hero');
+                showToast('Mode Admin dibuka!');
+            } else {
+                footerClickTimer = setTimeout(() => { footerClickCount = 0; }, 900);
+            }
+        }
+
+        function toggleQuickEditMode() {
+            document.body.classList.toggle('quick-edit-active');
+            const btn = document.getElementById('quickEditToggleBtn');
+            const isActive = document.body.classList.contains('quick-edit-active');
+            btn.classList.toggle('active', isActive);
+            showToast(isActive ? 'Mode Atur Posisi Cepat Aktif! Klik panah pada kartu untuk menggeser urutan.' : 'Mode Atur Posisi Cepat Dinonaktifkan.');
+        }
+
+        // ==================== ADMIN PANEL FUNCTIONS ====================
+        function openAdminPanel(tabName = 'hero') {
+            document.body.classList.add('admin-open');
+            document.getElementById('adminOverlay').classList.add('open');
+            switchAdminTab(tabName);
+        }
+
+        function closeAdminPanel() {
+            document.body.classList.remove('admin-open');
+            document.getElementById('adminOverlay').classList.remove('open');
+            renderFullPortfolio();
+        }
+
+        function switchAdminTab(tabName) {
+            activeAdminTab = tabName;
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.tab === tabName);
             });
-        });
-
-        // --- Efek Hover Kartu 3D (Tilt Diperhalus) ---
-        const cards = document.querySelectorAll('.project-card');
-        cards.forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left; const y = e.clientY - rect.top;
-                const centerX = rect.width / 2; const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -12;
-                const rotateY = ((x - centerX) / centerX) * 12;
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04, 1.04, 1.04)`;
-                card.style.transition = 'none'; card.style.zIndex = '2';
+            document.querySelectorAll('.admin-pane').forEach(pane => {
+                pane.classList.toggle('active', pane.id === `pane-${tabName}`);
             });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
-                card.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease, border-color 0.5s ease';
-                card.style.zIndex = '1';
+            renderAdminActivePane();
+        }
+
+        function renderAdminActivePane() {
+            if (activeAdminTab === 'hero') renderAdminHeroPane();
+            else if (activeAdminTab === 'portfolio') renderAdminPortfolioPane();
+            else if (activeAdminTab === 'about') renderAdminAboutPane();
+            else if (activeAdminTab === 'experience') renderAdminExperiencePane();
+            else if (activeAdminTab === 'awards') renderAdminAwardsPane();
+            else if (activeAdminTab === 'settings') renderAdminSettingsPane();
+        }
+
+        // Helper: Convert uploaded image file to compressed DataURL so it embeds cleanly inside single HTML
+        function handleImageFileUpload(fileInput, maxWidth, quality, callback) {
+            const file = fileInput.files && fileInput.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    let w = img.width;
+                    let h = img.height;
+                    if (w > maxWidth) {
+                        h = Math.round((h * maxWidth) / w);
+                        w = maxWidth;
+                    }
+                    canvas.width = w;
+                    canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+                    const dataUrl = canvas.toDataURL('image/jpeg', quality);
+                    callback(dataUrl);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // ---------------- TAB 1: HERO, GAMBAR & CV ----------------
+        function renderAdminHeroPane() {
+            const h = siteData.hero;
+            const pane = document.getElementById('pane-hero');
+            pane.innerHTML = `
+                <!-- Gambar Profil & Background -->
+                <div class="adm-card">
+                    <div class="adm-card-header">
+                        <div class="adm-card-title"><i class="fas fa-camera"></i> Foto Profil & Gambar Background Hero</div>
+                    </div>
+                    <div class="adm-grid-2">
+                        <div>
+                            <label class="adm-label">Foto Profil Bundar</label>
+                            <div class="adm-img-box">
+                                <img src="${escapeHtml(h.profileImg)}" class="adm-img-preview circle" onerror="this.src='https://ui-avatars.com/api/?name=Ali+Haidar&background=e11d48&color=fff&size=160'">
+                                <div style="flex:1;">
+                                    <label class="adm-btn sm blue" style="margin-bottom:6px; cursor:pointer;">
+                                        <i class="fas fa-upload"></i> Upload Foto dari Perangkat
+                                        <input type="file" accept="image/*" style="display:none;" onchange="uploadProfilePhoto(this)">
+                                    </label>
+                                    <div class="adm-hint">Otomatis dikompres & disimpan langsung di dalam file HTML.</div>
+                                </div>
+                            </div>
+                            <label class="adm-label">Atau Masukkan Nama File / Link URL Foto Profil</label>
+                            <input type="text" class="adm-input" value="${escapeHtml(h.profileImg)}" onchange="siteData.hero.profileImg=this.value; saveSiteData(); renderAdminHeroPane();" placeholder="profile.png atau https://...">
+                        </div>
+
+                        <div>
+                            <label class="adm-label">Gambar Background Hero (Premiere Pro / Studio)</label>
+                            <div class="adm-img-box">
+                                <img src="${escapeHtml(h.heroBg)}" class="adm-img-preview" onerror="this.src='https://placehold.co/160x100/1e293b/ffffff?text=BG'">
+                                <div style="flex:1;">
+                                    <label class="adm-btn sm blue" style="margin-bottom:6px; cursor:pointer;">
+                                        <i class="fas fa-image"></i> Upload Background Baru
+                                        <input type="file" accept="image/*" style="display:none;" onchange="uploadHeroBgPhoto(this)">
+                                    </label>
+                                    <div class="adm-hint">Bisa upload gambar sendiri atau pakai link gambar Unsplash.</div>
+                                </div>
+                            </div>
+                            <label class="adm-label">Atau Link URL Background Hero</label>
+                            <input type="text" class="adm-input" value="${escapeHtml(h.heroBg)}" onchange="siteData.hero.heroBg=this.value; saveSiteData(); renderAdminHeroPane();">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Teks Utama Hero & Typewriter -->
+                <div class="adm-card">
+                    <div class="adm-card-header">
+                        <div class="adm-card-title"><i class="fas fa-heading"></i> Teks Sapaan, Nama, Typewriter & Quote</div>
+                    </div>
+                    <div class="adm-grid-3">
+                        <div class="adm-field">
+                            <label class="adm-label">Teks Sapaan Atas</label>
+                            <input type="text" class="adm-input" value="${escapeHtml(h.greeting)}" oninput="siteData.hero.greeting=this.value; saveSiteData(true);">
+                        </div>
+                        <div class="adm-field">
+                            <label class="adm-label">Nama Depan (Putih)</label>
+                            <input type="text" class="adm-input" value="${escapeHtml(h.firstName)}" oninput="siteData.hero.firstName=this.value; saveSiteData(true);">
+                        </div>
+                        <div class="adm-field">
+                            <label class="adm-label">Nama Highlight (Mengkilap Merah)</label>
+                            <input type="text" class="adm-input" value="${escapeHtml(h.highlightName)}" oninput="siteData.hero.highlightName=this.value; saveSiteData(true);">
+                        </div>
+                    </div>
+                    <div class="adm-grid-2">
+                        <div class="adm-field">
+                            <label class="adm-label">Awalan Kalimat Profesi</label>
+                            <input type="text" class="adm-input" value="${escapeHtml(h.rolePrefix)}" oninput="siteData.hero.rolePrefix=this.value; saveSiteData(true);">
+                        </div>
+                        <div class="adm-field">
+                            <label class="adm-label">Teks Ketik Otomatis (Typewriter) - Pisahkan dengan koma</label>
+                            <input type="text" class="adm-input" value="${escapeHtml(h.typewriterWords.join(', '))}" onchange="updateTypewriterWords(this.value)" placeholder="VIDEO EDITOR, VIDEOGRAPHER">
+                            <div class="adm-hint">Contoh: VIDEO EDITOR, VIDEOGRAPHER, 3D ARTIST</div>
+                        </div>
+                    </div>
+                    <div class="adm-field">
+                        <label class="adm-label">Kutipan / Quote Hero</label>
+                        <input type="text" class="adm-input" value="${escapeHtml(h.quote)}" oninput="siteData.hero.quote=this.value; saveSiteData(true);">
+                    </div>
+                </div>
+
+                <!-- Tombol CV / Portofolio -->
+                <div class="adm-card">
+                    <div class="adm-card-header">
+                        <div class="adm-card-title"><i class="fas fa-file-pdf"></i> Tombol CV / Portofolio (Button Utama)</div>
+                        <button class="adm-btn sm primary" onclick="addHeroButton()">
+                            <i class="fas fa-plus"></i> Tambah Tombol
+                        </button>
+                    </div>
+                    ${h.buttons.map((btn, idx) => `
+                        <div class="adm-list-item">
+                            <div class="adm-item-top">
+                                <span class="adm-pos-badge">Tombol #${idx + 1}</span>
+                                <div class="adm-order-controls">
+                                    <button class="adm-btn sm" onclick="moveArrayItem(siteData.hero.buttons, ${idx}, -1); saveSiteData(); renderAdminHeroPane();" ${idx === 0 ? 'disabled' : ''}><i class="fas fa-arrow-up"></i></button>
+                                    <button class="adm-btn sm" onclick="moveArrayItem(siteData.hero.buttons, ${idx}, 1); saveSiteData(); renderAdminHeroPane();" ${idx === h.buttons.length - 1 ? 'disabled' : ''}><i class="fas fa-arrow-down"></i></button>
+                                    ${h.buttons.length > 1 ? `<button class="adm-btn sm danger" onclick="siteData.hero.buttons.splice(${idx},1); saveSiteData(); renderAdminHeroPane();"><i class="fas fa-trash"></i> Hapus</button>` : ''}
+                                </div>
+                            </div>
+                            <div class="adm-grid-3">
+                                <div class="adm-field">
+                                    <label class="adm-label">Teks Tombol (Button Text)</label>
+                                    <input type="text" class="adm-input" value="${escapeHtml(btn.text)}" oninput="siteData.hero.buttons[${idx}].text=this.value; saveSiteData(true);">
+                                </div>
+                                <div class="adm-field">
+                                    <label class="adm-label">Link URL CV (Google Drive / PDF / Link Lain)</label>
+                                    <input type="text" class="adm-input" value="${escapeHtml(btn.url)}" oninput="siteData.hero.buttons[${idx}].url=this.value; saveSiteData(true);" placeholder="https://drive.google.com/...">
+                                </div>
+                                <div class="adm-field">
+                                    <label class="adm-label">Ikon FontAwesome & Gaya</label>
+                                    <div style="display:flex; gap:8px;">
+                                        <input type="text" class="adm-input" value="${escapeHtml(btn.icon)}" oninput="siteData.hero.buttons[${idx}].icon=this.value; saveSiteData(true);" placeholder="fas fa-file-alt">
+                                        <select class="adm-select" style="width:140px;" onchange="siteData.hero.buttons[${idx}].style=this.value; saveSiteData();">
+                                            <option value="primary" ${btn.style === 'primary' ? 'selected' : ''}>Merah Menyala</option>
+                                            <option value="secondary" ${btn.style === 'secondary' ? 'selected' : ''}>Outline Biru</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <!-- Contact Bar -->
+                <div class="adm-card">
+                    <div class="adm-card-header">
+                        <div class="adm-card-title"><i class="fas fa-address-book"></i> Baris Kontak & Sosial Media (Bisa Diatur Posisinya)</div>
+                        <button class="adm-btn sm primary" onclick="addContactItem()">
+                            <i class="fas fa-plus"></i> Tambah Kontak
+                        </button>
+                    </div>
+                    ${h.contacts.map((c, idx) => `
+                        <div class="adm-list-item">
+                            <div class="adm-item-top">
+                                <span class="adm-pos-badge"><i class="${escapeHtml(c.icon)}"></i> Posisi #${idx + 1}</span>
+                                <div class="adm-order-controls">
+                                    <button class="adm-btn sm" onclick="moveArrayItem(siteData.hero.contacts, ${idx}, -1); saveSiteData(); renderAdminHeroPane();" ${idx === 0 ? 'disabled' : ''} title="Geser Kiri/Naik"><i class="fas fa-arrow-up"></i> Geser Naik</button>
+                                    <button class="adm-btn sm" onclick="moveArrayItem(siteData.hero.contacts, ${idx}, 1); saveSiteData(); renderAdminHeroPane();" ${idx === h.contacts.length - 1 ? 'disabled' : ''} title="Geser Kanan/Turun"><i class="fas fa-arrow-down"></i> Geser Turun</button>
+                                    <button class="adm-btn sm danger" onclick="siteData.hero.contacts.splice(${idx},1); saveSiteData(); renderAdminHeroPane();"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                            <div class="adm-grid-3">
+                                <div class="adm-field">
+                                    <label class="adm-label">Teks Tampilan</label>
+                                    <input type="text" class="adm-input" value="${escapeHtml(c.text)}" oninput="siteData.hero.contacts[${idx}].text=this.value; saveSiteData(true);">
+                                </div>
+                                <div class="adm-field">
+                                    <label class="adm-label">Link Klik (Kosongkan jika hanya teks lokasi)</label>
+                                    <input type="text" class="adm-input" value="${escapeHtml(c.url)}" oninput="siteData.hero.contacts[${idx}].url=this.value; saveSiteData(true);" placeholder="https://wa.me/628... atau mailto:...">
+                                </div>
+                                <div class="adm-field">
+                                    <label class="adm-label">Pilih Ikon</label>
+                                    <select class="adm-select" onchange="siteData.hero.contacts[${idx}].icon=this.value; saveSiteData(); renderAdminHeroPane();">
+                                        <option value="fas fa-envelope" ${c.icon === 'fas fa-envelope' ? 'selected' : ''}>✉️ Email (fa-envelope)</option>
+                                        <option value="fab fa-whatsapp" ${c.icon === 'fab fa-whatsapp' ? 'selected' : ''}>💬 WhatsApp (fa-whatsapp)</option>
+                                        <option value="fab fa-instagram" ${c.icon === 'fab fa-instagram' ? 'selected' : ''}>📸 Instagram (fa-instagram)</option>
+                                        <option value="fas fa-map-marker-alt" ${c.icon === 'fas fa-map-marker-alt' ? 'selected' : ''}>📍 Lokasi (fa-map-marker-alt)</option>
+                                        <option value="fab fa-youtube" ${c.icon === 'fab fa-youtube' ? 'selected' : ''}>▶️ YouTube (fa-youtube)</option>
+                                        <option value="fab fa-tiktok" ${c.icon === 'fab fa-tiktok' ? 'selected' : ''}>🎵 TikTok (fa-tiktok)</option>
+                                        <option value="fab fa-linkedin" ${c.icon === 'fab fa-linkedin' ? 'selected' : ''}>💼 LinkedIn (fa-linkedin)</option>
+                                        <option value="fas fa-globe" ${c.icon === 'fas fa-globe' ? 'selected' : ''}>🌐 Website (fa-globe)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function uploadProfilePhoto(input) {
+            handleImageFileUpload(input, 450, 0.86, (dataUrl) => {
+                siteData.hero.profileImg = dataUrl;
+                saveSiteData();
+                renderAdminHeroPane();
+                showToast('Foto profil berhasil di-upload!');
             });
-            card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
-        });
+        }
 
-        // --- Scroll Reveal Pintar (Reset saat keluar layar 100%) ---
-        document.addEventListener("DOMContentLoaded", function() {
-            const reveals = document.querySelectorAll(".reveal");
-            const progressBars = document.querySelectorAll(".progress-bar");
+        function uploadHeroBgPhoto(input) {
+            handleImageFileUpload(input, 1600, 0.82, (dataUrl) => {
+                siteData.hero.heroBg = dataUrl;
+                saveSiteData();
+                renderAdminHeroPane();
+                showToast('Gambar background Hero berhasil diperbarui!');
+            });
+        }
 
-            const revealOnScroll = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    // Muncul jika elemen 15% masuk ke layar
-                    if (entry.isIntersecting && entry.intersectionRatio >= 0.15) {
-                        entry.target.classList.add("active");
-                        
-                        // Menjalankan Progress Bar
-                        if(entry.target.classList.contains('about-content')) {
-                            progressBars.forEach(bar => {
-                                const targetWidth = bar.getAttribute('data-width');
-                                bar.style.width = targetWidth;
-                            });
-                        }
-                    } 
-                    // Menghilang HANYA jika elemen 100% sudah hilang (0) dari layar
-                    else if (entry.intersectionRatio === 0) {
-                        entry.target.classList.remove("active");
-                        
-                        // Reset Progress Bar
-                        if(entry.target.classList.contains('about-content')) {
-                            progressBars.forEach(bar => {
-                                bar.style.width = '0%';
-                            });
-                        }
+        function updateTypewriterWords(val) {
+            const arr = val.split(',').map(s => s.trim()).filter(Boolean);
+            siteData.hero.typewriterWords = arr.length ? arr : ["VIDEO EDITOR"];
+            saveSiteData();
+        }
+
+        function addHeroButton() {
+            siteData.hero.buttons.push({
+                id: 'b_' + Date.now(),
+                text: 'Tombol Baru',
+                url: 'https://',
+                icon: 'fas fa-external-link-alt',
+                style: 'secondary',
+                newTab: true
+            });
+            saveSiteData();
+            renderAdminHeroPane();
+        }
+
+        function addContactItem() {
+            siteData.hero.contacts.push({
+                id: 'c_' + Date.now(),
+                icon: 'fab fa-instagram',
+                text: 'Kontak Baru',
+                url: 'https://'
+            });
+            saveSiteData();
+            renderAdminHeroPane();
+        }
+
+        // ---------------- TAB 2: PROYEK PORTOFOLIO & ATUR POSISI ----------------
+        function renderAdminPortfolioPane() {
+            const p = siteData.portfolio;
+            const pane = document.getElementById('pane-portfolio');
+
+            const filteredItems = selectedPortfolioCatFilter === 'ALL'
+                ? p.items
+                : p.items.filter(item => item.categoryId === selectedPortfolioCatFilter);
+
+            pane.innerHTML = `
+                <!-- Form Tambah Video Portofolio Cepat -->
+                <div class="adm-card" style="border-color: var(--primary-color);">
+                    <div class="adm-card-header">
+                        <div class="adm-card-title"><i class="fas fa-plus-circle"></i> Tambah Proyek Video Portofolio Baru</div>
+                    </div>
+                    <div class="adm-grid-3">
+                        <div class="adm-field">
+                            <label class="adm-label">Judul Video / Proyek</label>
+                            <input type="text" id="newPortTitle" class="adm-input" placeholder="Contoh: 2026-AFTER MOVIE EVENT...">
+                        </div>
+                        <div class="adm-field">
+                            <label class="adm-label">Link YouTube atau ID Video</label>
+                            <input type="text" id="newPortYt" class="adm-input" placeholder="Paste link https://youtu.be/... atau ID">
+                            <div class="adm-hint">Bisa paste link YouTube biasa, otomatis diambil ID & thumbnail-nya!</div>
+                        </div>
+                        <div class="adm-field">
+                            <label class="adm-label">Kategori & Posisi Masuk</label>
+                            <div style="display:flex; gap:8px;">
+                                <select id="newPortCat" class="adm-select">
+                                    ${p.categories.map(c => `<option value="${escapeHtml(c.id)}">${escapeHtml(c.name)}</option>`).join('')}
+                                </select>
+                                <select id="newPortPos" class="adm-select" style="width:150px;">
+                                    <option value="top">Taruh Paling Atas (#1)</option>
+                                    <option value="bottom">Taruh Paling Bawah</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="adm-btn primary" onclick="addNewPortfolioVideo()">
+                        <i class="fas fa-plus"></i> Tambahkan ke Portofolio
+                    </button>
+                </div>
+
+                <!-- Kelola Kategori & Urutan Kategori -->
+                <div class="adm-card">
+                    <div class="adm-card-header">
+                        <div class="adm-card-title"><i class="fas fa-folder-open"></i> Kategori Portofolio & Urutan Kategori</div>
+                        <div style="display:flex; gap:8px;">
+                            <input type="text" id="newCatNameInput" class="adm-input" style="width:210px; padding:6px 12px;" placeholder="Nama kategori baru...">
+                            <button class="adm-btn sm blue" onclick="addPortfolioCategory()"><i class="fas fa-plus"></i> Tambah Kategori</button>
+                        </div>
+                    </div>
+                    <div class="adm-grid-2">
+                        ${p.categories.map((cat, idx) => {
+                            const count = p.items.filter(i => i.categoryId === cat.id).length;
+                            return `
+                                <div class="adm-list-item" style="margin-bottom:0;">
+                                    <div class="adm-item-top" style="margin-bottom:8px;">
+                                        <span class="adm-pos-badge">Kategori #${idx + 1} (${count} video)</span>
+                                        <div class="adm-order-controls">
+                                            <button class="adm-btn sm" onclick="moveCategory(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} title="Geser Kategori ke Atas"><i class="fas fa-arrow-up"></i></button>
+                                            <button class="adm-btn sm" onclick="moveCategory(${idx}, 1)" ${idx === p.categories.length - 1 ? 'disabled' : ''} title="Geser Kategori ke Bawah"><i class="fas fa-arrow-down"></i></button>
+                                            ${p.categories.length > 1 ? `<button class="adm-btn sm danger" onclick="deleteCategory('${cat.id}')" title="Hapus Kategori"><i class="fas fa-trash"></i></button>` : ''}
+                                        </div>
+                                    </div>
+                                    <input type="text" class="adm-input" value="${escapeHtml(cat.name)}" onchange="renameCategory('${cat.id}', this.value)">
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+
+                <!-- Daftar Semua Proyek & Pengaturan Posisi -->
+                <div class="adm-card">
+                    <div class="adm-card-header">
+                        <div class="adm-card-title"><i class="fas fa-sort-amount-down"></i> Daftar Video Portofolio & Atur Posisi (${filteredItems.length} Video)</div>
+                        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                            <span style="font-size:0.8rem; color:#94a3b8;">Filter Kategori:</span>
+                            <select class="adm-select" style="width:auto; padding:6px 12px;" onchange="selectedPortfolioCatFilter=this.value; renderAdminPortfolioPane();">
+                                <option value="ALL" ${selectedPortfolioCatFilter === 'ALL' ? 'selected' : ''}>Semua Kategori (${p.items.length})</option>
+                                ${p.categories.map(c => `<option value="${escapeHtml(c.id)}" ${selectedPortfolioCatFilter === c.id ? 'selected' : ''}>${escapeHtml(c.name)}</option>`).join('')}
+                            </select>
+                        </div>
+                    </div>
+
+                    ${p.categories.map(cat => {
+                        if (selectedPortfolioCatFilter !== 'ALL' && selectedPortfolioCatFilter !== cat.id) return '';
+                        const catItems = p.items.filter(i => i.categoryId === cat.id);
+                        return `
+                            <div style="margin-bottom: 26px;">
+                                <h4 style="color:#60a5fa; margin-bottom:12px; font-size:0.95rem; text-transform:uppercase; letter-spacing:1px; border-left:3px solid var(--primary-color); padding-left:10px;">
+                                    Kategori: ${escapeHtml(cat.name)} (${catItems.length} Video)
+                                </h4>
+                                ${catItems.map((item, idxInCat) => {
+                                    const thumbUrl = item.customThumb && item.customThumb.trim() !== ''
+                                        ? item.customThumb
+                                        : `https://img.youtube.com/vi/${encodeURIComponent(item.videoId)}/hqdefault.jpg`;
+                                    return `
+                                        <div class="adm-list-item" id="adm-port-item-${item.id}">
+                                            <div class="adm-item-top">
+                                                <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                                                    <span class="adm-pos-badge">Posisi #${idxInCat + 1} di ${escapeHtml(cat.name)}</span>
+                                                    <div style="display:flex; align-items:center; gap:5px; font-size:0.78rem; color:#94a3b8;">
+                                                        <span>Pindah ke urutan:</span>
+                                                        <input type="number" min="1" max="${catItems.length}" value="${idxInCat + 1}" style="width:58px; background:#1e293b; color:#fff; border:1px solid #475569; border-radius:6px; padding:3px 6px; text-align:center;" onchange="jumpPortfolioPosition('${item.id}', this.value)">
+                                                    </div>
+                                                </div>
+                                                <div class="adm-order-controls">
+                                                    <button class="adm-btn sm blue" onclick="jumpPortfolioPosition('${item.id}', 1)" ${idxInCat === 0 ? 'disabled' : ''} title="Jadikan Urutan Pertama (#1)">
+                                                        <i class="fas fa-angle-double-up"></i> Ke #1
+                                                    </button>
+                                                    <button class="adm-btn sm" onclick="movePortfolioItemWithinCat('${item.id}', -1)" ${idxInCat === 0 ? 'disabled' : ''}>
+                                                        <i class="fas fa-arrow-up"></i> Geser Naik
+                                                    </button>
+                                                    <button class="adm-btn sm" onclick="movePortfolioItemWithinCat('${item.id}', 1)" ${idxInCat === catItems.length - 1 ? 'disabled' : ''}>
+                                                        <i class="fas fa-arrow-down"></i> Geser Turun
+                                                    </button>
+                                                    <button class="adm-btn sm danger" onclick="deletePortfolioItem('${item.id}')">
+                                                        <i class="fas fa-trash"></i> Hapus
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="adm-portfolio-row">
+                                                <div>
+                                                    <img src="${escapeHtml(thumbUrl)}" class="adm-yt-thumb" onerror="this.src='https://placehold.co/320x180/1e293b/ffffff?text=Preview'">
+                                                    <label class="adm-btn sm" style="width:100%; justify-content:center; margin-top:6px; cursor:pointer;">
+                                                        <i class="fas fa-image"></i> Ganti Thumbnail
+                                                        <input type="file" accept="image/*" style="display:none;" onchange="uploadCustomProjectThumb('${item.id}', this)">
+                                                    </label>
+                                                    ${item.customThumb ? `<button class="adm-btn sm danger" style="width:100%; justify-content:center; margin-top:4px;" onclick="resetProjectThumb('${item.id}')">Pakai Thumb YouTube</button>` : ''}
+                                                </div>
+                                                <div>
+                                                    <div class="adm-field">
+                                                        <label class="adm-label">Judul Proyek Video</label>
+                                                        <input type="text" class="adm-input" value="${escapeHtml(item.title)}" oninput="updateProjectField('${item.id}', 'title', this.value)">
+                                                    </div>
+                                                    <div class="adm-grid-3">
+                                                        <div class="adm-field">
+                                                            <label class="adm-label">Link / ID Video YouTube</label>
+                                                            <input type="text" class="adm-input" value="${escapeHtml(item.videoId)}" onchange="updateProjectYouTube('${item.id}', this.value)" placeholder="Paste link YouTube atau ID">
+                                                        </div>
+                                                        <div class="adm-field">
+                                                            <label class="adm-label">Kategori</label>
+                                                            <select class="adm-select" onchange="changeProjectCategory('${item.id}', this.value)">
+                                                                ${p.categories.map(c => `<option value="${escapeHtml(c.id)}" ${c.id === item.categoryId ? 'selected' : ''}>${escapeHtml(c.name)}</option>`).join('')}
+                                                            </select>
+                                                        </div>
+                                                        <div class="adm-field">
+                                                            <label class="adm-label">Label Tag Kecil</label>
+                                                            <input type="text" class="adm-input" value="${escapeHtml(item.tag)}" oninput="updateProjectField('${item.id}', 'tag', this.value)">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        function addNewPortfolioVideo() {
+            const titleEl = document.getElementById('newPortTitle');
+            const ytEl = document.getElementById('newPortYt');
+            const catEl = document.getElementById('newPortCat');
+            const posEl = document.getElementById('newPortPos');
+
+            const title = titleEl.value.trim();
+            const videoId = extractYouTubeId(ytEl.value);
+            const catId = catEl.value;
+            const catObj = siteData.portfolio.categories.find(c => c.id === catId);
+
+            if (!title || !videoId) {
+                showToast('Mohon isi Judul Proyek dan Link/ID YouTube terlebih dahulu!', true);
+                return;
+            }
+
+            const newItem = {
+                id: 'p_' + Date.now(),
+                categoryId: catId,
+                tag: catObj ? catObj.name : 'Video',
+                videoId: videoId,
+                title: title,
+                customThumb: ''
+            };
+
+            if (posEl.value === 'top') {
+                siteData.portfolio.items.unshift(newItem);
+            } else {
+                siteData.portfolio.items.push(newItem);
+            }
+
+            saveSiteData();
+            renderAdminPortfolioPane();
+            showToast('Video portofolio baru berhasil ditambahkan!');
+        }
+
+        function updateProjectField(itemId, field, value) {
+            const item = siteData.portfolio.items.find(i => i.id === itemId);
+            if (!item) return;
+            item[field] = value;
+            saveSiteData(true);
+        }
+
+        function updateProjectYouTube(itemId, rawVal) {
+            const item = siteData.portfolio.items.find(i => i.id === itemId);
+            if (!item) return;
+            item.videoId = extractYouTubeId(rawVal);
+            saveSiteData();
+            renderAdminPortfolioPane();
+        }
+
+        function changeProjectCategory(itemId, newCatId) {
+            const item = siteData.portfolio.items.find(i => i.id === itemId);
+            const cat = siteData.portfolio.categories.find(c => c.id === newCatId);
+            if (!item || !cat) return;
+            item.categoryId = newCatId;
+            item.tag = cat.name;
+            saveSiteData();
+            renderAdminPortfolioPane();
+        }
+
+        function uploadCustomProjectThumb(itemId, input) {
+            handleImageFileUpload(input, 720, 0.84, (dataUrl) => {
+                const item = siteData.portfolio.items.find(i => i.id === itemId);
+                if (item) {
+                    item.customThumb = dataUrl;
+                    saveSiteData();
+                    renderAdminPortfolioPane();
+                }
+            });
+        }
+
+        function resetProjectThumb(itemId) {
+            const item = siteData.portfolio.items.find(i => i.id === itemId);
+            if (item) {
+                item.customThumb = '';
+                saveSiteData();
+                renderAdminPortfolioPane();
+            }
+        }
+
+        function movePortfolioItemWithinCat(itemId, direction) {
+            const items = siteData.portfolio.items;
+            const currentIndex = items.findIndex(i => i.id === itemId);
+            if (currentIndex === -1) return;
+            const catId = items[currentIndex].categoryId;
+
+            // Cari indeks item sebelumnya/sesudahnya yang memiliki kategori sama
+            let targetIndex = -1;
+            if (direction < 0) {
+                for (let i = currentIndex - 1; i >= 0; i--) {
+                    if (items[i].categoryId === catId) { targetIndex = i; break; }
+                }
+            } else {
+                for (let i = currentIndex + 1; i < items.length; i++) {
+                    if (items[i].categoryId === catId) { targetIndex = i; break; }
+                }
+            }
+
+            if (targetIndex !== -1) {
+                const temp = items[currentIndex];
+                items[currentIndex] = items[targetIndex];
+                items[targetIndex] = temp;
+                saveSiteData();
+                if (document.getElementById('adminOverlay').classList.contains('open')) {
+                    renderAdminPortfolioPane();
+                }
+            }
+        }
+
+        function jumpPortfolioPosition(itemId, newOneBasedPos) {
+            const items = siteData.portfolio.items;
+            const targetItem = items.find(i => i.id === itemId);
+            if (!targetItem) return;
+            const catId = targetItem.categoryId;
+
+            const catItems = items.filter(i => i.categoryId === catId);
+            const oldCatIdx = catItems.findIndex(i => i.id === itemId);
+            let desiredIdx = parseInt(newOneBasedPos, 10) - 1;
+            if (isNaN(desiredIdx)) return;
+            desiredIdx = Math.max(0, Math.min(catItems.length - 1, desiredIdx));
+            if (oldCatIdx === desiredIdx) return;
+
+            catItems.splice(oldCatIdx, 1);
+            catItems.splice(desiredIdx, 0, targetItem);
+
+            // Gabungkan kembali urutan kategori tersebut ke dalam items global
+            let catPointer = 0;
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].categoryId === catId) {
+                    items[i] = catItems[catPointer++];
+                }
+            }
+            saveSiteData();
+            renderAdminPortfolioPane();
+        }
+
+        function deletePortfolioItem(itemId) {
+            siteData.portfolio.items = siteData.portfolio.items.filter(i => i.id !== itemId);
+            saveSiteData();
+            if (document.getElementById('adminOverlay').classList.contains('open')) {
+                renderAdminPortfolioPane();
+            }
+        }
+
+        function openAdminPanelAndFocusProject(itemId) {
+            openAdminPanel('portfolio');
+            setTimeout(() => {
+                const el = document.getElementById(`adm-port-item-${itemId}`);
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    el.style.borderColor = '#e11d48';
+                }
+            }, 150);
+        }
+
+        function addPortfolioCategory() {
+            const inp = document.getElementById('newCatNameInput');
+            const name = inp.value.trim();
+            if (!name) {
+                showToast('Masukkan nama kategori baru!', true);
+                return;
+            }
+            siteData.portfolio.categories.push({
+                id: 'cat_' + Date.now(),
+                name: name
+            });
+            inp.value = '';
+            saveSiteData();
+            renderAdminPortfolioPane();
+        }
+
+        function renameCategory(catId, newName) {
+            const cat = siteData.portfolio.categories.find(c => c.id === catId);
+            if (!cat) return;
+            cat.name = newName;
+            saveSiteData();
+            renderAdminPortfolioPane();
+        }
+
+        function moveCategory(idx, dir) {
+            moveArrayItem(siteData.portfolio.categories, idx, dir);
+            saveSiteData();
+            if (document.getElementById('adminOverlay').classList.contains('open')) {
+                renderAdminPortfolioPane();
+            }
+        }
+
+        function deleteCategory(catId) {
+            if (siteData.portfolio.categories.length <= 1) return;
+            const fallbackCat = siteData.portfolio.categories.find(c => c.id !== catId);
+            siteData.portfolio.items.forEach(item => {
+                if (item.categoryId === catId && fallbackCat) {
+                    item.categoryId = fallbackCat.id;
+                }
+            });
+            siteData.portfolio.categories = siteData.portfolio.categories.filter(c => c.id !== catId);
+            saveSiteData();
+            renderAdminPortfolioPane();
+        }
+
+        // ---------------- TAB 3: TENTANG SAYA & SKILL ----------------
+        function renderAdminAboutPane() {
+            const ab = siteData.about;
+            const pane = document.getElementById('pane-about');
+            pane.innerHTML = `
+                <div class="adm-card">
+                    <div class="adm-card-header">
+                        <div class="adm-card-title"><i class="fas fa-user"></i> Deskripsi Tentang Saya & Software Tags</div>
+                        <button class="adm-btn sm primary" onclick="siteData.about.paragraphs.push('Paragraf baru...'); saveSiteData(); renderAdminAboutPane();">
+                            <i class="fas fa-plus"></i> Tambah Paragraf
+                        </button>
+                    </div>
+                    <div class="adm-field">
+                        <label class="adm-label">Judul Seksi</label>
+                        <input type="text" class="adm-input" value="${escapeHtml(ab.sectionTitle)}" oninput="siteData.about.sectionTitle=this.value; saveSiteData(true);">
+                    </div>
+                    ${ab.paragraphs.map((p, idx) => `
+                        <div class="adm-field">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                                <label class="adm-label">Paragraf #${idx + 1}</label>
+                                ${ab.paragraphs.length > 1 ? `<button class="adm-btn sm danger" onclick="siteData.about.paragraphs.splice(${idx},1); saveSiteData(); renderAdminAboutPane();"><i class="fas fa-trash"></i> Hapus</button>` : ''}
+                            </div>
+                            <textarea class="adm-textarea" oninput="siteData.about.paragraphs[${idx}]=this.value; saveSiteData(true);">${escapeHtml(p)}</textarea>
+                        </div>
+                    `).join('')}
+
+                    <div class="adm-field" style="margin-top:16px;">
+                        <label class="adm-label">Tech Tags / Software yang Dikuasai (Pisahkan dengan koma)</label>
+                        <input type="text" class="adm-input" value="${escapeHtml(ab.techTags.join(', '))}" onchange="siteData.about.techTags=this.value.split(',').map(s=>s.trim()).filter(Boolean); saveSiteData(); renderAdminAboutPane();">
+                        <div class="adm-hint">Contoh: Premiere Pro, DaVinci Resolve, After Effects, vMix, OBS, Blender (3D), Drone Piloting</div>
+                    </div>
+                </div>
+
+                <div class="adm-card">
+                    <div class="adm-card-header">
+                        <div class="adm-card-title"><i class="fas fa-chart-bar"></i> Persentase Keahlian (Skill Bars)</div>
+                        <button class="adm-btn sm primary" onclick="siteData.about.skills.push({id:'s_'+Date.now(), name:'Skill Baru', percent:85}); saveSiteData(); renderAdminAboutPane();">
+                            <i class="fas fa-plus"></i> Tambah Skill
+                        </button>
+                    </div>
+                    ${ab.skills.map((s, idx) => `
+                        <div class="adm-list-item">
+                            <div class="adm-item-top">
+                                <span class="adm-pos-badge">Skill #${idx + 1}</span>
+                                <div class="adm-order-controls">
+                                    <button class="adm-btn sm" onclick="moveArrayItem(siteData.about.skills, ${idx}, -1); saveSiteData(); renderAdminAboutPane();" ${idx === 0 ? 'disabled' : ''}><i class="fas fa-arrow-up"></i></button>
+                                    <button class="adm-btn sm" onclick="moveArrayItem(siteData.about.skills, ${idx}, 1); saveSiteData(); renderAdminAboutPane();" ${idx === ab.skills.length - 1 ? 'disabled' : ''}><i class="fas fa-arrow-down"></i></button>
+                                    <button class="adm-btn sm danger" onclick="siteData.about.skills.splice(${idx},1); saveSiteData(); renderAdminAboutPane();"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                            <div class="adm-grid-2">
+                                <div class="adm-field">
+                                    <label class="adm-label">Nama Keahlian</label>
+                                    <input type="text" class="adm-input" value="${escapeHtml(s.name)}" oninput="siteData.about.skills[${idx}].name=this.value; saveSiteData(true);">
+                                </div>
+                                <div class="adm-field">
+                                    <label class="adm-label">Persentase: <strong id="skillPctLbl_${idx}">${s.percent}%</strong></label>
+                                    <input type="range" min="10" max="100" value="${s.percent}" style="width:100%; accent-color:var(--primary-color); margin-top:10px;" oninput="siteData.about.skills[${idx}].percent=Number(this.value); document.getElementById('skillPctLbl_${idx}').textContent=this.value+'%'; saveSiteData(true);">
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // ---------------- TAB 4: PENGALAMAN & PENDIDIKAN ----------------
+        function renderAdminExperiencePane() {
+            const exp = siteData.experience;
+            const pane = document.getElementById('pane-experience');
+
+            const renderColEditor = (colArray, colKey, colTitle) => `
+                <div class="adm-card">
+                    <div class="adm-card-header">
+                        <div class="adm-card-title"><i class="fas fa-columns"></i> ${colTitle}</div>
+                        <button class="adm-btn sm primary" onclick="addExperienceCard('${colKey}')">
+                            <i class="fas fa-plus"></i> Tambah Kartu
+                        </button>
+                    </div>
+                    ${colArray.map((item, idx) => `
+                        <div class="adm-list-item">
+                            <div class="adm-item-top">
+                                <span class="adm-pos-badge">Urutan #${idx + 1}</span>
+                                <div class="adm-order-controls">
+                                    <button class="adm-btn sm" onclick="moveExperienceItem('${colKey}', ${idx}, -1)" ${idx === 0 ? 'disabled' : ''} title="Geser Naik"><i class="fas fa-arrow-up"></i></button>
+                                    <button class="adm-btn sm" onclick="moveExperienceItem('${colKey}', ${idx}, 1)" ${idx === colArray.length - 1 ? 'disabled' : ''} title="Geser Turun"><i class="fas fa-arrow-down"></i></button>
+                                    <button class="adm-btn sm blue" onclick="switchExperienceColumn('${colKey}', ${idx})" title="Pindahkan ke Kolom Sebelah"><i class="fas fa-exchange-alt"></i> Pindah Kolom</button>
+                                    <button class="adm-btn sm danger" onclick="siteData.experience['${colKey}'].splice(${idx},1); saveSiteData(); renderAdminExperiencePane();"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                            <div class="adm-grid-3">
+                                <div class="adm-field">
+                                    <label class="adm-label">Posisi / Jurusan (Judul Merah)</label>
+                                    <input type="text" class="adm-input" value="${escapeHtml(item.role)}" oninput="siteData.experience['${colKey}'][${idx}].role=this.value; saveSiteData(true);">
+                                </div>
+                                <div class="adm-field">
+                                    <label class="adm-label">Nama Tempat / Instansi (Opsional)</label>
+                                    <input type="text" class="adm-input" value="${escapeHtml(item.company)}" oninput="siteData.experience['${colKey}'][${idx}].company=this.value; saveSiteData(true);">
+                                </div>
+                                <div class="adm-field">
+                                    <label class="adm-label">Tahun / Periode</label>
+                                    <input type="text" class="adm-input" value="${escapeHtml(item.date)}" oninput="siteData.experience['${colKey}'][${idx}].date=this.value; saveSiteData(true);">
+                                </div>
+                            </div>
+                            <div class="adm-field">
+                                <label class="adm-label">Poin-Poin Kegiatan (1 baris = 1 poin bullet)</label>
+                                <textarea class="adm-textarea" onchange="siteData.experience['${colKey}'][${idx}].bullets=this.value.split('\\n').map(s=>s.trim()).filter(Boolean); saveSiteData();">${escapeHtml((item.bullets || []).join('\n'))}</textarea>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            pane.innerHTML = `
+                <div class="adm-card">
+                    <div class="adm-field">
+                        <label class="adm-label">Judul Seksi Pengalaman & Pendidikan</label>
+                        <input type="text" class="adm-input" value="${escapeHtml(exp.sectionTitle)}" oninput="siteData.experience.sectionTitle=this.value; saveSiteData(true);">
+                    </div>
+                </div>
+                ${renderColEditor(exp.leftColumn, 'leftColumn', 'Kolom Kiri (Pengalaman Kerja & Freelance)')}
+                ${renderColEditor(exp.rightColumn, 'rightColumn', 'Kolom Kanan (Pendidikan & Magang)')}
+            `;
+        }
+
+        function addExperienceCard(colKey) {
+            siteData.experience[colKey].unshift({
+                id: 'exp_' + Date.now(),
+                role: 'Posisi Baru',
+                company: 'Nama Instansi / Klien',
+                date: '2026 - Sekarang',
+                bullets: ['Deskripsi pekerjaan atau pencapaian pertama.']
+            });
+            saveSiteData();
+            renderAdminExperiencePane();
+        }
+
+        function moveExperienceItem(colKey, idx, dir) {
+            moveArrayItem(siteData.experience[colKey], idx, dir);
+            saveSiteData();
+            if (document.getElementById('adminOverlay').classList.contains('open')) {
+                renderAdminExperiencePane();
+            }
+        }
+
+        function switchExperienceColumn(fromColKey, idx) {
+            const toColKey = fromColKey === 'leftColumn' ? 'rightColumn' : 'leftColumn';
+            const [removed] = siteData.experience[fromColKey].splice(idx, 1);
+            if (removed) {
+                siteData.experience[toColKey].push(removed);
+                saveSiteData();
+                if (document.getElementById('adminOverlay').classList.contains('open')) {
+                    renderAdminExperiencePane();
+                }
+            }
+        }
+
+        // ---------------- TAB 5: PENGHARGAAN ----------------
+        function renderAdminAwardsPane() {
+            const aw = siteData.awards;
+            const pane = document.getElementById('pane-awards');
+            pane.innerHTML = `
+                <div class="adm-card">
+                    <div class="adm-card-header">
+                        <div class="adm-card-title"><i class="fas fa-trophy"></i> Kelola Daftar Penghargaan & Posisinya</div>
+                        <button class="adm-btn sm primary" onclick="addAwardItem()">
+                            <i class="fas fa-plus"></i> Tambah Penghargaan Baru
+                        </button>
+                    </div>
+                    <div class="adm-field">
+                        <label class="adm-label">Judul Seksi Penghargaan</label>
+                        <input type="text" class="adm-input" value="${escapeHtml(aw.sectionTitle)}" oninput="siteData.awards.sectionTitle=this.value; saveSiteData(true);">
+                    </div>
+
+                    ${aw.items.map((item, idx) => `
+                        <div class="adm-list-item">
+                            <div class="adm-item-top">
+                                <span class="adm-pos-badge"><i class="${escapeHtml(item.icon)}"></i> Posisi #${idx + 1}</span>
+                                <div class="adm-order-controls">
+                                    <button class="adm-btn sm" onclick="moveAwardItem(${idx}, -1)" ${idx === 0 ? 'disabled' : ''}><i class="fas fa-arrow-up"></i> Geser Naik</button>
+                                    <button class="adm-btn sm" onclick="moveAwardItem(${idx}, 1)" ${idx === aw.items.length - 1 ? 'disabled' : ''}><i class="fas fa-arrow-down"></i> Geser Turun</button>
+                                    <button class="adm-btn sm danger" onclick="siteData.awards.items.splice(${idx},1); saveSiteData(); renderAdminAwardsPane();"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                            <div class="adm-grid-3">
+                                <div class="adm-field">
+                                    <label class="adm-label">Pilih Ikon</label>
+                                    <select class="adm-select" onchange="siteData.awards.items[${idx}].icon=this.value; saveSiteData(); renderAdminAwardsPane();">
+                                        <option value="fas fa-trophy" ${item.icon === 'fas fa-trophy' ? 'selected' : ''}>🏆 Piala (fa-trophy)</option>
+                                        <option value="fas fa-award" ${item.icon === 'fas fa-award' ? 'selected' : ''}>🎖️ Award (fa-award)</option>
+                                        <option value="fas fa-medal" ${item.icon === 'fas fa-medal' ? 'selected' : ''}>🥇 Medali (fa-medal)</option>
+                                        <option value="fas fa-film" ${item.icon === 'fas fa-film' ? 'selected' : ''}>🎬 Film (fa-film)</option>
+                                        <option value="fas fa-star" ${item.icon === 'fas fa-star' ? 'selected' : ''}>⭐ Bintang (fa-star)</option>
+                                        <option value="fas fa-crown" ${item.icon === 'fas fa-crown' ? 'selected' : ''}>👑 Mahkota (fa-crown)</option>
+                                    </select>
+                                </div>
+                                <div class="adm-field">
+                                    <label class="adm-label">Judul Juara / Penghargaan</label>
+                                    <input type="text" class="adm-input" value="${escapeHtml(item.title)}" oninput="siteData.awards.items[${idx}].title=this.value; saveSiteData(true);">
+                                </div>
+                                <div class="adm-field">
+                                    <label class="adm-label">Keterangan / Tahun / Penyelenggara</label>
+                                    <input type="text" class="adm-input" value="${escapeHtml(item.desc)}" oninput="siteData.awards.items[${idx}].desc=this.value; saveSiteData(true);">
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function addAwardItem() {
+            siteData.awards.items.unshift({
+                id: 'a_' + Date.now(),
+                icon: 'fas fa-trophy',
+                title: 'Juara 1 Lomba Video Baru',
+                desc: 'Nama Karya / Penyelenggara (2026)'
+            });
+            saveSiteData();
+            renderAdminAwardsPane();
+        }
+
+        function moveAwardItem(idx, dir) {
+            moveArrayItem(siteData.awards.items, idx, dir);
+            saveSiteData();
+            if (document.getElementById('adminOverlay').classList.contains('open')) {
+                renderAdminAwardsPane();
+            }
+        }
+
+        // ---------------- TAB 6: TEMA, SIMPAN PERMANEN & GITHUB ----------------
+        function renderAdminSettingsPane() {
+            const t = siteData.theme;
+            const m = siteData.meta;
+            const ghConfig = JSON.parse(localStorage.getItem('ali_gh_config') || '{}');
+            const pane = document.getElementById('pane-settings');
+            pane.innerHTML = `
+                <!-- Simpan Permanen (Download index.html) -->
+                <div class="adm-card" style="border-color:#10b981; background:linear-gradient(135deg, #1e293b, #0f172a);">
+                    <div class="adm-card-header">
+                        <div class="adm-card-title"><i class="fas fa-file-code" style="color:#10b981;"></i> Simpan Permanen jadi File index.html Siap Pakai</div>
+                    </div>
+                    <p style="font-size:0.88rem; color:#cbd5e1; margin-bottom:14px;">
+                        Setiap kali kamu mengedit, perubahan langsung tersimpan di browser ini. Agar perubahanmu <strong>tersimpan permanen di dalam kode file <code>index.html</code></strong> (untuk di-upload ke GitHub Pages / hosting), klik tombol hijau di bawah:
+                    </p>
+                    <div class="adm-field" style="margin-bottom:16px;">
+                        <label style="display:flex; align-items:center; gap:10px; cursor:pointer; font-size:0.88rem; color:#f8fafc;">
+                            <input type="checkbox" ${m.showAdminButton ? 'checked' : ''} onchange="siteData.meta.showAdminButton=this.checked; saveSiteData();" style="width:18px; height:18px; accent-color:var(--primary-color);">
+                            <span>Tampilkan tombol mengambang <strong>"Edit Website (Admin)"</strong> di pojok kiri bawah</span>
+                        </label>
+                        <div class="adm-hint" style="margin-left:28px;">
+                            💡 Tips: Jika centang ini dimatikan saat mau di-upload ke publik, pengunjung tidak akan melihat tombol Admin. Kamu tetap bisa membuka Admin kapan saja dengan <strong>klik 3x pada teks Copyright di paling bawah (Footer)</strong> atau menekan <strong>Ctrl + Shift + A</strong>!
+                        </div>
+                    </div>
+                    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                        <button class="adm-btn success" onclick="exportUpdatedHtmlFile()">
+                            <i class="fas fa-download"></i> Download File index.html Terbaru
+                        </button>
+                        <button class="adm-btn" onclick="exportJsonBackup()">
+                            <i class="fas fa-file-export"></i> Backup Data (.json)
+                        </button>
+                        <label class="adm-btn" style="cursor:pointer;">
+                            <i class="fas fa-file-import"></i> Restore Data (.json)
+                            <input type="file" accept=".json" style="display:none;" onchange="importJsonBackup(this)">
+                        </label>
+                        <button class="adm-btn danger" onclick="resetToOriginalDefault()">
+                            <i class="fas fa-undo"></i> Reset ke Data Awal
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Direct Push ke GitHub Pages (Opsional) -->
+                <div class="adm-card">
+                    <div class="adm-card-header">
+                        <div class="adm-card-title"><i class="fab fa-github"></i> Update Otomatis ke GitHub Pages (Opsional)</div>
+                    </div>
+                    <p style="font-size:0.82rem; color:#94a3b8; margin-bottom:14px;">
+                        Jika portofolio kamu di-online-kan lewat GitHub, isi data repositori di bawah sekali saja. Selanjutnya kamu cukup klik <strong>"Update Langsung ke GitHub"</strong> tanpa perlu upload file manual.
+                    </p>
+                    <div class="adm-grid-3">
+                        <div class="adm-field">
+                            <label class="adm-label">Username GitHub</label>
+                            <input type="text" id="ghOwner" class="adm-input" value="${escapeHtml(ghConfig.owner || '')}" placeholder="contoh: alihaidar185">
+                        </div>
+                        <div class="adm-field">
+                            <label class="adm-label">Nama Repository</label>
+                            <input type="text" id="ghRepo" class="adm-input" value="${escapeHtml(ghConfig.repo || '')}" placeholder="contoh: portofolio">
+                        </div>
+                        <div class="adm-field">
+                            <label class="adm-label">Branch & Nama File</label>
+                            <div style="display:flex; gap:6px;">
+                                <input type="text" id="ghBranch" class="adm-input" value="${escapeHtml(ghConfig.branch || 'main')}" placeholder="main">
+                                <input type="text" id="ghPath" class="adm-input" value="${escapeHtml(ghConfig.path || 'index.html')}" placeholder="index.html">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="adm-field">
+                        <label class="adm-label">GitHub Personal Access Token (Classic / Fine-grained dengan izin Contents: Read & Write)</label>
+                        <input type="password" id="ghToken" class="adm-input" value="${escapeHtml(ghConfig.token || '')}" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+                    </div>
+                    <button class="adm-btn blue" id="ghPushBtn" onclick="pushDirectlyToGitHub()">
+                        <i class="fab fa-github"></i> Update Langsung ke GitHub Sekarang
+                    </button>
+                </div>
+
+                <!-- Warna Tema & Judul Halaman -->
+                <div class="adm-card">
+                    <div class="adm-card-header">
+                        <div class="adm-card-title"><i class="fas fa-palette"></i> Warna Tema & Footer</div>
+                    </div>
+                    <div class="adm-grid-2">
+                        <div class="adm-field">
+                            <label class="adm-label">Judul Tab Browser (Title)</label>
+                            <input type="text" class="adm-input" value="${escapeHtml(m.pageTitle)}" oninput="siteData.meta.pageTitle=this.value; saveSiteData(true);">
+                        </div>
+                        <div class="adm-field">
+                            <label class="adm-label">Teks Copyright Footer</label>
+                            <input type="text" class="adm-input" value="${escapeHtml(m.footerText)}" oninput="siteData.meta.footerText=this.value; saveSiteData(true);">
+                        </div>
+                    </div>
+                    <div class="adm-grid-2">
+                        <div class="adm-field">
+                            <label class="adm-label">Warna Utama (Primary Accent - Default #e11d48)</label>
+                            <input type="color" class="adm-input" style="height:44px; padding:4px;" value="${escapeHtml(t.primaryColor)}" oninput="siteData.theme.primaryColor=this.value; saveSiteData(true);">
+                        </div>
+                        <div class="adm-field">
+                            <label class="adm-label">Warna Kedua (Secondary Accent - Default #3b82f6)</label>
+                            <input type="color" class="adm-input" style="height:44px; padding:4px;" value="${escapeHtml(t.secondaryColor)}" oninput="siteData.theme.secondaryColor=this.value; saveSiteData(true);">
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function moveArrayItem(arr, index, delta) {
+            const newIndex = index + delta;
+            if (newIndex < 0 || newIndex >= arr.length) return;
+            const temp = arr[index];
+            arr[index] = arr[newIndex];
+            arr[newIndex] = temp;
+        }
+
+        // === GENERATE FULL UPDATED HTML SOURCE ===
+        function buildUpdatedHtmlString() {
+            // Clone current document and inject updated DEFAULT_PORTFOLIO_DATA
+            const clone = document.documentElement.cloneNode(true);
+
+            // Clean runtime classes/states on body & modals
+            const cloneBody = clone.querySelector('body');
+            cloneBody.classList.remove('admin-open', 'quick-edit-active');
+            cloneBody.style.position = '';
+            cloneBody.style.top = '';
+            cloneBody.style.width = '';
+
+            const cloneAdminOverlay = clone.querySelector('#adminOverlay');
+            if (cloneAdminOverlay) cloneAdminOverlay.classList.remove('open');
+
+            const cloneVideoModal = clone.querySelector('#videoModal');
+            if (cloneVideoModal) cloneVideoModal.classList.remove('active');
+
+            const cloneToastWrap = clone.querySelector('#toastWrap');
+            if (cloneToastWrap) cloneToastWrap.innerHTML = '';
+
+            // Update embedded JSON inside #portfolioDataScript
+            const dataScript = clone.querySelector('#portfolioDataScript');
+            if (dataScript) {
+                dataScript.textContent = `\n        // === DATA UTAMA PORTOFOLIO (Otomatis diperbarui saat di-export) ===\n        const DEFAULT_PORTFOLIO_DATA = ${JSON.stringify(siteData, null, 4)};\n    `;
+            }
+
+            return '<!DOCTYPE html>\n' + clone.outerHTML;
+        }
+
+        function exportUpdatedHtmlFile() {
+            const htmlContent = buildUpdatedHtmlString();
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'index.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('File index.html terbaru berhasil di-download!');
+        }
+
+        function exportJsonBackup() {
+            const blob = new Blob([JSON.stringify(siteData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'backup-portofolio-ali-haidar.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('Backup JSON berhasil di-download!');
+        }
+
+        function importJsonBackup(input) {
+            const file = input.files && input.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const parsed = JSON.parse(e.target.result);
+                    if (parsed && parsed.hero && parsed.portfolio) {
+                        siteData = parsed;
+                        saveSiteData();
+                        renderAdminSettingsPane();
+                        showToast('Data backup berhasil dipulihkan!');
+                    } else {
+                        showToast('Format file JSON tidak sesuai.', true);
+                    }
+                } catch (err) {
+                    showToast('Gagal membaca file JSON.', true);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function resetToOriginalDefault() {
+            siteData = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA));
+            localStorage.removeItem(STORAGE_KEY);
+            renderFullPortfolio();
+            renderAdminSettingsPane();
+            showToast('Data dikembalikan ke bawaan awal.');
+        }
+
+        async function pushDirectlyToGitHub() {
+            const owner = document.getElementById('ghOwner').value.trim();
+            const repo = document.getElementById('ghRepo').value.trim();
+            const branch = document.getElementById('ghBranch').value.trim() || 'main';
+            const path = document.getElementById('ghPath').value.trim() || 'index.html';
+            const token = document.getElementById('ghToken').value.trim();
+
+            if (!owner || !repo || !token) {
+                showToast('Lengkapi Username, Nama Repo, dan Token GitHub terlebih dahulu!', true);
+                return;
+            }
+
+            localStorage.setItem('ali_gh_config', JSON.stringify({ owner, repo, branch, path, token }));
+            const btn = document.getElementById('ghPushBtn');
+            const originalHtml = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim ke GitHub...';
+
+            try {
+                const apiUrl = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${path}`;
+                let sha = undefined;
+
+                // 1. Cek SHA file lama jika sudah ada
+                const getRes = await fetch(`${apiUrl}?ref=${encodeURIComponent(branch)}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
                     }
                 });
-            }, {
-                // Pantau 2 kondisi: pas benar-benar hilang (0), dan pas muncul dikit (0.15)
-                threshold: [0, 0.15] 
-            });
+                if (getRes.ok) {
+                    const fileInfo = await getRes.json();
+                    sha = fileInfo.sha;
+                }
 
-            reveals.forEach(reveal => { revealOnScroll.observe(reveal); });
+                // 2. Encode UTF-8 ke Base64
+                const htmlStr = buildUpdatedHtmlString();
+                const utf8Bytes = new TextEncoder().encode(htmlStr);
+                let binary = '';
+                const chunkSize = 0x8000;
+                for (let i = 0; i < utf8Bytes.length; i += chunkSize) {
+                    binary += String.fromCharCode.apply(null, utf8Bytes.subarray(i, i + chunkSize));
+                }
+                const contentBase64 = btoa(binary);
+
+                // 3. PUT ke GitHub
+                const putRes = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Update portofolio via Admin Studio CMS',
+                        content: contentBase64,
+                        branch: branch,
+                        ...(sha ? { sha } : {})
+                    })
+                });
+
+                if (!putRes.ok) {
+                    const errData = await putRes.json();
+                    throw new Error(errData.message || 'Gagal push ke GitHub');
+                }
+
+                showToast('Berhasil di-push ke GitHub! Website live akan terupdate dalam ~1 menit.');
+            } catch (err) {
+                showToast('Error GitHub: ' + err.message, true);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
+            }
+        }
+
+        // === INITIALIZATION ===
+        document.addEventListener("DOMContentLoaded", function() {
+            renderFullPortfolio();
+            setTimeout(typeEffect, 1000);
+            if (window.location.hash === '#admin') {
+                openAdminPanel('hero');
+            }
         });
     </script>
 
