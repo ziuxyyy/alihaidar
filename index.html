@@ -202,6 +202,7 @@
         }
         @keyframes animateRipple { to { transform: translate(-50%, -50%) scale(3); opacity: 0; } }
 
+        /* SCROLL REVEAL */
         .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
@@ -441,7 +442,7 @@
         .admin-overlay.active { display: flex; }
 
         .admin-panel {
-            width: 100%; max-width: 1220px; height: 92vh;
+            width: 100%; max-width: 1240px; height: 92vh;
             background: #0f172a; border: 1px solid #334155; border-radius: 18px;
             display: flex; flex-direction: column; overflow: hidden;
             box-shadow: 0 25px 70px rgba(0,0,0,0.85);
@@ -449,40 +450,51 @@
 
         .admin-top-bar {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 14px 22px; background: #1e293b; border-bottom: 1px solid #334155;
-            flex-wrap: wrap; gap: 12px;
+            padding: 14px 20px; background: #1e293b; border-bottom: 1px solid #334155;
+            flex-wrap: wrap; gap: 10px;
         }
         .admin-brand { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .admin-brand i { font-size: 1.35rem; color: var(--primary-color); }
-        .admin-brand h2 { font-size: 1.05rem; margin: 0; }
+        .admin-brand h2 { font-size: 1.02rem; margin: 0; }
         .draft-status-pill {
-            font-size: 0.74rem; color: #fbbf24; background: rgba(245, 158, 11, 0.15);
+            font-size: 0.73rem; color: #fbbf24; background: rgba(245, 158, 11, 0.15);
             padding: 3px 10px; border-radius: 20px; border: 1px solid rgba(245, 158, 11, 0.35);
         }
         .draft-status-pill.synced {
             color: #34d399; background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.35);
         }
 
-        .admin-top-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .admin-top-actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 
         .adm-btn {
-            padding: 8px 13px; border-radius: 8px; border: 1px solid #475569;
-            background: #0f172a; color: #f8fafc; font-size: 0.81rem; font-weight: 600;
+            padding: 7px 12px; border-radius: 8px; border: 1px solid #475569;
+            background: #0f172a; color: #f8fafc; font-size: 0.8rem; font-weight: 600;
             cursor: pointer !important; display: inline-flex; align-items: center; gap: 6px;
             transition: all 0.2s ease; text-decoration: none;
         }
-        .adm-btn:hover { background: #334155; }
+        .adm-btn:hover:not(:disabled) { background: #334155; }
+        .adm-btn:disabled { opacity: 0.4; cursor: not-allowed !important; }
         .adm-btn.primary { background: var(--primary-color); border-color: var(--primary-color); color: #fff; }
-        .adm-btn.primary:hover { background: #be123c; }
+        .adm-btn.primary:hover:not(:disabled) { background: #be123c; }
         .adm-btn.amber { background: #d97706; border-color: #f59e0b; color: #fff; }
-        .adm-btn.amber:hover { background: #b45309; }
+        .adm-btn.amber:hover:not(:disabled) { background: #b45309; }
         .adm-btn.success { background: #059669; border-color: #10b981; color: #fff; }
-        .adm-btn.success:hover { background: #047857; }
+        .adm-btn.success:hover:not(:disabled) { background: #047857; }
         .adm-btn.blue { background: #2563eb; border-color: #3b82f6; color: #fff; }
-        .adm-btn.blue:hover { background: #1d4ed8; }
+        .adm-btn.blue:hover:not(:disabled) { background: #1d4ed8; }
         .adm-btn.danger { background: rgba(220, 38, 38, 0.18); border-color: #ef4444; color: #fca5a5; }
-        .adm-btn.danger:hover { background: #dc2626; color: #fff; }
+        .adm-btn.danger:hover:not(:disabled) { background: #dc2626; color: #fff; }
         .adm-btn.sm { padding: 5px 10px; font-size: 0.75rem; border-radius: 6px; }
+
+        .undo-redo-group {
+            display: inline-flex; background: #0f172a; border: 1px solid #475569; border-radius: 8px; overflow: hidden;
+        }
+        .undo-redo-group .adm-btn {
+            border: none; border-radius: 0; padding: 7px 10px;
+        }
+        .undo-redo-group .adm-btn:first-child {
+            border-right: 1px solid #334155;
+        }
 
         .admin-body {
             display: grid; grid-template-columns: 235px 1fr; flex: 1; overflow: hidden;
@@ -610,11 +622,11 @@
 <body>
 
     <!-- Kursor Kustom Area -->
-    <div class="cursor-dot" style="left: 476px; top: 107px;"></div>
-    <div class="cursor-ring" style="left: 476px; top: 107px; width: 55px; height: 55px; background-color: rgba(225, 29, 72, 0.15);"></div>
+    <div class="cursor-dot" style="left: 624px; top: 108px;"></div>
+    <div class="cursor-ring" style="left: 624px; top: 108px; width: 55px; height: 55px; background-color: rgba(225, 29, 72, 0.15);"></div>
     
     <!-- Progress Bar Scroll Area -->
-    <div class="scroll-progress" id="scrollProgress" style="width: 99.9925%;"></div>
+    <div class="scroll-progress" id="scrollProgress" style="width: 97.0257%;"></div>
 
     <!-- Back to Top Button -->
     <button onclick="scrollToTop()" id="backToTopBtn" title="Kembali ke atas" class="magnetic" data-cursor-bound="1" data-magnetic-bound="1">
@@ -658,8 +670,8 @@
         <button class="admin-fab github-fab" onclick="saveAndPublishToGitHub()" title="Otomatis Save &amp; Publish ke alihaidar.site (GitHub)" data-cursor-bound="1">
             <i class="fas fa-cloud-upload-alt"></i> Publish &amp; Auto-Save
         </button>
-        <button class="admin-fab secondary-fab" onclick="logoutAdmin()" title="Keluar &amp; Kunci kembali mode Admin" data-cursor-bound="1">
-            <i class="fas fa-sign-out-alt"></i> Keluar Admin
+        <button class="admin-fab secondary-fab" onclick="logoutAdmin()" title="Kunci kembali mode Admin (Tampilan Pengunjung Murni)" data-cursor-bound="1">
+            <i class="fas fa-lock"></i> Kunci Admin
         </button>
     </div>
 
@@ -667,7 +679,7 @@
     <div class="adm-toast" id="admToast"><i class="fas fa-check-circle"></i> <span id="admToastMsg">⏳ Otomatis meng-save &amp; mem-publish ke GitHub...</span></div>
 
     <!-- Hero Section -->
-    <section class="hero" id="heroSection" style="--mouse-x: 59.049479166666664%; --mouse-y: 53.38129496402878%;">
+    <section class="hero" id="heroSection" style="--mouse-x: 49.73958333333333%; --mouse-y: 45.89928057553957%;">
         <div class="container">
             <div class="profile-img-container hero-element magnetic" data-cursor-bound="1" data-magnetic-bound="1" style="transform: translate(0px, 0px) scale(1); transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);">
                 <img id="heroProfileImg" src="profile.png" alt="Ali Haidar" class="profile-img" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Ali+Haidar&amp;background=e11d48&amp;color=fff&amp;size=160';">
@@ -678,7 +690,7 @@
             
             <h2 class="hero-element delay-3 typewriter-text">
                 <span id="heroRolePrefix">SAYA SEORANG</span> <br class="mobile-break">
-                <span id="typed-text" class="typed-text"></span><span class="cursor">|</span>
+                <span id="typed-text" class="typed-text">V</span><span class="cursor">|</span>
             </h2>
             
             <div class="quote hero-element delay-4" id="heroQuote">"Merangkai momen jadi cerita. Menyusun gambar jadi makna."</div>
@@ -693,7 +705,7 @@
     <section id="about">
         <div class="container">
             <h2 class="section-title reveal" id="aboutSectionTitle">Tentang Saya &amp; Keahlian</h2>
-            <div class="about-content reveal">
+            <div class="about-content reveal" id="aboutContentBox">
                 <div class="about-text">
                     <div id="aboutParagraphsContainer"><p>Saya adalah seorang kreatif asal Pasuruan yang siap berkarya, termasuk untuk kesempatan di Surabaya. Saya berminat pada dunia videografi, di mana saya senang mengekspresikan sesuatu melalui media video.</p><p>Dalam proses merangkai momen menjadi cerita, saya memadukan kemampuan editing visual, produksi live streaming, hingga pengoperasian drone dan eksplorasi animasi 3D untuk menghasilkan karya yang komunikatif dan mendalam.</p></div>
                     <div class="tech-tags" id="aboutTechTagsContainer"><span class="tech-tag">Premiere Pro</span><span class="tech-tag">DaVinci Resolve</span><span class="tech-tag">After Effects</span><span class="tech-tag">vMix</span><span class="tech-tag">OBS</span><span class="tech-tag">Blender (3D)</span><span class="tech-tag">Drone Piloting</span></div>
@@ -706,7 +718,7 @@
                         <span>94%</span>
                     </div>
                     <div class="progress-bg">
-                        <div class="progress-bar" data-width="94%" style="width: 94%;"></div>
+                        <div class="progress-bar" data-width="94%" style="width: 0%;"></div>
                     </div>
                 </div>
             
@@ -716,7 +728,7 @@
                         <span>87%</span>
                     </div>
                     <div class="progress-bg">
-                        <div class="progress-bar" data-width="87%" style="width: 87%;"></div>
+                        <div class="progress-bar" data-width="87%" style="width: 0%;"></div>
                     </div>
                 </div>
             
@@ -726,7 +738,7 @@
                         <span>75%</span>
                     </div>
                     <div class="progress-bg">
-                        <div class="progress-bar" data-width="75%" style="width: 75%;"></div>
+                        <div class="progress-bar" data-width="75%" style="width: 0%;"></div>
                     </div>
                 </div>
             </div>
@@ -740,7 +752,7 @@
             <h2 class="section-title reveal" id="expSectionTitle">Pengalaman &amp; Pendidikan</h2>
             <div class="timeline-grid">
                 <div class="timeline-column" id="expLeftColumn">
-                    <div class="timeline-card reveal active">
+                    <div class="timeline-card reveal">
                         <div class="quick-card-controls">
                             <button class="quick-btn" title="Geser Naik" onclick="moveExperience(0, -1)" data-cursor-bound="1"><i class="fas fa-arrow-up"></i></button>
                             <button class="quick-btn" title="Geser Turun" onclick="moveExperience(0, 1)" data-cursor-bound="1"><i class="fas fa-arrow-down"></i></button>
@@ -755,7 +767,7 @@
                         </ul>
                     </div>
                 
-                    <div class="timeline-card reveal active">
+                    <div class="timeline-card reveal">
                         <div class="quick-card-controls">
                             <button class="quick-btn" title="Geser Naik" onclick="moveExperience(1, -1)" data-cursor-bound="1"><i class="fas fa-arrow-up"></i></button>
                             <button class="quick-btn" title="Geser Turun" onclick="moveExperience(1, 1)" data-cursor-bound="1"><i class="fas fa-arrow-down"></i></button>
@@ -770,7 +782,7 @@
                         </ul>
                     </div>
                 
-                    <div class="timeline-card reveal active">
+                    <div class="timeline-card reveal">
                         <div class="quick-card-controls">
                             <button class="quick-btn" title="Geser Naik" onclick="moveExperience(2, -1)" data-cursor-bound="1"><i class="fas fa-arrow-up"></i></button>
                             <button class="quick-btn" title="Geser Turun" onclick="moveExperience(2, 1)" data-cursor-bound="1"><i class="fas fa-arrow-down"></i></button>
@@ -786,7 +798,7 @@
                     </div>
                 </div>
                 <div class="timeline-column" id="expRightColumn">
-                    <div class="timeline-card reveal active">
+                    <div class="timeline-card reveal">
                         <div class="quick-card-controls">
                             <button class="quick-btn" title="Geser Naik" onclick="moveExperience(3, -1)" data-cursor-bound="1"><i class="fas fa-arrow-up"></i></button>
                             <button class="quick-btn" title="Geser Turun" onclick="moveExperience(3, 1)" data-cursor-bound="1"><i class="fas fa-arrow-down"></i></button>
@@ -801,7 +813,7 @@
                         </ul>
                     </div>
                 
-                    <div class="timeline-card reveal active">
+                    <div class="timeline-card reveal">
                         <div class="quick-card-controls">
                             <button class="quick-btn" title="Geser Naik" onclick="moveExperience(4, -1)" data-cursor-bound="1"><i class="fas fa-arrow-up"></i></button>
                             <button class="quick-btn" title="Geser Turun" onclick="moveExperience(4, 1)" data-cursor-bound="1"><i class="fas fa-arrow-down"></i></button>
@@ -825,10 +837,10 @@
         <div class="container">
             <h2 class="section-title reveal" id="portfolioSectionTitle">Proyek Portofolio</h2>
             <div id="portfolioCategoriesWrapper">
-                    <h3 class="category-title reveal active" style="">Video Pendek</h3>
+                    <h3 class="category-title reveal" style="">Video Pendek</h3>
                     <div class="projects-grid">
                         
-                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, 'JynhUiy4Tmg', '2025-UJIAN KOMPETENSI KEAHLIAN SMKN 1 KOTA PASURUAN-TOURISM PASURUAN')" data-cursor-bound="1" data-tilt-bound="1">
+                        <div class="project-card reveal" onclick="handleProjectCardClick(event, 'JynhUiy4Tmg', '2025-UJIAN KOMPETENSI KEAHLIAN SMKN 1 KOTA PASURUAN-TOURISM PASURUAN')" data-cursor-bound="1" data-tilt-bound="1">
                             <div class="quick-card-controls" onclick="event.stopPropagation()">
                                 <button class="quick-btn" title="Geser Kiri / Naik" onclick="moveProjectWithinCategory(0, -1)" data-cursor-bound="1"><i class="fas fa-arrow-left"></i></button>
                                 <button class="quick-btn" title="Geser Kanan / Turun" onclick="moveProjectWithinCategory(0, 1)" data-cursor-bound="1"><i class="fas fa-arrow-right"></i></button>
@@ -848,7 +860,7 @@
                             </div>
                         </div>
                     
-                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, 'lChZ86fDel0', '2026-KEGIATAN MOTOTRIL')" data-cursor-bound="1" data-tilt-bound="1" style="transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s, border-color 0.5s; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); z-index: 1;">
+                        <div class="project-card reveal" onclick="handleProjectCardClick(event, 'lChZ86fDel0', '2026-KEGIATAN MOTOTRIL')" data-cursor-bound="1" data-tilt-bound="1">
                             <div class="quick-card-controls" onclick="event.stopPropagation()">
                                 <button class="quick-btn" title="Geser Kiri / Naik" onclick="moveProjectWithinCategory(1, -1)" data-cursor-bound="1"><i class="fas fa-arrow-left"></i></button>
                                 <button class="quick-btn" title="Geser Kanan / Turun" onclick="moveProjectWithinCategory(1, 1)" data-cursor-bound="1"><i class="fas fa-arrow-right"></i></button>
@@ -868,7 +880,7 @@
                             </div>
                         </div>
                     
-                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, 'wka77D1-lpU', '2025-LOMBA HUT INDONESIA KE 80-TOURISM PASURUAN')" data-cursor-bound="1" data-tilt-bound="1">
+                        <div class="project-card reveal" onclick="handleProjectCardClick(event, 'wka77D1-lpU', '2025-LOMBA HUT INDONESIA KE 80-TOURISM PASURUAN')" data-cursor-bound="1" data-tilt-bound="1">
                             <div class="quick-card-controls" onclick="event.stopPropagation()">
                                 <button class="quick-btn" title="Geser Kiri / Naik" onclick="moveProjectWithinCategory(2, -1)" data-cursor-bound="1"><i class="fas fa-arrow-left"></i></button>
                                 <button class="quick-btn" title="Geser Kanan / Turun" onclick="moveProjectWithinCategory(2, 1)" data-cursor-bound="1"><i class="fas fa-arrow-right"></i></button>
@@ -888,7 +900,7 @@
                             </div>
                         </div>
                     
-                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, 'ZFBhkDm8E5g', '2025-TAMAN RIA SUROPATI-APA KATA MEREKA?')" data-cursor-bound="1" data-tilt-bound="1" style="transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s, border-color 0.5s; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); z-index: 1;">
+                        <div class="project-card reveal" onclick="handleProjectCardClick(event, 'ZFBhkDm8E5g', '2025-TAMAN RIA SUROPATI-APA KATA MEREKA?')" data-cursor-bound="1" data-tilt-bound="1">
                             <div class="quick-card-controls" onclick="event.stopPropagation()">
                                 <button class="quick-btn" title="Geser Kiri / Naik" onclick="moveProjectWithinCategory(3, -1)" data-cursor-bound="1"><i class="fas fa-arrow-left"></i></button>
                                 <button class="quick-btn" title="Geser Kanan / Turun" onclick="moveProjectWithinCategory(3, 1)" data-cursor-bound="1"><i class="fas fa-arrow-right"></i></button>
@@ -908,7 +920,7 @@
                             </div>
                         </div>
                     
-                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, 'CRa5FznJtKg', '2025-LOMBA PROMOSI PERUMAHAN-PASURUAN GRAND CITY')" data-cursor-bound="1" data-tilt-bound="1" style="transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s, border-color 0.5s; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); z-index: 1;">
+                        <div class="project-card reveal" onclick="handleProjectCardClick(event, 'CRa5FznJtKg', '2025-LOMBA PROMOSI PERUMAHAN-PASURUAN GRAND CITY')" data-cursor-bound="1" data-tilt-bound="1">
                             <div class="quick-card-controls" onclick="event.stopPropagation()">
                                 <button class="quick-btn" title="Geser Kiri / Naik" onclick="moveProjectWithinCategory(4, -1)" data-cursor-bound="1"><i class="fas fa-arrow-left"></i></button>
                                 <button class="quick-btn" title="Geser Kanan / Turun" onclick="moveProjectWithinCategory(4, 1)" data-cursor-bound="1"><i class="fas fa-arrow-right"></i></button>
@@ -928,7 +940,7 @@
                             </div>
                         </div>
                     
-                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, 'Sui12qEU4I8', '2024-VIDEO COMPETITION-KOTA LAMA SURABAYA')" data-cursor-bound="1" data-tilt-bound="1">
+                        <div class="project-card reveal" onclick="handleProjectCardClick(event, 'Sui12qEU4I8', '2024-VIDEO COMPETITION-KOTA LAMA SURABAYA')" data-cursor-bound="1" data-tilt-bound="1">
                             <div class="quick-card-controls" onclick="event.stopPropagation()">
                                 <button class="quick-btn" title="Geser Kiri / Naik" onclick="moveProjectWithinCategory(5, -1)" data-cursor-bound="1"><i class="fas fa-arrow-left"></i></button>
                                 <button class="quick-btn" title="Geser Kanan / Turun" onclick="moveProjectWithinCategory(5, 1)" data-cursor-bound="1"><i class="fas fa-arrow-right"></i></button>
@@ -948,7 +960,7 @@
                             </div>
                         </div>
                     
-                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, 'ysvCdYin3WU', '2024-LOMBA HUT INDONESIA KE 79-TOURISM PASURUAN')" data-cursor-bound="1" data-tilt-bound="1">
+                        <div class="project-card reveal" onclick="handleProjectCardClick(event, 'ysvCdYin3WU', '2024-LOMBA HUT INDONESIA KE 79-TOURISM PASURUAN')" data-cursor-bound="1" data-tilt-bound="1">
                             <div class="quick-card-controls" onclick="event.stopPropagation()">
                                 <button class="quick-btn" title="Geser Kiri / Naik" onclick="moveProjectWithinCategory(6, -1)" data-cursor-bound="1"><i class="fas fa-arrow-left"></i></button>
                                 <button class="quick-btn" title="Geser Kanan / Turun" onclick="moveProjectWithinCategory(6, 1)" data-cursor-bound="1"><i class="fas fa-arrow-right"></i></button>
@@ -970,10 +982,10 @@
                     
                     </div>
                 
-                    <h3 class="category-title reveal active" style="margin-top: 80px;">Film Pendek</h3>
+                    <h3 class="category-title reveal" style="margin-top: 80px;">Film Pendek</h3>
                     <div class="projects-grid">
                         
-                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, '-N4Ia7-W1uM', '2025-FILM COMPETITON-LANGEN BANYU')" data-cursor-bound="1" data-tilt-bound="1">
+                        <div class="project-card reveal" onclick="handleProjectCardClick(event, '-N4Ia7-W1uM', '2025-FILM COMPETITON-LANGEN BANYU')" data-cursor-bound="1" data-tilt-bound="1">
                             <div class="quick-card-controls" onclick="event.stopPropagation()">
                                 <button class="quick-btn" title="Geser Kiri / Naik" onclick="moveProjectWithinCategory(7, -1)" data-cursor-bound="1"><i class="fas fa-arrow-left"></i></button>
                                 <button class="quick-btn" title="Geser Kanan / Turun" onclick="moveProjectWithinCategory(7, 1)" data-cursor-bound="1"><i class="fas fa-arrow-right"></i></button>
@@ -993,7 +1005,7 @@
                             </div>
                         </div>
                     
-                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, 'XFgKyNl7T80', '2024-AMIKOM VIDEO COMPETITION-ANTARA')" data-cursor-bound="1" data-tilt-bound="1" style="transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s, border-color 0.5s; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); z-index: 1;">
+                        <div class="project-card reveal" onclick="handleProjectCardClick(event, 'XFgKyNl7T80', '2024-AMIKOM VIDEO COMPETITION-ANTARA')" data-cursor-bound="1" data-tilt-bound="1">
                             <div class="quick-card-controls" onclick="event.stopPropagation()">
                                 <button class="quick-btn" title="Geser Kiri / Naik" onclick="moveProjectWithinCategory(8, -1)" data-cursor-bound="1"><i class="fas fa-arrow-left"></i></button>
                                 <button class="quick-btn" title="Geser Kanan / Turun" onclick="moveProjectWithinCategory(8, 1)" data-cursor-bound="1"><i class="fas fa-arrow-right"></i></button>
@@ -1013,7 +1025,7 @@
                             </div>
                         </div>
                     
-                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, 'cZUakY7kyng', '2023-NAFIFEST-A NGORMATI')" data-cursor-bound="1" data-tilt-bound="1">
+                        <div class="project-card reveal" onclick="handleProjectCardClick(event, 'cZUakY7kyng', '2023-NAFIFEST-A NGORMATI')" data-cursor-bound="1" data-tilt-bound="1">
                             <div class="quick-card-controls" onclick="event.stopPropagation()">
                                 <button class="quick-btn" title="Geser Kiri / Naik" onclick="moveProjectWithinCategory(9, -1)" data-cursor-bound="1"><i class="fas fa-arrow-left"></i></button>
                                 <button class="quick-btn" title="Geser Kanan / Turun" onclick="moveProjectWithinCategory(9, 1)" data-cursor-bound="1"><i class="fas fa-arrow-right"></i></button>
@@ -1033,7 +1045,7 @@
                             </div>
                         </div>
                     
-                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, 'rchFVJnkm0Y', '2023-AMIKOM VIDEO COMPETITION-TRIASIH')" data-cursor-bound="1" data-tilt-bound="1">
+                        <div class="project-card reveal" onclick="handleProjectCardClick(event, 'rchFVJnkm0Y', '2023-AMIKOM VIDEO COMPETITION-TRIASIH')" data-cursor-bound="1" data-tilt-bound="1">
                             <div class="quick-card-controls" onclick="event.stopPropagation()">
                                 <button class="quick-btn" title="Geser Kiri / Naik" onclick="moveProjectWithinCategory(10, -1)" data-cursor-bound="1"><i class="fas fa-arrow-left"></i></button>
                                 <button class="quick-btn" title="Geser Kanan / Turun" onclick="moveProjectWithinCategory(10, 1)" data-cursor-bound="1"><i class="fas fa-arrow-right"></i></button>
@@ -1061,7 +1073,7 @@
     <!-- Awards Section -->
     <section id="awards" style="background-color: var(--surface-color);">
         <div class="container">
-            <h2 class="section-title reveal" id="awardsSectionTitle">Penghargaan</h2>
+            <h2 class="section-title reveal active" id="awardsSectionTitle">Penghargaan</h2>
             <div class="awards-container" id="awardsListContainer">
                 <div class="award-item reveal active">
                     <div class="quick-card-controls">
@@ -1179,7 +1191,7 @@
     <!-- =========================================================
          ADMIN CMS STUDIO MODAL
          ========================================================= -->
-    <div class="admin-overlay" id="adminModalOverlay" onclick="if(event.target.id==='adminModalOverlay') exitAdminPanelOnly()">
+    <div class="admin-overlay" id="adminModalOverlay" onclick="if(event.target.id==='adminModalOverlay') previewWebsiteFromAdmin()">
         <div class="admin-panel">
             <div class="admin-top-bar">
                 <div class="admin-brand">
@@ -1190,6 +1202,16 @@
                     <span class="draft-status-pill" id="draftStatusPill"><i class="fas fa-spinner fa-spin"></i> Sedang Publish...</span>
                 </div>
                 <div class="admin-top-actions">
+                    <!-- Undo & Redo Buttons (Ctrl+Z & Ctrl+Shift+Z) -->
+                    <div class="undo-redo-group">
+                        <button type="button" class="adm-btn" id="admUndoBtn" onclick="triggerUndo()" title="Undo perubahan terakhir (Ctrl + Z)" disabled="" data-cursor-bound="1">
+                            <i class="fas fa-undo"></i> Undo
+                        </button>
+                        <button type="button" class="adm-btn" id="admRedoBtn" onclick="triggerRedo()" title="Redo perubahan (Ctrl + Shift + Z)" disabled="" data-cursor-bound="1">
+                            <i class="fas fa-redo"></i> Redo
+                        </button>
+                    </div>
+
                     <button class="adm-btn amber" onclick="saveDraftForLater()" title="Simpan sementara di browser untuk lanjut diedit nanti sebelum di-publish" data-cursor-bound="1">
                         <i class="fas fa-save"></i> Save (Lanjut Nanti)
                     </button>
@@ -1199,14 +1221,11 @@
                     <button class="adm-btn blue" onclick="exportUpdatedHTML()" title="Download file index.html ke perangkat" data-cursor-bound="1">
                         <i class="fas fa-download"></i> Download HTML
                     </button>
-                    <button class="adm-btn" onclick="closeAdminToQuickPreview()" title="Tutup jendela ini untuk mengatur posisi kartu di halaman" data-cursor-bound="1">
-                        <i class="fas fa-arrows-alt"></i> Atur Posisi
+                    <button class="adm-btn danger" onclick="cancelAndRevertChanges()" title="Batalkan semua editan sesi ini dan keluar" data-cursor-bound="1">
+                        <i class="fas fa-ban"></i> Cancel
                     </button>
-                    <button class="adm-btn danger" onclick="cancelAndRevertChanges()" title="Batalkan editan sesi ini dan keluar dari Panel Admin" data-cursor-bound="1">
-                        <i class="fas fa-undo"></i> Cancel / Batal
-                    </button>
-                    <button class="adm-btn danger" onclick="logoutAdmin()" title="Keluar dari Panel Admin dan kunci kembali" data-cursor-bound="1">
-                        <i class="fas fa-times"></i> Keluar Panel
+                    <button class="adm-btn primary" onclick="previewWebsiteFromAdmin()" title="Tutup panel ini untuk melihat Preview tampilan website" data-cursor-bound="1">
+                        <i class="fas fa-eye"></i> Preview
                     </button>
                 </div>
             </div>
@@ -1220,7 +1239,7 @@
                         <i class="fas fa-film"></i> Proyek Portofolio
                     </button>
                     <button class="admin-tab-btn" onclick="switchAdminTab('tab-about', this)" data-cursor-bound="1">
-                        <i class="fas fa-sliders-h"></i> Tentang &amp; Skill
+                        <i class="fas fa-user-check"></i> Tentang Saya &amp; Keahlian
                     </button>
                     <button class="admin-tab-btn" onclick="switchAdminTab('tab-experience', this)" data-cursor-bound="1">
                         <i class="fas fa-briefcase"></i> Pengalaman &amp; Edukasi
@@ -1252,8 +1271,8 @@
                                                     <i class="fas fa-upload"></i> Upload Foto
                                                     <input type="file" accept="image/*" style="display:none;" onchange="handleImageUpload(event, 'profile')">
                                                 </label>
-                                                <button type="button" class="adm-btn sm" onclick="document.getElementById('admProfileImg').value='profile.png'; updateHeroFromForm();" data-cursor-bound="1">
-                                                    <i class="fas fa-sync-alt"></i> Reset Default (profile.png)
+                                                <button type="button" class="adm-btn sm" onclick="document.getElementById('admProfileImg').value='profile.png'; updateHeroFromForm(true);" data-cursor-bound="1">
+                                                    <i class="fas fa-sync-alt"></i> Default (profile.png)
                                                 </button>
                                             </div>
                                         </div>
@@ -1267,7 +1286,7 @@
                                             <i class="fas fa-upload"></i> Upload Background
                                             <input type="file" accept="image/*" style="display:none;" onchange="handleImageUpload(event, 'herobg')">
                                         </label>
-                                        <button type="button" class="adm-btn sm" onclick="document.getElementById('admHeroBg').value='https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80'; updateHeroFromForm();" data-cursor-bound="1">
+                                        <button type="button" class="adm-btn sm" onclick="document.getElementById('admHeroBg').value='https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80'; updateHeroFromForm(true);" data-cursor-bound="1">
                                             <i class="fas fa-sync-alt"></i> Reset Default Background
                                         </button>
                                     </div>
@@ -1327,23 +1346,23 @@
                         <div class="adm-order-btns">
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.hero.cvButtons, 0, -1, renderAdminCvButtons)"><i class="fas fa-arrow-up"></i></button>
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.hero.cvButtons, 0, 1, renderAdminCvButtons)"><i class="fas fa-arrow-down"></i></button>
-                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.hero.cvButtons.splice(0,1); renderAdminCvButtons(); renderAll(); markDraftUnsaved();"><i class="fas fa-trash"></i></button>
+                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.hero.cvButtons.splice(0,1); renderAdminCvButtons(); renderAll(); recordChange(true);"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Teks Tombol (misal: Lihat CV / Portofolio)</label>
-                            <input type="text" class="adm-input" value="Lihat CV / Portofolio" oninput="PORTFOLIO_DATA.hero.cvButtons[0].text=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Lihat CV / Portofolio" oninput="PORTFOLIO_DATA.hero.cvButtons[0].text=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Link URL CV (Google Drive / PDF / Link)</label>
-                            <input type="text" class="adm-input" value="https://drive.google.com/file/d/1Vrtz60YPLHZeCmYN_5aTNwDvR-MXg2XJ/view?usp=sharing" oninput="PORTFOLIO_DATA.hero.cvButtons[0].url=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="https://drive.google.com/file/d/1Vrtz60YPLHZeCmYN_5aTNwDvR-MXg2XJ/view?usp=sharing" oninput="PORTFOLIO_DATA.hero.cvButtons[0].url=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Ikon FontAwesome &amp; Gaya</label>
                             <div style="display:flex; gap:6px;">
-                                <input type="text" class="adm-input" value="fas fa-file-alt" placeholder="fas fa-file-alt" oninput="PORTFOLIO_DATA.hero.cvButtons[0].icon=this.value; renderAll(); markDraftUnsaved();">
-                                <select class="adm-select" style="width:120px;" onchange="PORTFOLIO_DATA.hero.cvButtons[0].style=this.value; renderAll(); markDraftUnsaved();">
+                                <input type="text" class="adm-input" value="fas fa-file-alt" placeholder="fas fa-file-alt" oninput="PORTFOLIO_DATA.hero.cvButtons[0].icon=this.value; renderAll(); recordChange(false);">
+                                <select class="adm-select" style="width:120px;" onchange="PORTFOLIO_DATA.hero.cvButtons[0].style=this.value; renderAll(); recordChange(true);">
                                     <option value="primary" selected="">Utama (Merah)</option>
                                     <option value="secondary">Outline Biru</option>
                                 </select>
@@ -1366,21 +1385,21 @@
                         <div class="adm-order-btns">
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.hero.contacts, 0, -1, renderAdminContacts)"><i class="fas fa-arrow-up"></i></button>
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.hero.contacts, 0, 1, renderAdminContacts)"><i class="fas fa-arrow-down"></i></button>
-                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.hero.contacts.splice(0,1); renderAdminContacts(); renderAll(); markDraftUnsaved();"><i class="fas fa-trash"></i></button>
+                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.hero.contacts.splice(0,1); renderAdminContacts(); renderAll(); recordChange(true);"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Teks Tampilan</label>
-                            <input type="text" class="adm-input" value="haidarpe185@gmail.com" oninput="PORTFOLIO_DATA.hero.contacts[0].text=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="haidarpe185@gmail.com" oninput="PORTFOLIO_DATA.hero.contacts[0].text=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Link Tujuan (Kosongkan jika bukan link)</label>
-                            <input type="text" class="adm-input" value="mailto:haidarpe185@gmail.com" oninput="PORTFOLIO_DATA.hero.contacts[0].url=this.value; PORTFOLIO_DATA.hero.contacts[0].isLink=Boolean(this.value.trim()); renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="mailto:haidarpe185@gmail.com" oninput="PORTFOLIO_DATA.hero.contacts[0].url=this.value; PORTFOLIO_DATA.hero.contacts[0].isLink=Boolean(this.value.trim()); renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Class Ikon (fab fa-whatsapp, dll)</label>
-                            <input type="text" class="adm-input" value="fas fa-envelope" oninput="PORTFOLIO_DATA.hero.contacts[0].icon=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="fas fa-envelope" oninput="PORTFOLIO_DATA.hero.contacts[0].icon=this.value; renderAll(); recordChange(false);">
                         </div>
                     </div>
                 </div>
@@ -1391,21 +1410,21 @@
                         <div class="adm-order-btns">
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.hero.contacts, 1, -1, renderAdminContacts)"><i class="fas fa-arrow-up"></i></button>
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.hero.contacts, 1, 1, renderAdminContacts)"><i class="fas fa-arrow-down"></i></button>
-                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.hero.contacts.splice(1,1); renderAdminContacts(); renderAll(); markDraftUnsaved();"><i class="fas fa-trash"></i></button>
+                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.hero.contacts.splice(1,1); renderAdminContacts(); renderAll(); recordChange(true);"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Teks Tampilan</label>
-                            <input type="text" class="adm-input" value="085883930873" oninput="PORTFOLIO_DATA.hero.contacts[1].text=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="085883930873" oninput="PORTFOLIO_DATA.hero.contacts[1].text=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Link Tujuan (Kosongkan jika bukan link)</label>
-                            <input type="text" class="adm-input" value="https://wa.me/6285883930873" oninput="PORTFOLIO_DATA.hero.contacts[1].url=this.value; PORTFOLIO_DATA.hero.contacts[1].isLink=Boolean(this.value.trim()); renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="https://wa.me/6285883930873" oninput="PORTFOLIO_DATA.hero.contacts[1].url=this.value; PORTFOLIO_DATA.hero.contacts[1].isLink=Boolean(this.value.trim()); renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Class Ikon (fab fa-whatsapp, dll)</label>
-                            <input type="text" class="adm-input" value="fab fa-whatsapp" oninput="PORTFOLIO_DATA.hero.contacts[1].icon=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="fab fa-whatsapp" oninput="PORTFOLIO_DATA.hero.contacts[1].icon=this.value; renderAll(); recordChange(false);">
                         </div>
                     </div>
                 </div>
@@ -1416,21 +1435,21 @@
                         <div class="adm-order-btns">
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.hero.contacts, 2, -1, renderAdminContacts)"><i class="fas fa-arrow-up"></i></button>
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.hero.contacts, 2, 1, renderAdminContacts)"><i class="fas fa-arrow-down"></i></button>
-                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.hero.contacts.splice(2,1); renderAdminContacts(); renderAll(); markDraftUnsaved();"><i class="fas fa-trash"></i></button>
+                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.hero.contacts.splice(2,1); renderAdminContacts(); renderAll(); recordChange(true);"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Teks Tampilan</label>
-                            <input type="text" class="adm-input" value="@haidar_185" oninput="PORTFOLIO_DATA.hero.contacts[2].text=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="@haidar_185" oninput="PORTFOLIO_DATA.hero.contacts[2].text=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Link Tujuan (Kosongkan jika bukan link)</label>
-                            <input type="text" class="adm-input" value="https://www.instagram.com/haidar_185/" oninput="PORTFOLIO_DATA.hero.contacts[2].url=this.value; PORTFOLIO_DATA.hero.contacts[2].isLink=Boolean(this.value.trim()); renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="https://www.instagram.com/haidar_185/" oninput="PORTFOLIO_DATA.hero.contacts[2].url=this.value; PORTFOLIO_DATA.hero.contacts[2].isLink=Boolean(this.value.trim()); renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Class Ikon (fab fa-whatsapp, dll)</label>
-                            <input type="text" class="adm-input" value="fab fa-instagram" oninput="PORTFOLIO_DATA.hero.contacts[2].icon=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="fab fa-instagram" oninput="PORTFOLIO_DATA.hero.contacts[2].icon=this.value; renderAll(); recordChange(false);">
                         </div>
                     </div>
                 </div>
@@ -1441,21 +1460,21 @@
                         <div class="adm-order-btns">
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.hero.contacts, 3, -1, renderAdminContacts)"><i class="fas fa-arrow-up"></i></button>
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.hero.contacts, 3, 1, renderAdminContacts)"><i class="fas fa-arrow-down"></i></button>
-                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.hero.contacts.splice(3,1); renderAdminContacts(); renderAll(); markDraftUnsaved();"><i class="fas fa-trash"></i></button>
+                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.hero.contacts.splice(3,1); renderAdminContacts(); renderAll(); recordChange(true);"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Teks Tampilan</label>
-                            <input type="text" class="adm-input" value="Pasuruan, Jawa Timur" oninput="PORTFOLIO_DATA.hero.contacts[3].text=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Pasuruan, Jawa Timur" oninput="PORTFOLIO_DATA.hero.contacts[3].text=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Link Tujuan (Kosongkan jika bukan link)</label>
-                            <input type="text" class="adm-input" value="" oninput="PORTFOLIO_DATA.hero.contacts[3].url=this.value; PORTFOLIO_DATA.hero.contacts[3].isLink=Boolean(this.value.trim()); renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="" oninput="PORTFOLIO_DATA.hero.contacts[3].url=this.value; PORTFOLIO_DATA.hero.contacts[3].isLink=Boolean(this.value.trim()); renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Class Ikon (fab fa-whatsapp, dll)</label>
-                            <input type="text" class="adm-input" value="fas fa-map-marker-alt" oninput="PORTFOLIO_DATA.hero.contacts[3].icon=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="fas fa-map-marker-alt" oninput="PORTFOLIO_DATA.hero.contacts[3].icon=this.value; renderAll(); recordChange(false);">
                         </div>
                     </div>
                 </div>
@@ -1552,7 +1571,7 @@
                                 <select class="adm-select" id="admFilterCategory" style="width:220px;" onchange="renderAdminProjectsList()"><option value="ALL">Semua Kategori (11)</option><option value="Video Pendek">Video Pendek</option><option value="Film Pendek">Film Pendek</option></select>
                             </div>
                             <p style="font-size:0.81rem; color:#94a3b8; margin-bottom:14px;">
-                                Kamu bisa mengganti thumbnail setiap video dengan klik <strong>Upload Thumbnail</strong> atau menempelkan URL gambar, dan kapan saja bisa kembali ke gambar bawaan YouTube dengan klik <strong>Pakai Default YouTube</strong>.
+                                Kamu bisa mengganti thumbnail setiap video dengan klik <strong>Upload</strong> atau menempelkan URL gambar, dan kapan saja bisa kembali ke gambar bawaan YouTube dengan klik <strong>Default</strong>.
                             </p>
                             <div id="admProjectsList">
                     <div class="adm-list-item">
@@ -1588,22 +1607,22 @@
                             <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
-                                    <input type="text" class="adm-input" value="2025-UJIAN KOMPETENSI KEAHLIAN SMKN 1 KOTA PASURUAN-TOURISM PASURUAN" oninput="PORTFOLIO_DATA.portfolio.items[0].title=this.value; renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="2025-UJIAN KOMPETENSI KEAHLIAN SMKN 1 KOTA PASURUAN-TOURISM PASURUAN" oninput="PORTFOLIO_DATA.portfolio.items[0].title=this.value; renderAll(); recordChange(false);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Link YouTube / Video ID</label>
-                                    <input type="text" class="adm-input" value="JynhUiy4Tmg" onchange="PORTFOLIO_DATA.portfolio.items[0].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="JynhUiy4Tmg" onchange="PORTFOLIO_DATA.portfolio.items[0].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Kategori</label>
-                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[0].category=this.value; PORTFOLIO_DATA.portfolio.items[0].tag=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[0].category=this.value; PORTFOLIO_DATA.portfolio.items[0].tag=this.value; renderAdminProjectsList(); renderAll(); recordChange(true);">
                                         <option value="Video Pendek" selected="">Video Pendek</option><option value="Film Pendek">Film Pendek</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
                                     <div style="display:flex; gap:6px;">
-                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (JynhUiy4Tmg)" onchange="PORTFOLIO_DATA.portfolio.items[0].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (JynhUiy4Tmg)" onchange="PORTFOLIO_DATA.portfolio.items[0].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                     </div>
                                 </div>
                             </div>
@@ -1643,22 +1662,22 @@
                             <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
-                                    <input type="text" class="adm-input" value="2026-KEGIATAN MOTOTRIL" oninput="PORTFOLIO_DATA.portfolio.items[1].title=this.value; renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="2026-KEGIATAN MOTOTRIL" oninput="PORTFOLIO_DATA.portfolio.items[1].title=this.value; renderAll(); recordChange(false);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Link YouTube / Video ID</label>
-                                    <input type="text" class="adm-input" value="lChZ86fDel0" onchange="PORTFOLIO_DATA.portfolio.items[1].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="lChZ86fDel0" onchange="PORTFOLIO_DATA.portfolio.items[1].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Kategori</label>
-                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[1].category=this.value; PORTFOLIO_DATA.portfolio.items[1].tag=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[1].category=this.value; PORTFOLIO_DATA.portfolio.items[1].tag=this.value; renderAdminProjectsList(); renderAll(); recordChange(true);">
                                         <option value="Video Pendek" selected="">Video Pendek</option><option value="Film Pendek">Film Pendek</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
                                     <div style="display:flex; gap:6px;">
-                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (lChZ86fDel0)" onchange="PORTFOLIO_DATA.portfolio.items[1].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (lChZ86fDel0)" onchange="PORTFOLIO_DATA.portfolio.items[1].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                     </div>
                                 </div>
                             </div>
@@ -1698,22 +1717,22 @@
                             <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
-                                    <input type="text" class="adm-input" value="2025-LOMBA HUT INDONESIA KE 80-TOURISM PASURUAN" oninput="PORTFOLIO_DATA.portfolio.items[2].title=this.value; renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="2025-LOMBA HUT INDONESIA KE 80-TOURISM PASURUAN" oninput="PORTFOLIO_DATA.portfolio.items[2].title=this.value; renderAll(); recordChange(false);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Link YouTube / Video ID</label>
-                                    <input type="text" class="adm-input" value="wka77D1-lpU" onchange="PORTFOLIO_DATA.portfolio.items[2].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="wka77D1-lpU" onchange="PORTFOLIO_DATA.portfolio.items[2].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Kategori</label>
-                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[2].category=this.value; PORTFOLIO_DATA.portfolio.items[2].tag=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[2].category=this.value; PORTFOLIO_DATA.portfolio.items[2].tag=this.value; renderAdminProjectsList(); renderAll(); recordChange(true);">
                                         <option value="Video Pendek" selected="">Video Pendek</option><option value="Film Pendek">Film Pendek</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
                                     <div style="display:flex; gap:6px;">
-                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (wka77D1-lpU)" onchange="PORTFOLIO_DATA.portfolio.items[2].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (wka77D1-lpU)" onchange="PORTFOLIO_DATA.portfolio.items[2].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                     </div>
                                 </div>
                             </div>
@@ -1753,22 +1772,22 @@
                             <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
-                                    <input type="text" class="adm-input" value="2025-TAMAN RIA SUROPATI-APA KATA MEREKA?" oninput="PORTFOLIO_DATA.portfolio.items[3].title=this.value; renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="2025-TAMAN RIA SUROPATI-APA KATA MEREKA?" oninput="PORTFOLIO_DATA.portfolio.items[3].title=this.value; renderAll(); recordChange(false);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Link YouTube / Video ID</label>
-                                    <input type="text" class="adm-input" value="ZFBhkDm8E5g" onchange="PORTFOLIO_DATA.portfolio.items[3].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="ZFBhkDm8E5g" onchange="PORTFOLIO_DATA.portfolio.items[3].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Kategori</label>
-                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[3].category=this.value; PORTFOLIO_DATA.portfolio.items[3].tag=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[3].category=this.value; PORTFOLIO_DATA.portfolio.items[3].tag=this.value; renderAdminProjectsList(); renderAll(); recordChange(true);">
                                         <option value="Video Pendek" selected="">Video Pendek</option><option value="Film Pendek">Film Pendek</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
                                     <div style="display:flex; gap:6px;">
-                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (ZFBhkDm8E5g)" onchange="PORTFOLIO_DATA.portfolio.items[3].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (ZFBhkDm8E5g)" onchange="PORTFOLIO_DATA.portfolio.items[3].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                     </div>
                                 </div>
                             </div>
@@ -1808,22 +1827,22 @@
                             <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
-                                    <input type="text" class="adm-input" value="2025-LOMBA PROMOSI PERUMAHAN-PASURUAN GRAND CITY" oninput="PORTFOLIO_DATA.portfolio.items[4].title=this.value; renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="2025-LOMBA PROMOSI PERUMAHAN-PASURUAN GRAND CITY" oninput="PORTFOLIO_DATA.portfolio.items[4].title=this.value; renderAll(); recordChange(false);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Link YouTube / Video ID</label>
-                                    <input type="text" class="adm-input" value="CRa5FznJtKg" onchange="PORTFOLIO_DATA.portfolio.items[4].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="CRa5FznJtKg" onchange="PORTFOLIO_DATA.portfolio.items[4].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Kategori</label>
-                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[4].category=this.value; PORTFOLIO_DATA.portfolio.items[4].tag=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[4].category=this.value; PORTFOLIO_DATA.portfolio.items[4].tag=this.value; renderAdminProjectsList(); renderAll(); recordChange(true);">
                                         <option value="Video Pendek" selected="">Video Pendek</option><option value="Film Pendek">Film Pendek</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
                                     <div style="display:flex; gap:6px;">
-                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (CRa5FznJtKg)" onchange="PORTFOLIO_DATA.portfolio.items[4].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (CRa5FznJtKg)" onchange="PORTFOLIO_DATA.portfolio.items[4].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                     </div>
                                 </div>
                             </div>
@@ -1863,22 +1882,22 @@
                             <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
-                                    <input type="text" class="adm-input" value="2024-VIDEO COMPETITION-KOTA LAMA SURABAYA" oninput="PORTFOLIO_DATA.portfolio.items[5].title=this.value; renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="2024-VIDEO COMPETITION-KOTA LAMA SURABAYA" oninput="PORTFOLIO_DATA.portfolio.items[5].title=this.value; renderAll(); recordChange(false);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Link YouTube / Video ID</label>
-                                    <input type="text" class="adm-input" value="Sui12qEU4I8" onchange="PORTFOLIO_DATA.portfolio.items[5].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="Sui12qEU4I8" onchange="PORTFOLIO_DATA.portfolio.items[5].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Kategori</label>
-                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[5].category=this.value; PORTFOLIO_DATA.portfolio.items[5].tag=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[5].category=this.value; PORTFOLIO_DATA.portfolio.items[5].tag=this.value; renderAdminProjectsList(); renderAll(); recordChange(true);">
                                         <option value="Video Pendek" selected="">Video Pendek</option><option value="Film Pendek">Film Pendek</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
                                     <div style="display:flex; gap:6px;">
-                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (Sui12qEU4I8)" onchange="PORTFOLIO_DATA.portfolio.items[5].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (Sui12qEU4I8)" onchange="PORTFOLIO_DATA.portfolio.items[5].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                     </div>
                                 </div>
                             </div>
@@ -1918,22 +1937,22 @@
                             <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
-                                    <input type="text" class="adm-input" value="2024-LOMBA HUT INDONESIA KE 79-TOURISM PASURUAN" oninput="PORTFOLIO_DATA.portfolio.items[6].title=this.value; renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="2024-LOMBA HUT INDONESIA KE 79-TOURISM PASURUAN" oninput="PORTFOLIO_DATA.portfolio.items[6].title=this.value; renderAll(); recordChange(false);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Link YouTube / Video ID</label>
-                                    <input type="text" class="adm-input" value="ysvCdYin3WU" onchange="PORTFOLIO_DATA.portfolio.items[6].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="ysvCdYin3WU" onchange="PORTFOLIO_DATA.portfolio.items[6].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Kategori</label>
-                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[6].category=this.value; PORTFOLIO_DATA.portfolio.items[6].tag=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[6].category=this.value; PORTFOLIO_DATA.portfolio.items[6].tag=this.value; renderAdminProjectsList(); renderAll(); recordChange(true);">
                                         <option value="Video Pendek" selected="">Video Pendek</option><option value="Film Pendek">Film Pendek</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
                                     <div style="display:flex; gap:6px;">
-                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (ysvCdYin3WU)" onchange="PORTFOLIO_DATA.portfolio.items[6].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (ysvCdYin3WU)" onchange="PORTFOLIO_DATA.portfolio.items[6].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                     </div>
                                 </div>
                             </div>
@@ -1973,22 +1992,22 @@
                             <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
-                                    <input type="text" class="adm-input" value="2025-FILM COMPETITON-LANGEN BANYU" oninput="PORTFOLIO_DATA.portfolio.items[7].title=this.value; renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="2025-FILM COMPETITON-LANGEN BANYU" oninput="PORTFOLIO_DATA.portfolio.items[7].title=this.value; renderAll(); recordChange(false);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Link YouTube / Video ID</label>
-                                    <input type="text" class="adm-input" value="-N4Ia7-W1uM" onchange="PORTFOLIO_DATA.portfolio.items[7].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="-N4Ia7-W1uM" onchange="PORTFOLIO_DATA.portfolio.items[7].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Kategori</label>
-                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[7].category=this.value; PORTFOLIO_DATA.portfolio.items[7].tag=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[7].category=this.value; PORTFOLIO_DATA.portfolio.items[7].tag=this.value; renderAdminProjectsList(); renderAll(); recordChange(true);">
                                         <option value="Video Pendek">Video Pendek</option><option value="Film Pendek" selected="">Film Pendek</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
                                     <div style="display:flex; gap:6px;">
-                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (-N4Ia7-W1uM)" onchange="PORTFOLIO_DATA.portfolio.items[7].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (-N4Ia7-W1uM)" onchange="PORTFOLIO_DATA.portfolio.items[7].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                     </div>
                                 </div>
                             </div>
@@ -2028,22 +2047,22 @@
                             <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
-                                    <input type="text" class="adm-input" value="2024-AMIKOM VIDEO COMPETITION-ANTARA" oninput="PORTFOLIO_DATA.portfolio.items[8].title=this.value; renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="2024-AMIKOM VIDEO COMPETITION-ANTARA" oninput="PORTFOLIO_DATA.portfolio.items[8].title=this.value; renderAll(); recordChange(false);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Link YouTube / Video ID</label>
-                                    <input type="text" class="adm-input" value="XFgKyNl7T80" onchange="PORTFOLIO_DATA.portfolio.items[8].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="XFgKyNl7T80" onchange="PORTFOLIO_DATA.portfolio.items[8].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Kategori</label>
-                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[8].category=this.value; PORTFOLIO_DATA.portfolio.items[8].tag=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[8].category=this.value; PORTFOLIO_DATA.portfolio.items[8].tag=this.value; renderAdminProjectsList(); renderAll(); recordChange(true);">
                                         <option value="Video Pendek">Video Pendek</option><option value="Film Pendek" selected="">Film Pendek</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
                                     <div style="display:flex; gap:6px;">
-                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (XFgKyNl7T80)" onchange="PORTFOLIO_DATA.portfolio.items[8].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (XFgKyNl7T80)" onchange="PORTFOLIO_DATA.portfolio.items[8].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                     </div>
                                 </div>
                             </div>
@@ -2083,22 +2102,22 @@
                             <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
-                                    <input type="text" class="adm-input" value="2023-NAFIFEST-A NGORMATI" oninput="PORTFOLIO_DATA.portfolio.items[9].title=this.value; renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="2023-NAFIFEST-A NGORMATI" oninput="PORTFOLIO_DATA.portfolio.items[9].title=this.value; renderAll(); recordChange(false);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Link YouTube / Video ID</label>
-                                    <input type="text" class="adm-input" value="cZUakY7kyng" onchange="PORTFOLIO_DATA.portfolio.items[9].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="cZUakY7kyng" onchange="PORTFOLIO_DATA.portfolio.items[9].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Kategori</label>
-                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[9].category=this.value; PORTFOLIO_DATA.portfolio.items[9].tag=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[9].category=this.value; PORTFOLIO_DATA.portfolio.items[9].tag=this.value; renderAdminProjectsList(); renderAll(); recordChange(true);">
                                         <option value="Video Pendek">Video Pendek</option><option value="Film Pendek" selected="">Film Pendek</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
                                     <div style="display:flex; gap:6px;">
-                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (cZUakY7kyng)" onchange="PORTFOLIO_DATA.portfolio.items[9].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (cZUakY7kyng)" onchange="PORTFOLIO_DATA.portfolio.items[9].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                     </div>
                                 </div>
                             </div>
@@ -2138,22 +2157,22 @@
                             <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
-                                    <input type="text" class="adm-input" value="2023-AMIKOM VIDEO COMPETITION-TRIASIH" oninput="PORTFOLIO_DATA.portfolio.items[10].title=this.value; renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="2023-AMIKOM VIDEO COMPETITION-TRIASIH" oninput="PORTFOLIO_DATA.portfolio.items[10].title=this.value; renderAll(); recordChange(false);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Link YouTube / Video ID</label>
-                                    <input type="text" class="adm-input" value="rchFVJnkm0Y" onchange="PORTFOLIO_DATA.portfolio.items[10].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="rchFVJnkm0Y" onchange="PORTFOLIO_DATA.portfolio.items[10].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Kategori</label>
-                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[10].category=this.value; PORTFOLIO_DATA.portfolio.items[10].tag=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[10].category=this.value; PORTFOLIO_DATA.portfolio.items[10].tag=this.value; renderAdminProjectsList(); renderAll(); recordChange(true);">
                                         <option value="Video Pendek">Video Pendek</option><option value="Film Pendek" selected="">Film Pendek</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
                                     <div style="display:flex; gap:6px;">
-                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (rchFVJnkm0Y)" onchange="PORTFOLIO_DATA.portfolio.items[10].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (rchFVJnkm0Y)" onchange="PORTFOLIO_DATA.portfolio.items[10].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                     </div>
                                 </div>
                             </div>
@@ -2163,7 +2182,7 @@
                         </div>
                     </div>
 
-                    <!-- TAB 3: TENTANG & SKILL -->
+                    <!-- TAB 3: TENTANG SAYA & KEAHLIAN -->
                     <div class="admin-tab-pane" id="tab-about">
                         <div class="adm-card">
                             <div class="adm-card-title">
@@ -2172,7 +2191,7 @@
                             </div>
                             <div class="adm-field">
                                 <label>Judul Seksi</label>
-                                <input type="text" class="adm-input" id="admAboutTitle" oninput="PORTFOLIO_DATA.about.title = this.value; renderAll(); markDraftUnsaved();">
+                                <input type="text" class="adm-input" id="admAboutTitle" oninput="PORTFOLIO_DATA.about.title = this.value; renderAll(); recordChange(false);">
                             </div>
                             <div id="admAboutParagraphs">
                 <div class="adm-list-item">
@@ -2181,10 +2200,10 @@
                         <div class="adm-order-btns">
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.about.paragraphs, 0, -1, renderAdminAboutParagraphs)"><i class="fas fa-arrow-up"></i></button>
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.about.paragraphs, 0, 1, renderAdminAboutParagraphs)"><i class="fas fa-arrow-down"></i></button>
-                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.about.paragraphs.splice(0,1); renderAdminAboutParagraphs(); renderAll(); markDraftUnsaved();"><i class="fas fa-trash"></i></button>
+                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.about.paragraphs.splice(0,1); renderAdminAboutParagraphs(); renderAll(); recordChange(true);"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
-                    <textarea class="adm-textarea" oninput="PORTFOLIO_DATA.about.paragraphs[0]=this.value; renderAll(); markDraftUnsaved();">Saya adalah seorang kreatif asal Pasuruan yang siap berkarya, termasuk untuk kesempatan di Surabaya. Saya berminat pada dunia videografi, di mana saya senang mengekspresikan sesuatu melalui media video.</textarea>
+                    <textarea class="adm-textarea" oninput="PORTFOLIO_DATA.about.paragraphs[0]=this.value; renderAll(); recordChange(false);">Saya adalah seorang kreatif asal Pasuruan yang siap berkarya, termasuk untuk kesempatan di Surabaya. Saya berminat pada dunia videografi, di mana saya senang mengekspresikan sesuatu melalui media video.</textarea>
                 </div>
             
                 <div class="adm-list-item">
@@ -2193,10 +2212,10 @@
                         <div class="adm-order-btns">
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.about.paragraphs, 1, -1, renderAdminAboutParagraphs)"><i class="fas fa-arrow-up"></i></button>
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.about.paragraphs, 1, 1, renderAdminAboutParagraphs)"><i class="fas fa-arrow-down"></i></button>
-                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.about.paragraphs.splice(1,1); renderAdminAboutParagraphs(); renderAll(); markDraftUnsaved();"><i class="fas fa-trash"></i></button>
+                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.about.paragraphs.splice(1,1); renderAdminAboutParagraphs(); renderAll(); recordChange(true);"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
-                    <textarea class="adm-textarea" oninput="PORTFOLIO_DATA.about.paragraphs[1]=this.value; renderAll(); markDraftUnsaved();">Dalam proses merangkai momen menjadi cerita, saya memadukan kemampuan editing visual, produksi live streaming, hingga pengoperasian drone dan eksplorasi animasi 3D untuk menghasilkan karya yang komunikatif dan mendalam.</textarea>
+                    <textarea class="adm-textarea" oninput="PORTFOLIO_DATA.about.paragraphs[1]=this.value; renderAll(); recordChange(false);">Dalam proses merangkai momen menjadi cerita, saya memadukan kemampuan editing visual, produksi live streaming, hingga pengoperasian drone dan eksplorasi animasi 3D untuk menghasilkan karya yang komunikatif dan mendalam.</textarea>
                 </div>
             </div>
                         </div>
@@ -2221,16 +2240,16 @@
                     <div class="adm-grid-2" style="align-items:center;">
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Nama Keahlian</label>
-                            <input type="text" class="adm-input" value="Video Editor" oninput="PORTFOLIO_DATA.about.skills[0].name=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Video Editor" oninput="PORTFOLIO_DATA.about.skills[0].name=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div style="display:flex; gap:10px; align-items:center;">
                             <div style="flex:1;">
                                 <label style="font-size:0.75rem;color:#94a3b8;">Persentase (94%)</label>
-                                <input type="range" min="10" max="100" value="94" style="width:100%;" oninput="PORTFOLIO_DATA.about.skills[0].percent=Number(this.value); renderAdminSkills(); renderAll(); markDraftUnsaved();">
+                                <input type="range" min="10" max="100" value="94" style="width:100%;" oninput="PORTFOLIO_DATA.about.skills[0].percent=Number(this.value); renderAdminSkills(); renderAll(); recordChange(false);">
                             </div>
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.about.skills, 0, -1, renderAdminSkills)"><i class="fas fa-arrow-up"></i></button>
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.about.skills, 0, 1, renderAdminSkills)"><i class="fas fa-arrow-down"></i></button>
-                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.about.skills.splice(0,1); renderAdminSkills(); renderAll(); markDraftUnsaved();"><i class="fas fa-trash"></i></button>
+                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.about.skills.splice(0,1); renderAdminSkills(); renderAll(); recordChange(true);"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                 </div>
@@ -2239,16 +2258,16 @@
                     <div class="adm-grid-2" style="align-items:center;">
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Nama Keahlian</label>
-                            <input type="text" class="adm-input" value="Videographer" oninput="PORTFOLIO_DATA.about.skills[1].name=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Videographer" oninput="PORTFOLIO_DATA.about.skills[1].name=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div style="display:flex; gap:10px; align-items:center;">
                             <div style="flex:1;">
                                 <label style="font-size:0.75rem;color:#94a3b8;">Persentase (87%)</label>
-                                <input type="range" min="10" max="100" value="87" style="width:100%;" oninput="PORTFOLIO_DATA.about.skills[1].percent=Number(this.value); renderAdminSkills(); renderAll(); markDraftUnsaved();">
+                                <input type="range" min="10" max="100" value="87" style="width:100%;" oninput="PORTFOLIO_DATA.about.skills[1].percent=Number(this.value); renderAdminSkills(); renderAll(); recordChange(false);">
                             </div>
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.about.skills, 1, -1, renderAdminSkills)"><i class="fas fa-arrow-up"></i></button>
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.about.skills, 1, 1, renderAdminSkills)"><i class="fas fa-arrow-down"></i></button>
-                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.about.skills.splice(1,1); renderAdminSkills(); renderAll(); markDraftUnsaved();"><i class="fas fa-trash"></i></button>
+                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.about.skills.splice(1,1); renderAdminSkills(); renderAll(); recordChange(true);"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                 </div>
@@ -2257,16 +2276,16 @@
                     <div class="adm-grid-2" style="align-items:center;">
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Nama Keahlian</label>
-                            <input type="text" class="adm-input" value="3D Artist" oninput="PORTFOLIO_DATA.about.skills[2].name=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="3D Artist" oninput="PORTFOLIO_DATA.about.skills[2].name=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div style="display:flex; gap:10px; align-items:center;">
                             <div style="flex:1;">
                                 <label style="font-size:0.75rem;color:#94a3b8;">Persentase (75%)</label>
-                                <input type="range" min="10" max="100" value="75" style="width:100%;" oninput="PORTFOLIO_DATA.about.skills[2].percent=Number(this.value); renderAdminSkills(); renderAll(); markDraftUnsaved();">
+                                <input type="range" min="10" max="100" value="75" style="width:100%;" oninput="PORTFOLIO_DATA.about.skills[2].percent=Number(this.value); renderAdminSkills(); renderAll(); recordChange(false);">
                             </div>
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.about.skills, 2, -1, renderAdminSkills)"><i class="fas fa-arrow-up"></i></button>
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.about.skills, 2, 1, renderAdminSkills)"><i class="fas fa-arrow-down"></i></button>
-                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.about.skills.splice(2,1); renderAdminSkills(); renderAll(); markDraftUnsaved();"><i class="fas fa-trash"></i></button>
+                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.about.skills.splice(2,1); renderAdminSkills(); renderAll(); recordChange(true);"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                 </div>
@@ -2294,17 +2313,17 @@
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Posisi / Jurusan</label>
-                            <input type="text" class="adm-input" value="Digital Marketing" oninput="PORTFOLIO_DATA.experience.items[0].role=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Digital Marketing" oninput="PORTFOLIO_DATA.experience.items[0].role=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Instansi / Tempat (Opsional)</label>
-                            <input type="text" class="adm-input" value="Taman Ria Suropati" oninput="PORTFOLIO_DATA.experience.items[0].place=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Taman Ria Suropati" oninput="PORTFOLIO_DATA.experience.items[0].place=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Tahun &amp; Posisi Kolom</label>
                             <div style="display:flex; gap:6px;">
-                                <input type="text" class="adm-input" value="2025 - Sekarang" oninput="PORTFOLIO_DATA.experience.items[0].date=this.value; renderAll(); markDraftUnsaved();">
-                                <select class="adm-select" style="width:130px;" onchange="PORTFOLIO_DATA.experience.items[0].column=this.value; renderAdminExperienceList(); renderAll(); markDraftUnsaved();">
+                                <input type="text" class="adm-input" value="2025 - Sekarang" oninput="PORTFOLIO_DATA.experience.items[0].date=this.value; renderAll(); recordChange(false);">
+                                <select class="adm-select" style="width:130px;" onchange="PORTFOLIO_DATA.experience.items[0].column=this.value; renderAdminExperienceList(); renderAll(); recordChange(true);">
                                     <option value="left" selected="">Kolom Kiri</option>
                                     <option value="right">Kolom Kanan</option>
                                 </select>
@@ -2313,7 +2332,7 @@
                     </div>
                     <div>
                         <label style="font-size:0.74rem;color:#94a3b8;">Poin Deskripsi (1 baris = 1 bullet poin)</label>
-                        <textarea class="adm-textarea" oninput="PORTFOLIO_DATA.experience.items[0].bullets=this.value.split('\n').filter(Boolean); renderAll(); markDraftUnsaved();">Memproduksi video promosi dan konten kreatif untuk kebutuhan publikasi Digital Marketing.
+                        <textarea class="adm-textarea" oninput="PORTFOLIO_DATA.experience.items[0].bullets=this.value.split('\n').filter(Boolean); renderAll(); recordChange(false);">Memproduksi video promosi dan konten kreatif untuk kebutuhan publikasi Digital Marketing.
 Bertanggung jawab penuh sebagai spesialis Video Editor dan Videografer internal.
 Mengelola strategi penceritaan visual untuk meningkatkan engagement penonton.</textarea>
                     </div>
@@ -2331,17 +2350,17 @@ Mengelola strategi penceritaan visual untuk meningkatkan engagement penonton.</t
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Posisi / Jurusan</label>
-                            <input type="text" class="adm-input" value="Freelance Video Editor" oninput="PORTFOLIO_DATA.experience.items[1].role=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Freelance Video Editor" oninput="PORTFOLIO_DATA.experience.items[1].role=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Instansi / Tempat (Opsional)</label>
-                            <input type="text" class="adm-input" value="" oninput="PORTFOLIO_DATA.experience.items[1].place=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="" oninput="PORTFOLIO_DATA.experience.items[1].place=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Tahun &amp; Posisi Kolom</label>
                             <div style="display:flex; gap:6px;">
-                                <input type="text" class="adm-input" value="2023 - Sekarang" oninput="PORTFOLIO_DATA.experience.items[1].date=this.value; renderAll(); markDraftUnsaved();">
-                                <select class="adm-select" style="width:130px;" onchange="PORTFOLIO_DATA.experience.items[1].column=this.value; renderAdminExperienceList(); renderAll(); markDraftUnsaved();">
+                                <input type="text" class="adm-input" value="2023 - Sekarang" oninput="PORTFOLIO_DATA.experience.items[1].date=this.value; renderAll(); recordChange(false);">
+                                <select class="adm-select" style="width:130px;" onchange="PORTFOLIO_DATA.experience.items[1].column=this.value; renderAdminExperienceList(); renderAll(); recordChange(true);">
                                     <option value="left" selected="">Kolom Kiri</option>
                                     <option value="right">Kolom Kanan</option>
                                 </select>
@@ -2350,7 +2369,7 @@ Mengelola strategi penceritaan visual untuk meningkatkan engagement penonton.</t
                     </div>
                     <div>
                         <label style="font-size:0.74rem;color:#94a3b8;">Poin Deskripsi (1 baris = 1 bullet poin)</label>
-                        <textarea class="adm-textarea" oninput="PORTFOLIO_DATA.experience.items[1].bullets=this.value.split('\n').filter(Boolean); renderAll(); markDraftUnsaved();">Menerima dan memahami brief dari klien terkait jenis video yang dibutuhkan.
+                        <textarea class="adm-textarea" oninput="PORTFOLIO_DATA.experience.items[1].bullets=this.value.split('\n').filter(Boolean); renderAll(); recordChange(false);">Menerima dan memahami brief dari klien terkait jenis video yang dibutuhkan.
 Menyusun footage menjadi alur cerita yang menarik serta komunikatif.
 Mengelola arsip dokumentasi untuk keperluan publikasi di media sosial.</textarea>
                     </div>
@@ -2368,17 +2387,17 @@ Mengelola arsip dokumentasi untuk keperluan publikasi di media sosial.</textarea
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Posisi / Jurusan</label>
-                            <input type="text" class="adm-input" value="Freelance Videografer" oninput="PORTFOLIO_DATA.experience.items[2].role=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Freelance Videografer" oninput="PORTFOLIO_DATA.experience.items[2].role=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Instansi / Tempat (Opsional)</label>
-                            <input type="text" class="adm-input" value="" oninput="PORTFOLIO_DATA.experience.items[2].place=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="" oninput="PORTFOLIO_DATA.experience.items[2].place=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Tahun &amp; Posisi Kolom</label>
                             <div style="display:flex; gap:6px;">
-                                <input type="text" class="adm-input" value="2023 - Sekarang" oninput="PORTFOLIO_DATA.experience.items[2].date=this.value; renderAll(); markDraftUnsaved();">
-                                <select class="adm-select" style="width:130px;" onchange="PORTFOLIO_DATA.experience.items[2].column=this.value; renderAdminExperienceList(); renderAll(); markDraftUnsaved();">
+                                <input type="text" class="adm-input" value="2023 - Sekarang" oninput="PORTFOLIO_DATA.experience.items[2].date=this.value; renderAll(); recordChange(false);">
+                                <select class="adm-select" style="width:130px;" onchange="PORTFOLIO_DATA.experience.items[2].column=this.value; renderAdminExperienceList(); renderAll(); recordChange(true);">
                                     <option value="left" selected="">Kolom Kiri</option>
                                     <option value="right">Kolom Kanan</option>
                                 </select>
@@ -2387,7 +2406,7 @@ Mengelola arsip dokumentasi untuk keperluan publikasi di media sosial.</textarea
                     </div>
                     <div>
                         <label style="font-size:0.74rem;color:#94a3b8;">Poin Deskripsi (1 baris = 1 bullet poin)</label>
-                        <textarea class="adm-textarea" oninput="PORTFOLIO_DATA.experience.items[2].bullets=this.value.split('\n').filter(Boolean); renderAll(); markDraftUnsaved();">Bergabung bersama rekan kerja untuk mengabadikan momen pernikahan, rapat organisasi, dan acara sekolah.
+                        <textarea class="adm-textarea" oninput="PORTFOLIO_DATA.experience.items[2].bullets=this.value.split('\n').filter(Boolean); renderAll(); recordChange(false);">Bergabung bersama rekan kerja untuk mengabadikan momen pernikahan, rapat organisasi, dan acara sekolah.
 Memproduksi video dokumentasi untuk promosi pariwisata.</textarea>
                     </div>
                 </div>
@@ -2404,17 +2423,17 @@ Memproduksi video dokumentasi untuk promosi pariwisata.</textarea>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Posisi / Jurusan</label>
-                            <input type="text" class="adm-input" value="Desain Komunikasi Visual" oninput="PORTFOLIO_DATA.experience.items[3].role=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Desain Komunikasi Visual" oninput="PORTFOLIO_DATA.experience.items[3].role=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Instansi / Tempat (Opsional)</label>
-                            <input type="text" class="adm-input" value="SMK Negeri 1 Pasuruan" oninput="PORTFOLIO_DATA.experience.items[3].place=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="SMK Negeri 1 Pasuruan" oninput="PORTFOLIO_DATA.experience.items[3].place=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Tahun &amp; Posisi Kolom</label>
                             <div style="display:flex; gap:6px;">
-                                <input type="text" class="adm-input" value="2022 - 2025" oninput="PORTFOLIO_DATA.experience.items[3].date=this.value; renderAll(); markDraftUnsaved();">
-                                <select class="adm-select" style="width:130px;" onchange="PORTFOLIO_DATA.experience.items[3].column=this.value; renderAdminExperienceList(); renderAll(); markDraftUnsaved();">
+                                <input type="text" class="adm-input" value="2022 - 2025" oninput="PORTFOLIO_DATA.experience.items[3].date=this.value; renderAll(); recordChange(false);">
+                                <select class="adm-select" style="width:130px;" onchange="PORTFOLIO_DATA.experience.items[3].column=this.value; renderAdminExperienceList(); renderAll(); recordChange(true);">
                                     <option value="left">Kolom Kiri</option>
                                     <option value="right" selected="">Kolom Kanan</option>
                                 </select>
@@ -2423,7 +2442,7 @@ Memproduksi video dokumentasi untuk promosi pariwisata.</textarea>
                     </div>
                     <div>
                         <label style="font-size:0.74rem;color:#94a3b8;">Poin Deskripsi (1 baris = 1 bullet poin)</label>
-                        <textarea class="adm-textarea" oninput="PORTFOLIO_DATA.experience.items[3].bullets=this.value.split('\n').filter(Boolean); renderAll(); markDraftUnsaved();">Video pendek "Revitalisasi Kota Pasuruan" - Juara 1 Tingkat Kota.
+                        <textarea class="adm-textarea" oninput="PORTFOLIO_DATA.experience.items[3].bullets=this.value.split('\n').filter(Boolean); renderAll(); recordChange(false);">Video pendek "Revitalisasi Kota Pasuruan" - Juara 1 Tingkat Kota.
 Terlibat dalam dokumentasi Hari Jadi Kota Pasuruan.
 Proyek UKK bertema "Pasuruan Dalam Dua Waktu".</textarea>
                     </div>
@@ -2441,17 +2460,17 @@ Proyek UKK bertema "Pasuruan Dalam Dua Waktu".</textarea>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Posisi / Jurusan</label>
-                            <input type="text" class="adm-input" value="Tim Kreatif (Magang)" oninput="PORTFOLIO_DATA.experience.items[4].role=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Tim Kreatif (Magang)" oninput="PORTFOLIO_DATA.experience.items[4].role=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Instansi / Tempat (Opsional)</label>
-                            <input type="text" class="adm-input" value="Dinas Pariwisata Kota Pasuruan" oninput="PORTFOLIO_DATA.experience.items[4].place=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Dinas Pariwisata Kota Pasuruan" oninput="PORTFOLIO_DATA.experience.items[4].place=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Tahun &amp; Posisi Kolom</label>
                             <div style="display:flex; gap:6px;">
-                                <input type="text" class="adm-input" value="Juli - Desember 2024" oninput="PORTFOLIO_DATA.experience.items[4].date=this.value; renderAll(); markDraftUnsaved();">
-                                <select class="adm-select" style="width:130px;" onchange="PORTFOLIO_DATA.experience.items[4].column=this.value; renderAdminExperienceList(); renderAll(); markDraftUnsaved();">
+                                <input type="text" class="adm-input" value="Juli - Desember 2024" oninput="PORTFOLIO_DATA.experience.items[4].date=this.value; renderAll(); recordChange(false);">
+                                <select class="adm-select" style="width:130px;" onchange="PORTFOLIO_DATA.experience.items[4].column=this.value; renderAdminExperienceList(); renderAll(); recordChange(true);">
                                     <option value="left">Kolom Kiri</option>
                                     <option value="right" selected="">Kolom Kanan</option>
                                 </select>
@@ -2460,7 +2479,7 @@ Proyek UKK bertema "Pasuruan Dalam Dua Waktu".</textarea>
                     </div>
                     <div>
                         <label style="font-size:0.74rem;color:#94a3b8;">Poin Deskripsi (1 baris = 1 bullet poin)</label>
-                        <textarea class="adm-textarea" oninput="PORTFOLIO_DATA.experience.items[4].bullets=this.value.split('\n').filter(Boolean); renderAll(); markDraftUnsaved();">Dokumentasi video acara resmi &amp; promosi wisata.
+                        <textarea class="adm-textarea" oninput="PORTFOLIO_DATA.experience.items[4].bullets=this.value.split('\n').filter(Boolean); renderAll(); recordChange(false);">Dokumentasi video acara resmi &amp; promosi wisata.
 Editing video kegiatan dinas menggunakan Premiere Pro &amp; DaVinci Resolve.
 Produksi konten promosi untuk platform media sosial.</textarea>
                     </div>
@@ -2489,15 +2508,15 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Judul Juara / Penghargaan</label>
-                            <input type="text" class="adm-input" value="Juara 1 Lomba Promosi Perumahan" oninput="PORTFOLIO_DATA.awards.items[0].title=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Juara 1 Lomba Promosi Perumahan" oninput="PORTFOLIO_DATA.awards.items[0].title=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Keterangan / Penyelenggara / Tahun</label>
-                            <input type="text" class="adm-input" value="Video Pendek &quot;PASURUAN GRAND CITY&quot; (2025)" oninput="PORTFOLIO_DATA.awards.items[0].desc=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Video Pendek &quot;PASURUAN GRAND CITY&quot; (2025)" oninput="PORTFOLIO_DATA.awards.items[0].desc=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Ikon (fas fa-trophy / fas fa-medal)</label>
-                            <input type="text" class="adm-input" value="fas fa-trophy" oninput="PORTFOLIO_DATA.awards.items[0].icon=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="fas fa-trophy" oninput="PORTFOLIO_DATA.awards.items[0].icon=this.value; renderAll(); recordChange(false);">
                         </div>
                     </div>
                 </div>
@@ -2514,15 +2533,15 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Judul Juara / Penghargaan</label>
-                            <input type="text" class="adm-input" value="Juara 2 Lomba HUT Indonesia Ke 80" oninput="PORTFOLIO_DATA.awards.items[1].title=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Juara 2 Lomba HUT Indonesia Ke 80" oninput="PORTFOLIO_DATA.awards.items[1].title=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Keterangan / Penyelenggara / Tahun</label>
-                            <input type="text" class="adm-input" value="Video Pendek &quot;TOURISM PASURUAN&quot; (2025)" oninput="PORTFOLIO_DATA.awards.items[1].desc=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Video Pendek &quot;TOURISM PASURUAN&quot; (2025)" oninput="PORTFOLIO_DATA.awards.items[1].desc=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Ikon (fas fa-trophy / fas fa-medal)</label>
-                            <input type="text" class="adm-input" value="fas fa-award" oninput="PORTFOLIO_DATA.awards.items[1].icon=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="fas fa-award" oninput="PORTFOLIO_DATA.awards.items[1].icon=this.value; renderAll(); recordChange(false);">
                         </div>
                     </div>
                 </div>
@@ -2539,15 +2558,15 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Judul Juara / Penghargaan</label>
-                            <input type="text" class="adm-input" value="Juara 1 Lomba HUT Indonesia Ke 79" oninput="PORTFOLIO_DATA.awards.items[2].title=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Juara 1 Lomba HUT Indonesia Ke 79" oninput="PORTFOLIO_DATA.awards.items[2].title=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Keterangan / Penyelenggara / Tahun</label>
-                            <input type="text" class="adm-input" value="Video Pendek &quot;TOURISM PASURUAN&quot; (2024)" oninput="PORTFOLIO_DATA.awards.items[2].desc=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Video Pendek &quot;TOURISM PASURUAN&quot; (2024)" oninput="PORTFOLIO_DATA.awards.items[2].desc=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Ikon (fas fa-trophy / fas fa-medal)</label>
-                            <input type="text" class="adm-input" value="fas fa-trophy" oninput="PORTFOLIO_DATA.awards.items[2].icon=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="fas fa-trophy" oninput="PORTFOLIO_DATA.awards.items[2].icon=this.value; renderAll(); recordChange(false);">
                         </div>
                     </div>
                 </div>
@@ -2564,15 +2583,15 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Judul Juara / Penghargaan</label>
-                            <input type="text" class="adm-input" value="Juara 3 Video Competition" oninput="PORTFOLIO_DATA.awards.items[3].title=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Juara 3 Video Competition" oninput="PORTFOLIO_DATA.awards.items[3].title=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Keterangan / Penyelenggara / Tahun</label>
-                            <input type="text" class="adm-input" value="Kota Lama Surabaya (2024)" oninput="PORTFOLIO_DATA.awards.items[3].desc=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Kota Lama Surabaya (2024)" oninput="PORTFOLIO_DATA.awards.items[3].desc=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Ikon (fas fa-trophy / fas fa-medal)</label>
-                            <input type="text" class="adm-input" value="fas fa-medal" oninput="PORTFOLIO_DATA.awards.items[3].icon=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="fas fa-medal" oninput="PORTFOLIO_DATA.awards.items[3].icon=this.value; renderAll(); recordChange(false);">
                         </div>
                     </div>
                 </div>
@@ -2589,15 +2608,15 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Judul Juara / Penghargaan</label>
-                            <input type="text" class="adm-input" value="Juara 1 Kategori TikTok - &quot;Anden Lakon&quot;" oninput="PORTFOLIO_DATA.awards.items[4].title=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Juara 1 Kategori TikTok - &quot;Anden Lakon&quot;" oninput="PORTFOLIO_DATA.awards.items[4].title=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Keterangan / Penyelenggara / Tahun</label>
-                            <input type="text" class="adm-input" value="Amikom Video Competition 2023 (Diselenggarakan oleh Universitas AMIKOM Yogyakarta &amp; Cabdin Wilayah Pasuruan)." oninput="PORTFOLIO_DATA.awards.items[4].desc=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Amikom Video Competition 2023 (Diselenggarakan oleh Universitas AMIKOM Yogyakarta &amp; Cabdin Wilayah Pasuruan)." oninput="PORTFOLIO_DATA.awards.items[4].desc=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Ikon (fas fa-trophy / fas fa-medal)</label>
-                            <input type="text" class="adm-input" value="fas fa-trophy" oninput="PORTFOLIO_DATA.awards.items[4].icon=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="fas fa-trophy" oninput="PORTFOLIO_DATA.awards.items[4].icon=this.value; renderAll(); recordChange(false);">
                         </div>
                     </div>
                 </div>
@@ -2614,15 +2633,15 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Judul Juara / Penghargaan</label>
-                            <input type="text" class="adm-input" value="Juara 2 Kategori Cinematography - &quot;Anden Lakon&quot;" oninput="PORTFOLIO_DATA.awards.items[5].title=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Juara 2 Kategori Cinematography - &quot;Anden Lakon&quot;" oninput="PORTFOLIO_DATA.awards.items[5].title=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Keterangan / Penyelenggara / Tahun</label>
-                            <input type="text" class="adm-input" value="Amikom Video Competition 2023." oninput="PORTFOLIO_DATA.awards.items[5].desc=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Amikom Video Competition 2023." oninput="PORTFOLIO_DATA.awards.items[5].desc=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Ikon (fas fa-trophy / fas fa-medal)</label>
-                            <input type="text" class="adm-input" value="fas fa-award" oninput="PORTFOLIO_DATA.awards.items[5].icon=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="fas fa-award" oninput="PORTFOLIO_DATA.awards.items[5].icon=this.value; renderAll(); recordChange(false);">
                         </div>
                     </div>
                 </div>
@@ -2639,15 +2658,15 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Judul Juara / Penghargaan</label>
-                            <input type="text" class="adm-input" value="Juara 2 Kategori Drama - &quot;TRIASIH&quot;" oninput="PORTFOLIO_DATA.awards.items[6].title=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Juara 2 Kategori Drama - &quot;TRIASIH&quot;" oninput="PORTFOLIO_DATA.awards.items[6].title=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Keterangan / Penyelenggara / Tahun</label>
-                            <input type="text" class="adm-input" value="Amikom Video Competition 2023." oninput="PORTFOLIO_DATA.awards.items[6].desc=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Amikom Video Competition 2023." oninput="PORTFOLIO_DATA.awards.items[6].desc=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Ikon (fas fa-trophy / fas fa-medal)</label>
-                            <input type="text" class="adm-input" value="fas fa-medal" oninput="PORTFOLIO_DATA.awards.items[6].icon=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="fas fa-medal" oninput="PORTFOLIO_DATA.awards.items[6].icon=this.value; renderAll(); recordChange(false);">
                         </div>
                     </div>
                 </div>
@@ -2664,15 +2683,15 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Judul Juara / Penghargaan</label>
-                            <input type="text" class="adm-input" value="Film Favorit - &quot;A NGORMATI&quot;" oninput="PORTFOLIO_DATA.awards.items[7].title=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Film Favorit - &quot;A NGORMATI&quot;" oninput="PORTFOLIO_DATA.awards.items[7].title=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Keterangan / Penyelenggara / Tahun</label>
-                            <input type="text" class="adm-input" value="Navi Film Festival (NAFIFEST) 2023 - UIN K.H Abdurrahman Wahid Pekalongan." oninput="PORTFOLIO_DATA.awards.items[7].desc=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Navi Film Festival (NAFIFEST) 2023 - UIN K.H Abdurrahman Wahid Pekalongan." oninput="PORTFOLIO_DATA.awards.items[7].desc=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Ikon (fas fa-trophy / fas fa-medal)</label>
-                            <input type="text" class="adm-input" value="fas fa-film" oninput="PORTFOLIO_DATA.awards.items[7].icon=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="fas fa-film" oninput="PORTFOLIO_DATA.awards.items[7].icon=this.value; renderAll(); recordChange(false);">
                         </div>
                     </div>
                 </div>
@@ -2689,15 +2708,15 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Judul Juara / Penghargaan</label>
-                            <input type="text" class="adm-input" value="Peserta Terkreatif" oninput="PORTFOLIO_DATA.awards.items[8].title=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Peserta Terkreatif" oninput="PORTFOLIO_DATA.awards.items[8].title=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Keterangan / Penyelenggara / Tahun</label>
-                            <input type="text" class="adm-input" value="Gerakan Kolaborasi Aksi Forum Anak Jawa Timur (GALAKSI FAJAR 3.0) 2023 - Forum Anak Jatim, PLATO Foundation, &amp; UNICEF." oninput="PORTFOLIO_DATA.awards.items[8].desc=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="Gerakan Kolaborasi Aksi Forum Anak Jawa Timur (GALAKSI FAJAR 3.0) 2023 - Forum Anak Jatim, PLATO Foundation, &amp; UNICEF." oninput="PORTFOLIO_DATA.awards.items[8].desc=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Ikon (fas fa-trophy / fas fa-medal)</label>
-                            <input type="text" class="adm-input" value="fas fa-star" oninput="PORTFOLIO_DATA.awards.items[8].icon=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="fas fa-star" oninput="PORTFOLIO_DATA.awards.items[8].icon=this.value; renderAll(); recordChange(false);">
                         </div>
                     </div>
                 </div>
@@ -3150,15 +3169,101 @@ Produksi konten promosi untuk platform media sosial.</textarea>
 };
         /*__PORTFOLIO_DATA_END__*/
 
-        const STORAGE_KEY = 'ALI_HAIDAR_PORTFOLIO_DRAFT_V5';
-        const DRAFT_TIME_KEY = 'ALI_HAIDAR_DRAFT_TIME_V5';
+        const STORAGE_KEY = 'ALI_HAIDAR_PORTFOLIO_DRAFT_V6';
+        const DRAFT_TIME_KEY = 'ALI_HAIDAR_DRAFT_TIME_V6';
         let PORTFOLIO_DATA = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA));
         let BACKUP_BEFORE_EDIT = null;
         let isAdminLoggedIn = false;
         let currentSessionPassword = '';
 
         // =========================================================================
-        // 2. ENKRIPSI & AUTENTIKASI ADMIN (WAJIB SANDI SETIAP KALI MASUK PANEL)
+        // 2. SISTEM UNDO (Ctrl+Z) & REDO (Ctrl+Shift+Z) DI PANEL ADMIN
+        // =========================================================================
+        let historyStack = [];
+        let historyIndex = -1;
+        let isPerformingUndoRedo = false;
+        let historyDebounceTimer = null;
+
+        function initHistoryStack() {
+            historyStack = [JSON.stringify(PORTFOLIO_DATA)];
+            historyIndex = 0;
+            updateUndoRedoButtons();
+        }
+
+        function recordChange(immediate = false) {
+            markDraftUnsaved();
+            if (isPerformingUndoRedo) return;
+
+            clearTimeout(historyDebounceTimer);
+            if (immediate) {
+                commitHistorySnapshot();
+            } else {
+                historyDebounceTimer = setTimeout(commitHistorySnapshot, 350);
+            }
+        }
+
+        function commitHistorySnapshot() {
+            if (isPerformingUndoRedo) return;
+            const currentSnap = JSON.stringify(PORTFOLIO_DATA);
+            if (historyIndex >= 0 && historyStack[historyIndex] === currentSnap) return;
+
+            historyStack = historyStack.slice(0, historyIndex + 1);
+            historyStack.push(currentSnap);
+            if (historyStack.length > 50) {
+                historyStack.shift();
+            } else {
+                historyIndex++;
+            }
+            updateUndoRedoButtons();
+        }
+
+        function updateUndoRedoButtons() {
+            const undoBtn = document.getElementById('admUndoBtn');
+            const redoBtn = document.getElementById('admRedoBtn');
+            if (undoBtn) undoBtn.disabled = (historyIndex <= 0);
+            if (redoBtn) redoBtn.disabled = (historyIndex >= historyStack.length - 1);
+        }
+
+        function triggerUndo() {
+            if (!isAdminLoggedIn) return;
+            if (historyDebounceTimer) {
+                clearTimeout(historyDebounceTimer);
+                commitHistorySnapshot();
+            }
+            if (historyIndex > 0) {
+                isPerformingUndoRedo = true;
+                historyIndex--;
+                PORTFOLIO_DATA = JSON.parse(historyStack[historyIndex]);
+                renderAll();
+                populateAdminForms();
+                updateUndoRedoButtons();
+                markDraftUnsaved();
+                isPerformingUndoRedo = false;
+                showToast('↩️ Undo berhasil (Ctrl + Z)');
+            } else {
+                showToast('Sudah di langkah paling awal.');
+            }
+        }
+
+        function triggerRedo() {
+            if (!isAdminLoggedIn) return;
+            if (historyIndex < historyStack.length - 1) {
+                isPerformingUndoRedo = true;
+                historyIndex++;
+                PORTFOLIO_DATA = JSON.parse(historyStack[historyIndex]);
+                renderAll();
+                populateAdminForms();
+                updateUndoRedoButtons();
+                markDraftUnsaved();
+                isPerformingUndoRedo = false;
+                showToast('↪️ Redo berhasil (Ctrl + Shift + Z)');
+            } else {
+                showToast('Tidak ada langkah Redo lagi.');
+            }
+        }
+
+        // =========================================================================
+        // 3. ENKRIPSI & AUTENTIKASI ADMIN (WAJIB SANDI SETIAP KALI MASUK PANEL)
         // =========================================================================
         function xorCipher(text, pass) {
             if (!text || !pass) return [];
@@ -3240,7 +3345,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             }
         }
 
-        // TOMBOL 1: SAVE (LANJUT NANTI SEBELUM DI-PUBLISH)
+        // TOMBOL SAVE (LANJUT NANTI SEBELUM DI-PUBLISH)
         function saveDraftForLater(silent = false) {
             try {
                 const nowStr = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
@@ -3258,19 +3363,21 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             }
         }
 
-        // TOMBOL CANCEL / BATAL EDIT (Kembalikan ke kondisi sebelum sesi edit dibuka & keluar)
+        // TOMBOL CANCEL (Kembalikan ke kondisi sebelum sesi edit dibuka & keluar)
         function cancelAndRevertChanges() {
             if (BACKUP_BEFORE_EDIT) {
                 PORTFOLIO_DATA = JSON.parse(JSON.stringify(BACKUP_BEFORE_EDIT));
                 renderAll();
             }
             logoutAdmin();
-            showToast('↩️ Editan dibatalkan & keluar dari Panel Admin.');
+            showToast('↩️ Editan dibatalkan & kembali ke tampilan semula.');
         }
 
-        // Keluar hanya dari jendela modal Admin
-        function exitAdminPanelOnly() {
-            logoutAdmin();
+        // TOMBOL PREVIEW (Tutup modal Admin untuk melihat hasil tampilan halaman)
+        function previewWebsiteFromAdmin() {
+            document.getElementById('adminModalOverlay').classList.remove('active');
+            document.body.classList.remove('admin-open');
+            showToast('👁️ Mode Preview: Lihat hasil editanmu di halaman. Klik "Kunci Admin" jika sudah selesai.');
         }
 
         function showToast(msg) {
@@ -3315,7 +3422,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                 activateAdminSession(pass);
                 closeLoginModal();
                 openAdminModalDirectly();
-                showToast('🔓 Sandi benar! Selamat datang di Admin Studio.');
+                showToast('🔓 Sandi benar! Gunakan Ctrl+Z (Undo) & Ctrl+Shift+Z (Redo).');
             } else {
                 document.getElementById('loginErrorMsg').style.display = 'block';
             }
@@ -3325,6 +3432,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             isAdminLoggedIn = true;
             currentSessionPassword = pass;
             BACKUP_BEFORE_EDIT = JSON.parse(JSON.stringify(PORTFOLIO_DATA));
+            initHistoryStack();
             document.body.classList.add('is-admin');
             const lockIcon = document.getElementById('footerLockIcon');
             if (lockIcon) lockIcon.className = 'fas fa-unlock';
@@ -3347,7 +3455,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             if (window.location.hash === '#admin') {
                 history.replaceState(null, null, window.location.pathname);
             }
-            showToast('🔒 Keluar dari Panel Admin (Mode Pengunjung).');
+            showToast('🔒 Mode Admin dikunci (Tampilan Pengunjung).');
         }
 
         function changeAdminPassword() {
@@ -3369,7 +3477,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
         }
 
         // =========================================================================
-        // 3. RENDER HALAMAN PORTOFOLIO DARI DATA
+        // 4. RENDER HALAMAN PORTOFOLIO & SCROLL REVEAL (TENTANG SAYA & SKILL)
         // =========================================================================
         function escapeHtml(str) {
             return String(str ?? '')
@@ -3391,6 +3499,54 @@ Produksi konten promosi untuk platform media sosial.</textarea>
         function getDefaultYouTubeThumb(videoId) {
             const cleanId = extractYouTubeId(videoId) || 'JynhUiy4Tmg';
             return `https://img.youtube.com/vi/${cleanId}/hqdefault.jpg`;
+        }
+
+        let revealObserver = null;
+
+        function initScrollRevealObserver() {
+            if (revealObserver) {
+                revealObserver.disconnect();
+            }
+
+            const reveals = document.querySelectorAll('.reveal');
+            const progressBars = document.querySelectorAll('.progress-bar');
+
+            revealObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.12) {
+                        entry.target.classList.add('active');
+                        if (entry.target.classList.contains('about-content')) {
+                            progressBars.forEach(bar => {
+                                const targetWidth = bar.getAttribute('data-width');
+                                bar.style.width = targetWidth;
+                            });
+                        }
+                    } else if (entry.intersectionRatio === 0) {
+                        entry.target.classList.remove('active');
+                        if (entry.target.classList.contains('about-content')) {
+                            progressBars.forEach(bar => {
+                                bar.style.width = '0%';
+                            });
+                        }
+                    }
+                });
+            }, {
+                threshold: [0, 0.12]
+            });
+
+            reveals.forEach(el => {
+                revealObserver.observe(el);
+                // Pastikan elemen yang sudah berada di layar langsung tampil
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    el.classList.add('active');
+                    if (el.classList.contains('about-content')) {
+                        progressBars.forEach(bar => {
+                            bar.style.width = bar.getAttribute('data-width');
+                        });
+                    }
+                }
+            });
         }
 
         function renderAll() {
@@ -3434,18 +3590,18 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                 return `<a href="${escapeHtml(btn.url)}" ${target} class="${cls}"><i class="${escapeHtml(btn.icon || 'fas fa-file-alt')}"></i> ${escapeHtml(btn.text)}</a>`;
             }).join('');
 
-            // About
+            // About & Skills ("Tentang Saya & Keahlian")
             document.getElementById('aboutSectionTitle').textContent = a.title || 'Tentang Saya & Keahlian';
-            document.getElementById('aboutParagraphsContainer').innerHTML = a.paragraphs.map(p => `<p>${escapeHtml(p)}</p>`).join('');
-            document.getElementById('aboutTechTagsContainer').innerHTML = a.techTags.map(t => `<span class="tech-tag">${escapeHtml(t)}</span>`).join('');
-            document.getElementById('aboutSkillsContainer').innerHTML = a.skills.map(sk => `
+            document.getElementById('aboutParagraphsContainer').innerHTML = (a.paragraphs || []).map(p => `<p>${escapeHtml(p)}</p>`).join('');
+            document.getElementById('aboutTechTagsContainer').innerHTML = (a.techTags || []).map(t => `<span class="tech-tag">${escapeHtml(t)}</span>`).join('');
+            document.getElementById('aboutSkillsContainer').innerHTML = (a.skills || []).map(sk => `
                 <div class="skill-item">
                     <div class="skill-info">
                         <span>${escapeHtml(sk.name)}</span>
                         <span>${ Number(sk.percent) || 0 }%</span>
                     </div>
                     <div class="progress-bg">
-                        <div class="progress-bar" data-width="${ Number(sk.percent) || 0 }%" style="width: ${ Number(sk.percent) || 0 }%;"></div>
+                        <div class="progress-bar" data-width="${ Number(sk.percent) || 0 }%"></div>
                     </div>
                 </div>
             `).join('');
@@ -3456,7 +3612,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             const rightItems = [];
             exp.items.forEach((item, idx) => {
                 const cardHtml = `
-                    <div class="timeline-card reveal active">
+                    <div class="timeline-card reveal">
                         <div class="quick-card-controls">
                             <button class="quick-btn" title="Geser Naik" onclick="moveExperience(${idx}, -1)"><i class="fas fa-arrow-up"></i></button>
                             <button class="quick-btn" title="Geser Turun" onclick="moveExperience(${idx}, 1)"><i class="fas fa-arrow-down"></i></button>
@@ -3493,7 +3649,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                     const safeTitleJs = proj.title.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 
                     return `
-                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, '${escapeHtml(proj.videoId)}', '${safeTitleJs}')">
+                        <div class="project-card reveal" onclick="handleProjectCardClick(event, '${escapeHtml(proj.videoId)}', '${safeTitleJs}')">
                             <div class="quick-card-controls" onclick="event.stopPropagation()">
                                 <button class="quick-btn" title="Geser Kiri / Naik" onclick="moveProjectWithinCategory(${proj.globalIdx}, -1)"><i class="fas fa-arrow-left"></i></button>
                                 <button class="quick-btn" title="Geser Kanan / Turun" onclick="moveProjectWithinCategory(${proj.globalIdx}, 1)"><i class="fas fa-arrow-right"></i></button>
@@ -3516,7 +3672,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                 }).join('');
 
                 return `
-                    <h3 class="category-title reveal active" style="${catIdx > 0 ? 'margin-top: 80px;' : ''}">${escapeHtml(catName)}</h3>
+                    <h3 class="category-title reveal" style="${catIdx > 0 ? 'margin-top: 80px;' : ''}">${escapeHtml(catName)}</h3>
                     <div class="projects-grid">
                         ${cardsHtml || `<p style="color:var(--text-muted);">Belum ada video di kategori ini.</p>`}
                     </div>
@@ -3526,7 +3682,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             // Awards
             document.getElementById('awardsSectionTitle').textContent = aw.title || 'Penghargaan';
             document.getElementById('awardsListContainer').innerHTML = aw.items.map((item, idx) => `
-                <div class="award-item reveal active">
+                <div class="award-item reveal">
                     <div class="quick-card-controls">
                         <button class="quick-btn" title="Geser Kiri / Naik" onclick="moveAward(${idx}, -1)"><i class="fas fa-arrow-left"></i></button>
                         <button class="quick-btn" title="Geser Kanan / Turun" onclick="moveAward(${idx}, 1)"><i class="fas fa-arrow-right"></i></button>
@@ -3538,6 +3694,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             `).join('');
 
             bindInteractiveEffects();
+            initScrollRevealObserver();
         }
 
         function handleProjectCardClick(e, videoId, title) {
@@ -3546,7 +3703,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
         }
 
         // =========================================================================
-        // 4. INTERAKSI ASLI (MAGNETIC, RIPPLE, 3D TILT, TYPEWRITER, CURSOR)
+        // 5. INTERAKSI ASLI (MAGNETIC, RIPPLE, 3D TILT, TYPEWRITER, CURSOR)
         // =========================================================================
         let scrollPosition = 0;
 
@@ -3726,7 +3883,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
         }
 
         // =========================================================================
-        // 5. FUNGSI PANEL ADMIN CMS, THUMBNAIL SWITCHER & KONTROL POSISI
+        // 6. FUNGSI PANEL ADMIN CMS, THUMBNAIL SWITCHER & KONTROL POSISI
         // =========================================================================
         function toggleQuickEditMode() {
             if (!isAdminLoggedIn) { openLoginModal(); return; }
@@ -3742,15 +3899,6 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             populateAdminForms();
             document.getElementById('adminModalOverlay').classList.add('active');
             document.body.classList.add('admin-open');
-        }
-
-        function closeAdminToQuickPreview() {
-            document.getElementById('adminModalOverlay').classList.remove('active');
-            document.body.classList.remove('admin-open');
-            document.body.classList.add('quick-edit-active');
-            const btn = document.getElementById('quickEditToggleBtn');
-            if (btn) btn.classList.add('active-mode');
-            showToast('Mode Preview & Atur Posisi. Klik Keluar Admin jika sudah selesai.');
         }
 
         function switchAdminTab(tabId, btnEl) {
@@ -3801,9 +3949,10 @@ Produksi konten promosi untuk platform media sosial.</textarea>
 
             loadGitHubConfigLocal();
             updateDraftPillDisplay();
+            updateUndoRedoButtons();
         }
 
-        function updateHeroFromForm() {
+        function updateHeroFromForm(immediate = false) {
             const h = PORTFOLIO_DATA.hero;
             const s = PORTFOLIO_DATA.settings;
             h.profileImg = document.getElementById('admProfileImg').value.trim();
@@ -3817,7 +3966,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             h.typewriterWords = document.getElementById('admTypewriterWords').value.split(',').map(w => w.trim()).filter(Boolean);
             h.quote = document.getElementById('admQuote').value;
             renderAll();
-            markDraftUnsaved();
+            recordChange(immediate);
         }
 
         function compressImageFile(file, maxDim, callback) {
@@ -3855,17 +4004,21 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                     document.getElementById('admHeroBg').value = dataUrl;
                 }
                 renderAll();
-                markDraftUnsaved();
+                recordChange(true);
                 showToast('Gambar berhasil dimuat! Klik Save atau Publish.');
             });
         }
 
         // --- THUMBNAIL HANDLERS UNTUK PROYEK BARU & PROYEK LAMA ---
         function updateNewProjThumbPreview() {
-            const rawUrl = document.getElementById('newProjUrl').value.trim();
-            const customThumb = document.getElementById('newProjThumb').value.trim();
+            const rawUrlEl = document.getElementById('newProjUrl');
+            const customThumbEl = document.getElementById('newProjThumb');
             const previewImg = document.getElementById('newProjThumbPreviewImg');
             const badge = document.getElementById('newProjThumbBadge');
+            if (!rawUrlEl || !customThumbEl || !previewImg || !badge) return;
+
+            const rawUrl = rawUrlEl.value.trim();
+            const customThumb = customThumbEl.value.trim();
 
             if (customThumb) {
                 previewImg.src = customThumb;
@@ -3902,7 +4055,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                 PORTFOLIO_DATA.portfolio.items[projIdx].customThumb = dataUrl;
                 renderAdminProjectsList();
                 renderAll();
-                markDraftUnsaved();
+                recordChange(true);
                 showToast('Thumbnail portofolio berhasil diganti!');
             });
         }
@@ -3911,7 +4064,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             PORTFOLIO_DATA.portfolio.items[projIdx].customThumb = '';
             renderAdminProjectsList();
             renderAll();
-            markDraftUnsaved();
+            recordChange(true);
             showToast('Thumbnail dikembalikan ke Default YouTube!');
         }
 
@@ -3925,23 +4078,23 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                         <div class="adm-order-btns">
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.hero.cvButtons, ${idx}, -1, renderAdminCvButtons)"><i class="fas fa-arrow-up"></i></button>
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.hero.cvButtons, ${idx}, 1, renderAdminCvButtons)"><i class="fas fa-arrow-down"></i></button>
-                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.hero.cvButtons.splice(${idx},1); renderAdminCvButtons(); renderAll(); markDraftUnsaved();"><i class="fas fa-trash"></i></button>
+                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.hero.cvButtons.splice(${idx},1); renderAdminCvButtons(); renderAll(); recordChange(true);"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Teks Tombol (misal: Lihat CV / Portofolio)</label>
-                            <input type="text" class="adm-input" value="${escapeHtml(btn.text)}" oninput="PORTFOLIO_DATA.hero.cvButtons[${idx}].text=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="${escapeHtml(btn.text)}" oninput="PORTFOLIO_DATA.hero.cvButtons[${idx}].text=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Link URL CV (Google Drive / PDF / Link)</label>
-                            <input type="text" class="adm-input" value="${escapeHtml(btn.url)}" oninput="PORTFOLIO_DATA.hero.cvButtons[${idx}].url=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="${escapeHtml(btn.url)}" oninput="PORTFOLIO_DATA.hero.cvButtons[${idx}].url=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Ikon FontAwesome & Gaya</label>
                             <div style="display:flex; gap:6px;">
-                                <input type="text" class="adm-input" value="${escapeHtml(btn.icon)}" placeholder="fas fa-file-alt" oninput="PORTFOLIO_DATA.hero.cvButtons[${idx}].icon=this.value; renderAll(); markDraftUnsaved();">
-                                <select class="adm-select" style="width:120px;" onchange="PORTFOLIO_DATA.hero.cvButtons[${idx}].style=this.value; renderAll(); markDraftUnsaved();">
+                                <input type="text" class="adm-input" value="${escapeHtml(btn.icon)}" placeholder="fas fa-file-alt" oninput="PORTFOLIO_DATA.hero.cvButtons[${idx}].icon=this.value; renderAll(); recordChange(false);">
+                                <select class="adm-select" style="width:120px;" onchange="PORTFOLIO_DATA.hero.cvButtons[${idx}].style=this.value; renderAll(); recordChange(true);">
                                     <option value="primary" ${btn.style !== 'secondary' ? 'selected' : ''}>Utama (Merah)</option>
                                     <option value="secondary" ${btn.style === 'secondary' ? 'selected' : ''}>Outline Biru</option>
                                 </select>
@@ -3960,7 +4113,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                 style: "primary",
                 newTab: true
             });
-            renderAdminCvButtons(); renderAll(); markDraftUnsaved();
+            renderAdminCvButtons(); renderAll(); recordChange(true);
         }
 
         // --- CONTACTS ---
@@ -3973,21 +4126,21 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                         <div class="adm-order-btns">
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.hero.contacts, ${idx}, -1, renderAdminContacts)"><i class="fas fa-arrow-up"></i></button>
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.hero.contacts, ${idx}, 1, renderAdminContacts)"><i class="fas fa-arrow-down"></i></button>
-                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.hero.contacts.splice(${idx},1); renderAdminContacts(); renderAll(); markDraftUnsaved();"><i class="fas fa-trash"></i></button>
+                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.hero.contacts.splice(${idx},1); renderAdminContacts(); renderAll(); recordChange(true);"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Teks Tampilan</label>
-                            <input type="text" class="adm-input" value="${escapeHtml(c.text)}" oninput="PORTFOLIO_DATA.hero.contacts[${idx}].text=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="${escapeHtml(c.text)}" oninput="PORTFOLIO_DATA.hero.contacts[${idx}].text=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Link Tujuan (Kosongkan jika bukan link)</label>
-                            <input type="text" class="adm-input" value="${escapeHtml(c.url)}" oninput="PORTFOLIO_DATA.hero.contacts[${idx}].url=this.value; PORTFOLIO_DATA.hero.contacts[${idx}].isLink=Boolean(this.value.trim()); renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="${escapeHtml(c.url)}" oninput="PORTFOLIO_DATA.hero.contacts[${idx}].url=this.value; PORTFOLIO_DATA.hero.contacts[${idx}].isLink=Boolean(this.value.trim()); renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Class Ikon (fab fa-whatsapp, dll)</label>
-                            <input type="text" class="adm-input" value="${escapeHtml(c.icon)}" oninput="PORTFOLIO_DATA.hero.contacts[${idx}].icon=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="${escapeHtml(c.icon)}" oninput="PORTFOLIO_DATA.hero.contacts[${idx}].icon=this.value; renderAll(); recordChange(false);">
                         </div>
                     </div>
                 </div>
@@ -4001,7 +4154,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                 url: "https://tiktok.com/",
                 isLink: true
             });
-            renderAdminContacts(); renderAll(); markDraftUnsaved();
+            renderAdminContacts(); renderAll(); recordChange(true);
         }
 
         // --- PORTFOLIO CATEGORIES & VIDEOS ---
@@ -4035,7 +4188,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                 inp.value = '';
                 renderAdminCategoriesManager();
                 renderAll();
-                markDraftUnsaved();
+                recordChange(true);
             }
         }
 
@@ -4051,7 +4204,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             renderAdminCategoriesManager();
             renderAdminProjectsList();
             renderAll();
-            markDraftUnsaved();
+            recordChange(true);
         }
 
         function deletePortfolioCategory(idx) {
@@ -4062,7 +4215,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             renderAdminCategoriesManager();
             renderAdminProjectsList();
             renderAll();
-            markDraftUnsaved();
+            recordChange(true);
         }
 
         function addNewProject() {
@@ -4092,8 +4245,8 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             renderAdminCategoriesManager();
             renderAdminProjectsList();
             renderAll();
-            markDraftUnsaved();
-            showToast('Video ditambahkan! Klik Save (Lanjut Nanti) atau Publish.');
+            recordChange(true);
+            showToast('Video ditambahkan! Bisa di-Undo dengan Ctrl+Z.');
         }
 
         function renderAdminProjectsList() {
@@ -4144,22 +4297,22 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                             <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
-                                    <input type="text" class="adm-input" value="${escapeHtml(proj.title)}" oninput="PORTFOLIO_DATA.portfolio.items[${proj.idx}].title=this.value; renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="${escapeHtml(proj.title)}" oninput="PORTFOLIO_DATA.portfolio.items[${proj.idx}].title=this.value; renderAll(); recordChange(false);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Link YouTube / Video ID</label>
-                                    <input type="text" class="adm-input" value="${escapeHtml(proj.videoId)}" onchange="PORTFOLIO_DATA.portfolio.items[${proj.idx}].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <input type="text" class="adm-input" value="${escapeHtml(proj.videoId)}" onchange="PORTFOLIO_DATA.portfolio.items[${proj.idx}].videoId=extractYouTubeId(this.value); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Kategori</label>
-                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[${proj.idx}].category=this.value; PORTFOLIO_DATA.portfolio.items[${proj.idx}].tag=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <select class="adm-select" onchange="PORTFOLIO_DATA.portfolio.items[${proj.idx}].category=this.value; PORTFOLIO_DATA.portfolio.items[${proj.idx}].tag=this.value; renderAdminProjectsList(); renderAll(); recordChange(true);">
                                         ${cats.map(c => `<option value="${escapeHtml(c)}" ${c === proj.category ? 'selected' : ''}>${escapeHtml(c)}</option>`).join('')}
                                     </select>
                                 </div>
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
                                     <div style="display:flex; gap:6px;">
-                                        <input type="text" class="adm-input" value="${escapeHtml(proj.customThumb || '')}" placeholder="Default Otomatis YouTube (${escapeHtml(proj.videoId)})" onchange="PORTFOLIO_DATA.portfolio.items[${proj.idx}].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                        <input type="text" class="adm-input" value="${escapeHtml(proj.customThumb || '')}" placeholder="Default Otomatis YouTube (${escapeHtml(proj.videoId)})" onchange="PORTFOLIO_DATA.portfolio.items[${proj.idx}].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); recordChange(true);">
                                     </div>
                                 </div>
                             </div>
@@ -4182,7 +4335,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             items[swapGlobalIdx] = temp;
             renderAdminProjectsList();
             renderAll();
-            markDraftUnsaved();
+            recordChange(true);
         }
 
         function moveProjectToFirst(globalIdx) {
@@ -4191,7 +4344,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             items.unshift(item);
             renderAdminProjectsList();
             renderAll();
-            markDraftUnsaved();
+            recordChange(true);
         }
 
         function deleteProject(globalIdx) {
@@ -4200,7 +4353,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             PORTFOLIO_DATA.portfolio.items.splice(globalIdx, 1);
             renderAdminProjectsList();
             renderAll();
-            markDraftUnsaved();
+            recordChange(true);
         }
 
         // --- ABOUT & SKILLS ---
@@ -4213,22 +4366,22 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                         <div class="adm-order-btns">
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.about.paragraphs, ${idx}, -1, renderAdminAboutParagraphs)"><i class="fas fa-arrow-up"></i></button>
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.about.paragraphs, ${idx}, 1, renderAdminAboutParagraphs)"><i class="fas fa-arrow-down"></i></button>
-                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.about.paragraphs.splice(${idx},1); renderAdminAboutParagraphs(); renderAll(); markDraftUnsaved();"><i class="fas fa-trash"></i></button>
+                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.about.paragraphs.splice(${idx},1); renderAdminAboutParagraphs(); renderAll(); recordChange(true);"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
-                    <textarea class="adm-textarea" oninput="PORTFOLIO_DATA.about.paragraphs[${idx}]=this.value; renderAll(); markDraftUnsaved();">${escapeHtml(p)}</textarea>
+                    <textarea class="adm-textarea" oninput="PORTFOLIO_DATA.about.paragraphs[${idx}]=this.value; renderAll(); recordChange(false);">${escapeHtml(p)}</textarea>
                 </div>
             `).join('');
         }
 
         function addAboutParagraph() {
             PORTFOLIO_DATA.about.paragraphs.push("Paragraf baru tentang keahlian dan pengalaman saya.");
-            renderAdminAboutParagraphs(); renderAll(); markDraftUnsaved();
+            renderAdminAboutParagraphs(); renderAll(); recordChange(true);
         }
 
         function updateTechTagsFromInput(val) {
             PORTFOLIO_DATA.about.techTags = val.split(',').map(t => t.trim()).filter(Boolean);
-            renderAll(); markDraftUnsaved();
+            renderAll(); recordChange(false);
         }
 
         function renderAdminSkills() {
@@ -4238,16 +4391,16 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                     <div class="adm-grid-2" style="align-items:center;">
                         <div>
                             <label style="font-size:0.75rem;color:#94a3b8;">Nama Keahlian</label>
-                            <input type="text" class="adm-input" value="${escapeHtml(sk.name)}" oninput="PORTFOLIO_DATA.about.skills[${idx}].name=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="${escapeHtml(sk.name)}" oninput="PORTFOLIO_DATA.about.skills[${idx}].name=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div style="display:flex; gap:10px; align-items:center;">
                             <div style="flex:1;">
                                 <label style="font-size:0.75rem;color:#94a3b8;">Persentase (${sk.percent}%)</label>
-                                <input type="range" min="10" max="100" value="${sk.percent}" style="width:100%;" oninput="PORTFOLIO_DATA.about.skills[${idx}].percent=Number(this.value); renderAdminSkills(); renderAll(); markDraftUnsaved();">
+                                <input type="range" min="10" max="100" value="${sk.percent}" style="width:100%;" oninput="PORTFOLIO_DATA.about.skills[${idx}].percent=Number(this.value); renderAdminSkills(); renderAll(); recordChange(false);">
                             </div>
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.about.skills, ${idx}, -1, renderAdminSkills)"><i class="fas fa-arrow-up"></i></button>
                             <button class="adm-icon-btn" onclick="moveItem(PORTFOLIO_DATA.about.skills, ${idx}, 1, renderAdminSkills)"><i class="fas fa-arrow-down"></i></button>
-                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.about.skills.splice(${idx},1); renderAdminSkills(); renderAll(); markDraftUnsaved();"><i class="fas fa-trash"></i></button>
+                            <button class="adm-icon-btn" onclick="PORTFOLIO_DATA.about.skills.splice(${idx},1); renderAdminSkills(); renderAll(); recordChange(true);"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                 </div>
@@ -4256,7 +4409,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
 
         function addSkillBar() {
             PORTFOLIO_DATA.about.skills.push({ name: "Live Broadcast Operator", percent: 90 });
-            renderAdminSkills(); renderAll(); markDraftUnsaved();
+            renderAdminSkills(); renderAll(); recordChange(true);
         }
 
         // --- EXPERIENCE & EDUCATION ---
@@ -4275,17 +4428,17 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Posisi / Jurusan</label>
-                            <input type="text" class="adm-input" value="${escapeHtml(item.role)}" oninput="PORTFOLIO_DATA.experience.items[${idx}].role=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="${escapeHtml(item.role)}" oninput="PORTFOLIO_DATA.experience.items[${idx}].role=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Instansi / Tempat (Opsional)</label>
-                            <input type="text" class="adm-input" value="${escapeHtml(item.place)}" oninput="PORTFOLIO_DATA.experience.items[${idx}].place=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="${escapeHtml(item.place)}" oninput="PORTFOLIO_DATA.experience.items[${idx}].place=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Tahun & Posisi Kolom</label>
                             <div style="display:flex; gap:6px;">
-                                <input type="text" class="adm-input" value="${escapeHtml(item.date)}" oninput="PORTFOLIO_DATA.experience.items[${idx}].date=this.value; renderAll(); markDraftUnsaved();">
-                                <select class="adm-select" style="width:130px;" onchange="PORTFOLIO_DATA.experience.items[${idx}].column=this.value; renderAdminExperienceList(); renderAll(); markDraftUnsaved();">
+                                <input type="text" class="adm-input" value="${escapeHtml(item.date)}" oninput="PORTFOLIO_DATA.experience.items[${idx}].date=this.value; renderAll(); recordChange(false);">
+                                <select class="adm-select" style="width:130px;" onchange="PORTFOLIO_DATA.experience.items[${idx}].column=this.value; renderAdminExperienceList(); renderAll(); recordChange(true);">
                                     <option value="left" ${item.column !== 'right' ? 'selected' : ''}>Kolom Kiri</option>
                                     <option value="right" ${item.column === 'right' ? 'selected' : ''}>Kolom Kanan</option>
                                 </select>
@@ -4294,7 +4447,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                     </div>
                     <div>
                         <label style="font-size:0.74rem;color:#94a3b8;">Poin Deskripsi (1 baris = 1 bullet poin)</label>
-                        <textarea class="adm-textarea" oninput="PORTFOLIO_DATA.experience.items[${idx}].bullets=this.value.split('\\n').filter(Boolean); renderAll(); markDraftUnsaved();">${escapeHtml((item.bullets || []).join('\n'))}</textarea>
+                        <textarea class="adm-textarea" oninput="PORTFOLIO_DATA.experience.items[${idx}].bullets=this.value.split('\\n').filter(Boolean); renderAll(); recordChange(false);">${escapeHtml((item.bullets || []).join('\n'))}</textarea>
                     </div>
                 </div>
             `).join('');
@@ -4308,7 +4461,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                 date: "2026 - Sekarang",
                 bullets: ["Deskripsi pekerjaan atau pencapaian pertama.", "Deskripsi pekerjaan kedua."]
             });
-            renderAdminExperienceList(); renderAll(); markDraftUnsaved();
+            renderAdminExperienceList(); renderAll(); recordChange(true);
         }
 
         function moveExperience(idx, dir) {
@@ -4318,13 +4471,13 @@ Produksi konten promosi untuk platform media sosial.</textarea>
         function toggleExpColumn(idx) {
             const cur = PORTFOLIO_DATA.experience.items[idx].column;
             PORTFOLIO_DATA.experience.items[idx].column = cur === 'right' ? 'left' : 'right';
-            renderAdminExperienceList(); renderAll(); markDraftUnsaved();
+            renderAdminExperienceList(); renderAll(); recordChange(true);
         }
 
         function deleteExperience(idx) {
             if (!confirm('Hapus kartu pengalaman ini?')) return;
             PORTFOLIO_DATA.experience.items.splice(idx, 1);
-            renderAdminExperienceList(); renderAll(); markDraftUnsaved();
+            renderAdminExperienceList(); renderAll(); recordChange(true);
         }
 
         // --- AWARDS ---
@@ -4343,15 +4496,15 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                     <div class="adm-grid-3">
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Judul Juara / Penghargaan</label>
-                            <input type="text" class="adm-input" value="${escapeHtml(aw.title)}" oninput="PORTFOLIO_DATA.awards.items[${idx}].title=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="${escapeHtml(aw.title)}" oninput="PORTFOLIO_DATA.awards.items[${idx}].title=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Keterangan / Penyelenggara / Tahun</label>
-                            <input type="text" class="adm-input" value="${escapeHtml(aw.desc)}" oninput="PORTFOLIO_DATA.awards.items[${idx}].desc=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="${escapeHtml(aw.desc)}" oninput="PORTFOLIO_DATA.awards.items[${idx}].desc=this.value; renderAll(); recordChange(false);">
                         </div>
                         <div>
                             <label style="font-size:0.74rem;color:#94a3b8;">Ikon (fas fa-trophy / fas fa-medal)</label>
-                            <input type="text" class="adm-input" value="${escapeHtml(aw.icon)}" oninput="PORTFOLIO_DATA.awards.items[${idx}].icon=this.value; renderAll(); markDraftUnsaved();">
+                            <input type="text" class="adm-input" value="${escapeHtml(aw.icon)}" oninput="PORTFOLIO_DATA.awards.items[${idx}].icon=this.value; renderAll(); recordChange(false);">
                         </div>
                     </div>
                 </div>
@@ -4364,7 +4517,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                 title: "Juara 1 Lomba Video Kreatif",
                 desc: "Nama Acara / Penyelenggara (2026)"
             });
-            renderAdminAwardsList(); renderAll(); markDraftUnsaved();
+            renderAdminAwardsList(); renderAll(); recordChange(true);
         }
 
         function moveAward(idx, dir) {
@@ -4374,7 +4527,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
         function deleteAward(idx) {
             if (!confirm('Hapus penghargaan ini?')) return;
             PORTFOLIO_DATA.awards.items.splice(idx, 1);
-            renderAdminAwardsList(); renderAll(); markDraftUnsaved();
+            renderAdminAwardsList(); renderAll(); recordChange(true);
         }
 
         function moveItem(arr, idx, dir, callback) {
@@ -4385,7 +4538,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             arr[target] = temp;
             if (callback) callback();
             renderAll();
-            markDraftUnsaved();
+            recordChange(true);
         }
 
         // --- SETTINGS & GITHUB ---
@@ -4395,11 +4548,11 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             s.secondaryColor = document.getElementById('admSecondaryColor').value;
             s.footerText = document.getElementById('admFooterText').value;
             renderAll();
-            markDraftUnsaved();
+            recordChange(false);
         }
 
         // =========================================================================
-        // 6. CLEAN DOM CLONING UNTUK PUBLISH KE GITHUB (100% TERKUNCI SAAT DIBUKA)
+        // 7. CLEAN DOM CLONING UNTUK PUBLISH KE GITHUB (100% TERKUNCI SAAT DIBUKA)
         // =========================================================================
         function buildUpdatedHtmlString() {
             const passToUse = currentSessionPassword || 'ziuxy_180';
@@ -4498,7 +4651,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             } catch (e) {}
         }
 
-        // TOMBOL 2: PUBLISH & OTOMATIS SAVE KE GITHUB
+        // TOMBOL PUBLISH & OTOMATIS SAVE KE GITHUB
         async function saveAndPublishToGitHub() {
             if (!isAdminLoggedIn) { openLoginModal(); return; }
 
@@ -4567,7 +4720,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             }
         }
 
-        // Shortcut & Deteksi URL #admin / ?admin
+        // Shortcut Keyboard: Ctrl+Z (Undo), Ctrl+Shift+Z (Redo), & Ctrl+Shift+A (Admin Login)
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeVideoModal();
@@ -4576,6 +4729,20 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
                 e.preventDefault();
                 openLoginModal();
+                return;
+            }
+            // Shortcut Undo & Redo saat Mode Admin Aktif
+            if (isAdminLoggedIn && (e.ctrlKey || e.metaKey) && !e.altKey) {
+                if ((e.key === 'z' || e.key === 'Z') && e.shiftKey) {
+                    e.preventDefault();
+                    triggerRedo();
+                } else if ((e.key === 'z' || e.key === 'Z') && !e.shiftKey) {
+                    e.preventDefault();
+                    triggerUndo();
+                } else if (e.key === 'y' || e.key === 'Y') {
+                    e.preventDefault();
+                    triggerRedo();
+                }
             }
         });
 
