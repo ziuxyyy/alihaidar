@@ -330,7 +330,7 @@
         }
 
         /* =========================================================
-           MODAL LOGIN ADMIN (WAJIB PASSWORD WALAU PAKAI LINK #admin)
+           MODAL LOGIN ADMIN (WAJIB SANDI SETIAP MAU MASUK PANEL)
            ========================================================= */
         .admin-login-overlay {
             display: none;
@@ -378,7 +378,7 @@
         }
 
         /* =========================================================
-           FLOATING ADMIN BAR (HANYA MUNCUL SETELAH LOGIN PASSWORD)
+           FLOATING ADMIN BAR (HANYA MUNCUL SAAT SEDANG MODE EDIT)
            ========================================================= */
         .admin-fab-group {
             position: fixed; bottom: 25px; left: 25px; z-index: 99980;
@@ -441,7 +441,7 @@
         .admin-overlay.active { display: flex; }
 
         .admin-panel {
-            width: 100%; max-width: 1200px; height: 92vh;
+            width: 100%; max-width: 1220px; height: 92vh;
             background: #0f172a; border: 1px solid #334155; border-radius: 18px;
             display: flex; flex-direction: column; overflow: hidden;
             box-shadow: 0 25px 70px rgba(0,0,0,0.85);
@@ -454,7 +454,7 @@
         }
         .admin-brand { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .admin-brand i { font-size: 1.35rem; color: var(--primary-color); }
-        .admin-brand h2 { font-size: 1.08rem; margin: 0; }
+        .admin-brand h2 { font-size: 1.05rem; margin: 0; }
         .draft-status-pill {
             font-size: 0.74rem; color: #fbbf24; background: rgba(245, 158, 11, 0.15);
             padding: 3px 10px; border-radius: 20px; border: 1px solid rgba(245, 158, 11, 0.35);
@@ -466,9 +466,9 @@
         .admin-top-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 
         .adm-btn {
-            padding: 8px 14px; border-radius: 8px; border: 1px solid #475569;
-            background: #0f172a; color: #f8fafc; font-size: 0.82rem; font-weight: 600;
-            cursor: pointer !important; display: inline-flex; align-items: center; gap: 7px;
+            padding: 8px 13px; border-radius: 8px; border: 1px solid #475569;
+            background: #0f172a; color: #f8fafc; font-size: 0.81rem; font-weight: 600;
+            cursor: pointer !important; display: inline-flex; align-items: center; gap: 6px;
             transition: all 0.2s ease; text-decoration: none;
         }
         .adm-btn:hover { background: #334155; }
@@ -480,8 +480,9 @@
         .adm-btn.success:hover { background: #047857; }
         .adm-btn.blue { background: #2563eb; border-color: #3b82f6; color: #fff; }
         .adm-btn.blue:hover { background: #1d4ed8; }
-        .adm-btn.danger { background: rgba(220, 38, 38, 0.15); border-color: #ef4444; color: #fca5a5; }
+        .adm-btn.danger { background: rgba(220, 38, 38, 0.18); border-color: #ef4444; color: #fca5a5; }
         .adm-btn.danger:hover { background: #dc2626; color: #fff; }
+        .adm-btn.sm { padding: 5px 10px; font-size: 0.75rem; border-radius: 6px; }
 
         .admin-body {
             display: grid; grid-template-columns: 235px 1fr; flex: 1; overflow: hidden;
@@ -545,6 +546,12 @@
             font-size: 0.74rem; padding: 3px 9px; border-radius: 6px; font-weight: 600;
             background: rgba(59, 130, 246, 0.2); color: #93c5fd;
         }
+        .adm-badge.custom-thumb {
+            background: rgba(225, 29, 72, 0.2); color: #fda4af; border: 1px solid rgba(225, 29, 72, 0.35);
+        }
+        .adm-badge.default-thumb {
+            background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3);
+        }
         .adm-order-btns { display: flex; gap: 5px; align-items: center; }
         .adm-icon-btn {
             width: 30px; height: 30px; border-radius: 6px; border: 1px solid #334155;
@@ -553,11 +560,18 @@
         }
         .adm-icon-btn:hover { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
 
+        .adm-thumb-box {
+            display: flex; flex-direction: column; gap: 6px; align-items: center; width: 150px; flex-shrink: 0;
+        }
         .adm-thumb-preview {
-            width: 110px; height: 64px; border-radius: 6px; object-fit: cover; border: 1px solid #475569; background: #000;
+            width: 150px; height: 84px; border-radius: 8px; object-fit: cover; border: 1px solid #475569; background: #000;
         }
         .adm-profile-preview {
             width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-color);
+        }
+
+        .thumb-action-group {
+            display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px;
         }
 
         .adm-toast {
@@ -593,11 +607,11 @@
         }
     </style>
 </head>
-<body class="is-admin">
+<body>
 
     <!-- Kursor Kustom Area -->
-    <div class="cursor-dot" style="left: 905px; top: 56px;"></div>
-    <div class="cursor-ring" style="left: 905px; top: 56px; width: 55px; height: 55px; background-color: rgba(225, 29, 72, 0.15);"></div>
+    <div class="cursor-dot" style="left: 476px; top: 107px;"></div>
+    <div class="cursor-ring" style="left: 476px; top: 107px; width: 55px; height: 55px; background-color: rgba(225, 29, 72, 0.15);"></div>
     
     <!-- Progress Bar Scroll Area -->
     <div class="scroll-progress" id="scrollProgress" style="width: 99.9925%;"></div>
@@ -608,21 +622,21 @@
     </button>
 
     <!-- =======================================================
-         MODAL LOGIN ADMIN (WAJIB PASSWORD WALAU PAKAI LINK #admin)
+         MODAL LOGIN ADMIN (WAJIB SANDI SETIAP MAU MASUK PANEL)
          ======================================================= -->
     <div class="admin-login-overlay" id="adminLoginModal" onclick="if(event.target.id==='adminLoginModal') closeLoginModal()">
         <div class="admin-login-card">
             <h3><i class="fas fa-user-shield" style="color:var(--primary-color);"></i> Akses Admin — alihaidar.site</h3>
-            <p>Halaman ini dikunci khusus untuk <strong>Mochamad Ali Haidar</strong>. Masukkan password untuk mengedit portofolio.</p>
-            <div class="login-error-msg" id="loginErrorMsg" style="display: none;">Password salah! Silakan periksa kembali.</div>
+            <p>Halaman ini dikunci khusus untuk <strong>Mochamad Ali Haidar</strong>. Masukkan sandi setiap kali ingin membuka Panel Admin.</p>
+            <div class="login-error-msg" id="loginErrorMsg" style="display: none;">Sandi salah! Silakan periksa kembali.</div>
             <form onsubmit="handleAdminLogin(event)">
                 <div class="adm-field">
-                    <label>Password Admin</label>
-                    <input type="password" class="adm-input" id="adminLoginPassInput" placeholder="Masukkan password..." required="" autocomplete="current-password">
+                    <label>Sandi Admin</label>
+                    <input type="password" class="adm-input" id="adminLoginPassInput" placeholder="Masukkan sandi admin..." required="" autocomplete="off">
                 </div>
                 <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:18px;">
-                    <button type="button" class="adm-btn" onclick="closeLoginModal()" data-cursor-bound="1">Batal</button>
-                    <button type="submit" class="adm-btn primary" data-cursor-bound="1"><i class="fas fa-unlock-alt"></i> Buka Panel Admin</button>
+                    <button type="button" class="adm-btn" onclick="closeLoginModal()" data-cursor-bound="1">Batal / Cancel</button>
+                    <button type="submit" class="adm-btn primary" data-cursor-bound="1"><i class="fas fa-unlock-alt"></i> Masuk Panel Admin</button>
                 </div>
             </form>
         </div>
@@ -632,8 +646,8 @@
          FLOATING ADMIN CONTROLS (TERSEMBUNYI DARI PENGUNJUNG)
          ======================================================= -->
     <div class="admin-fab-group" id="adminFabGroup">
-        <button class="admin-fab" onclick="openAdminModal()" title="Buka Panel Edit Admin" data-cursor-bound="1">
-            <i class="fas fa-sliders-h"></i> Edit Website
+        <button class="admin-fab" onclick="requestOpenAdminPanel()" title="Buka Panel Edit Admin (Wajib Sandi)" data-cursor-bound="1">
+            <i class="fas fa-sliders-h"></i> Buka Panel Admin
         </button>
         <button class="admin-fab secondary-fab" id="quickEditToggleBtn" onclick="toggleQuickEditMode()" title="Geser urutan kartu langsung di halaman" data-cursor-bound="1">
             <i class="fas fa-arrows-alt"></i> Atur Posisi
@@ -644,18 +658,18 @@
         <button class="admin-fab github-fab" onclick="saveAndPublishToGitHub()" title="Otomatis Save &amp; Publish ke alihaidar.site (GitHub)" data-cursor-bound="1">
             <i class="fas fa-cloud-upload-alt"></i> Publish &amp; Auto-Save
         </button>
-        <button class="admin-fab secondary-fab" onclick="logoutAdmin()" title="Kunci kembali mode Admin" data-cursor-bound="1">
-            <i class="fas fa-lock"></i> Kunci
+        <button class="admin-fab secondary-fab" onclick="logoutAdmin()" title="Keluar &amp; Kunci kembali mode Admin" data-cursor-bound="1">
+            <i class="fas fa-sign-out-alt"></i> Keluar Admin
         </button>
     </div>
 
     <!-- Notification Toast -->
-    <div class="adm-toast show" id="admToast"><i class="fas fa-check-circle"></i> <span id="admToastMsg">⏳ Otomatis meng-save &amp; mem-publish ke GitHub...</span></div>
+    <div class="adm-toast" id="admToast"><i class="fas fa-check-circle"></i> <span id="admToastMsg">⏳ Otomatis meng-save &amp; mem-publish ke GitHub...</span></div>
 
     <!-- Hero Section -->
-    <section class="hero" id="heroSection" style="--mouse-x: 55.46875%; --mouse-y: 40.57553956834533%;">
+    <section class="hero" id="heroSection" style="--mouse-x: 59.049479166666664%; --mouse-y: 53.38129496402878%;">
         <div class="container">
-            <div class="profile-img-container hero-element magnetic" data-cursor-bound="1" data-magnetic-bound="1">
+            <div class="profile-img-container hero-element magnetic" data-cursor-bound="1" data-magnetic-bound="1" style="transform: translate(0px, 0px) scale(1); transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);">
                 <img id="heroProfileImg" src="profile.png" alt="Ali Haidar" class="profile-img" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Ali+Haidar&amp;background=e11d48&amp;color=fff&amp;size=160';">
             </div>
             
@@ -664,7 +678,7 @@
             
             <h2 class="hero-element delay-3 typewriter-text">
                 <span id="heroRolePrefix">SAYA SEORANG</span> <br class="mobile-break">
-                <span id="typed-text" class="typed-text">VIDEOGRAP</span><span class="cursor">|</span>
+                <span id="typed-text" class="typed-text"></span><span class="cursor">|</span>
             </h2>
             
             <div class="quote hero-element delay-4" id="heroQuote">"Merangkai momen jadi cerita. Menyusun gambar jadi makna."</div>
@@ -822,7 +836,7 @@
                                 <button class="quick-btn del" title="Hapus Video" onclick="deleteProject(0)" data-cursor-bound="1"><i class="fas fa-trash"></i></button>
                             </div>
                             <div class="video-preview-wrapper">
-                                <img src="https://img.youtube.com/vi/JynhUiy4Tmg/hqdefault.jpg" alt="Thumbnail">
+                                <img src="https://img.youtube.com/vi/JynhUiy4Tmg/hqdefault.jpg" alt="Thumbnail" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/JynhUiy4Tmg/hqdefault.jpg';">
                                 <div class="play-trigger-overlay">
                                     <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
                                     <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
@@ -834,7 +848,7 @@
                             </div>
                         </div>
                     
-                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, 'lChZ86fDel0', '2026-KEGIATAN MOTOTRIL')" data-cursor-bound="1" data-tilt-bound="1">
+                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, 'lChZ86fDel0', '2026-KEGIATAN MOTOTRIL')" data-cursor-bound="1" data-tilt-bound="1" style="transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s, border-color 0.5s; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); z-index: 1;">
                             <div class="quick-card-controls" onclick="event.stopPropagation()">
                                 <button class="quick-btn" title="Geser Kiri / Naik" onclick="moveProjectWithinCategory(1, -1)" data-cursor-bound="1"><i class="fas fa-arrow-left"></i></button>
                                 <button class="quick-btn" title="Geser Kanan / Turun" onclick="moveProjectWithinCategory(1, 1)" data-cursor-bound="1"><i class="fas fa-arrow-right"></i></button>
@@ -842,7 +856,7 @@
                                 <button class="quick-btn del" title="Hapus Video" onclick="deleteProject(1)" data-cursor-bound="1"><i class="fas fa-trash"></i></button>
                             </div>
                             <div class="video-preview-wrapper">
-                                <img src="https://img.youtube.com/vi/lChZ86fDel0/hqdefault.jpg" alt="Thumbnail">
+                                <img src="https://img.youtube.com/vi/lChZ86fDel0/hqdefault.jpg" alt="Thumbnail" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/lChZ86fDel0/hqdefault.jpg';">
                                 <div class="play-trigger-overlay">
                                     <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
                                     <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
@@ -862,7 +876,7 @@
                                 <button class="quick-btn del" title="Hapus Video" onclick="deleteProject(2)" data-cursor-bound="1"><i class="fas fa-trash"></i></button>
                             </div>
                             <div class="video-preview-wrapper">
-                                <img src="https://img.youtube.com/vi/wka77D1-lpU/hqdefault.jpg" alt="Thumbnail">
+                                <img src="https://img.youtube.com/vi/wka77D1-lpU/hqdefault.jpg" alt="Thumbnail" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/wka77D1-lpU/hqdefault.jpg';">
                                 <div class="play-trigger-overlay">
                                     <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
                                     <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
@@ -874,7 +888,7 @@
                             </div>
                         </div>
                     
-                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, 'ZFBhkDm8E5g', '2025-TAMAN RIA SUROPATI-APA KATA MEREKA?')" data-cursor-bound="1" data-tilt-bound="1">
+                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, 'ZFBhkDm8E5g', '2025-TAMAN RIA SUROPATI-APA KATA MEREKA?')" data-cursor-bound="1" data-tilt-bound="1" style="transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s, border-color 0.5s; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); z-index: 1;">
                             <div class="quick-card-controls" onclick="event.stopPropagation()">
                                 <button class="quick-btn" title="Geser Kiri / Naik" onclick="moveProjectWithinCategory(3, -1)" data-cursor-bound="1"><i class="fas fa-arrow-left"></i></button>
                                 <button class="quick-btn" title="Geser Kanan / Turun" onclick="moveProjectWithinCategory(3, 1)" data-cursor-bound="1"><i class="fas fa-arrow-right"></i></button>
@@ -882,7 +896,7 @@
                                 <button class="quick-btn del" title="Hapus Video" onclick="deleteProject(3)" data-cursor-bound="1"><i class="fas fa-trash"></i></button>
                             </div>
                             <div class="video-preview-wrapper">
-                                <img src="https://img.youtube.com/vi/ZFBhkDm8E5g/hqdefault.jpg" alt="Thumbnail">
+                                <img src="https://img.youtube.com/vi/ZFBhkDm8E5g/hqdefault.jpg" alt="Thumbnail" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/ZFBhkDm8E5g/hqdefault.jpg';">
                                 <div class="play-trigger-overlay">
                                     <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
                                     <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
@@ -894,7 +908,7 @@
                             </div>
                         </div>
                     
-                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, 'CRa5FznJtKg', '2025-LOMBA PROMOSI PERUMAHAN-PASURUAN GRAND CITY')" data-cursor-bound="1" data-tilt-bound="1">
+                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, 'CRa5FznJtKg', '2025-LOMBA PROMOSI PERUMAHAN-PASURUAN GRAND CITY')" data-cursor-bound="1" data-tilt-bound="1" style="transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s, border-color 0.5s; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); z-index: 1;">
                             <div class="quick-card-controls" onclick="event.stopPropagation()">
                                 <button class="quick-btn" title="Geser Kiri / Naik" onclick="moveProjectWithinCategory(4, -1)" data-cursor-bound="1"><i class="fas fa-arrow-left"></i></button>
                                 <button class="quick-btn" title="Geser Kanan / Turun" onclick="moveProjectWithinCategory(4, 1)" data-cursor-bound="1"><i class="fas fa-arrow-right"></i></button>
@@ -902,7 +916,7 @@
                                 <button class="quick-btn del" title="Hapus Video" onclick="deleteProject(4)" data-cursor-bound="1"><i class="fas fa-trash"></i></button>
                             </div>
                             <div class="video-preview-wrapper">
-                                <img src="https://img.youtube.com/vi/CRa5FznJtKg/hqdefault.jpg" alt="Thumbnail">
+                                <img src="https://img.youtube.com/vi/CRa5FznJtKg/hqdefault.jpg" alt="Thumbnail" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/CRa5FznJtKg/hqdefault.jpg';">
                                 <div class="play-trigger-overlay">
                                     <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
                                     <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
@@ -922,7 +936,7 @@
                                 <button class="quick-btn del" title="Hapus Video" onclick="deleteProject(5)" data-cursor-bound="1"><i class="fas fa-trash"></i></button>
                             </div>
                             <div class="video-preview-wrapper">
-                                <img src="https://img.youtube.com/vi/Sui12qEU4I8/hqdefault.jpg" alt="Thumbnail">
+                                <img src="https://img.youtube.com/vi/Sui12qEU4I8/hqdefault.jpg" alt="Thumbnail" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/Sui12qEU4I8/hqdefault.jpg';">
                                 <div class="play-trigger-overlay">
                                     <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
                                     <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
@@ -942,7 +956,7 @@
                                 <button class="quick-btn del" title="Hapus Video" onclick="deleteProject(6)" data-cursor-bound="1"><i class="fas fa-trash"></i></button>
                             </div>
                             <div class="video-preview-wrapper">
-                                <img src="https://img.youtube.com/vi/ysvCdYin3WU/hqdefault.jpg" alt="Thumbnail">
+                                <img src="https://img.youtube.com/vi/ysvCdYin3WU/hqdefault.jpg" alt="Thumbnail" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/ysvCdYin3WU/hqdefault.jpg';">
                                 <div class="play-trigger-overlay">
                                     <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
                                     <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
@@ -967,7 +981,7 @@
                                 <button class="quick-btn del" title="Hapus Video" onclick="deleteProject(7)" data-cursor-bound="1"><i class="fas fa-trash"></i></button>
                             </div>
                             <div class="video-preview-wrapper">
-                                <img src="https://img.youtube.com/vi/-N4Ia7-W1uM/hqdefault.jpg" alt="Thumbnail">
+                                <img src="https://img.youtube.com/vi/-N4Ia7-W1uM/hqdefault.jpg" alt="Thumbnail" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/-N4Ia7-W1uM/hqdefault.jpg';">
                                 <div class="play-trigger-overlay">
                                     <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
                                     <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
@@ -979,7 +993,7 @@
                             </div>
                         </div>
                     
-                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, 'XFgKyNl7T80', '2024-AMIKOM VIDEO COMPETITION-ANTARA')" data-cursor-bound="1" data-tilt-bound="1">
+                        <div class="project-card reveal active" onclick="handleProjectCardClick(event, 'XFgKyNl7T80', '2024-AMIKOM VIDEO COMPETITION-ANTARA')" data-cursor-bound="1" data-tilt-bound="1" style="transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s, border-color 0.5s; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); z-index: 1;">
                             <div class="quick-card-controls" onclick="event.stopPropagation()">
                                 <button class="quick-btn" title="Geser Kiri / Naik" onclick="moveProjectWithinCategory(8, -1)" data-cursor-bound="1"><i class="fas fa-arrow-left"></i></button>
                                 <button class="quick-btn" title="Geser Kanan / Turun" onclick="moveProjectWithinCategory(8, 1)" data-cursor-bound="1"><i class="fas fa-arrow-right"></i></button>
@@ -987,7 +1001,7 @@
                                 <button class="quick-btn del" title="Hapus Video" onclick="deleteProject(8)" data-cursor-bound="1"><i class="fas fa-trash"></i></button>
                             </div>
                             <div class="video-preview-wrapper">
-                                <img src="https://img.youtube.com/vi/XFgKyNl7T80/hqdefault.jpg" alt="Thumbnail">
+                                <img src="https://img.youtube.com/vi/XFgKyNl7T80/hqdefault.jpg" alt="Thumbnail" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/XFgKyNl7T80/hqdefault.jpg';">
                                 <div class="play-trigger-overlay">
                                     <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
                                     <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
@@ -1007,7 +1021,7 @@
                                 <button class="quick-btn del" title="Hapus Video" onclick="deleteProject(9)" data-cursor-bound="1"><i class="fas fa-trash"></i></button>
                             </div>
                             <div class="video-preview-wrapper">
-                                <img src="https://img.youtube.com/vi/cZUakY7kyng/hqdefault.jpg" alt="Thumbnail">
+                                <img src="https://img.youtube.com/vi/cZUakY7kyng/hqdefault.jpg" alt="Thumbnail" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/cZUakY7kyng/hqdefault.jpg';">
                                 <div class="play-trigger-overlay">
                                     <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
                                     <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
@@ -1027,7 +1041,7 @@
                                 <button class="quick-btn del" title="Hapus Video" onclick="deleteProject(10)" data-cursor-bound="1"><i class="fas fa-trash"></i></button>
                             </div>
                             <div class="video-preview-wrapper">
-                                <img src="https://img.youtube.com/vi/rchFVJnkm0Y/hqdefault.jpg" alt="Thumbnail">
+                                <img src="https://img.youtube.com/vi/rchFVJnkm0Y/hqdefault.jpg" alt="Thumbnail" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/rchFVJnkm0Y/hqdefault.jpg';">
                                 <div class="play-trigger-overlay">
                                     <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
                                     <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
@@ -1158,14 +1172,14 @@
     <footer>
         <p id="footerTextContent">© 2026 Mochamad Ali Haidar. All rights reserved.</p>
         <button class="admin-lock-trigger" onclick="onFooterLockClick()" title="Admin Login" data-cursor-bound="1">
-            <i class="fas fa-unlock" id="footerLockIcon"></i>
+            <i class="fas fa-lock" id="footerLockIcon"></i>
         </button>
     </footer>
 
     <!-- =========================================================
          ADMIN CMS STUDIO MODAL
          ========================================================= -->
-    <div class="admin-overlay active" id="adminModalOverlay">
+    <div class="admin-overlay" id="adminModalOverlay" onclick="if(event.target.id==='adminModalOverlay') exitAdminPanelOnly()">
         <div class="admin-panel">
             <div class="admin-top-bar">
                 <div class="admin-brand">
@@ -1185,8 +1199,14 @@
                     <button class="adm-btn blue" onclick="exportUpdatedHTML()" title="Download file index.html ke perangkat" data-cursor-bound="1">
                         <i class="fas fa-download"></i> Download HTML
                     </button>
-                    <button class="adm-btn" onclick="closeAdminModal()" title="Tutup panel untuk melihat preview tampilan" data-cursor-bound="1">
-                        <i class="fas fa-eye"></i> Lihat Preview
+                    <button class="adm-btn" onclick="closeAdminToQuickPreview()" title="Tutup jendela ini untuk mengatur posisi kartu di halaman" data-cursor-bound="1">
+                        <i class="fas fa-arrows-alt"></i> Atur Posisi
+                    </button>
+                    <button class="adm-btn danger" onclick="cancelAndRevertChanges()" title="Batalkan editan sesi ini dan keluar dari Panel Admin" data-cursor-bound="1">
+                        <i class="fas fa-undo"></i> Cancel / Batal
+                    </button>
+                    <button class="adm-btn danger" onclick="logoutAdmin()" title="Keluar dari Panel Admin dan kunci kembali" data-cursor-bound="1">
+                        <i class="fas fa-times"></i> Keluar Panel
                     </button>
                 </div>
             </div>
@@ -1227,20 +1247,30 @@
                                         <img id="admPreviewProfile" src="profile.png" class="adm-profile-preview" onerror="this.src='https://ui-avatars.com/api/?name=Ali+Haidar&amp;background=e11d48&amp;color=fff&amp;size=160'">
                                         <div style="flex:1;">
                                             <input type="text" class="adm-input" id="admProfileImg" placeholder="profile.png atau https://..." oninput="updateHeroFromForm()">
-                                            <label class="adm-btn" style="margin-top:8px; cursor:pointer; display:inline-flex;">
-                                                <i class="fas fa-upload"></i> Upload Foto dari Perangkat
-                                                <input type="file" accept="image/*" style="display:none;" onchange="handleImageUpload(event, 'profile')">
-                                            </label>
+                                            <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:8px;">
+                                                <label class="adm-btn sm" style="cursor:pointer;">
+                                                    <i class="fas fa-upload"></i> Upload Foto
+                                                    <input type="file" accept="image/*" style="display:none;" onchange="handleImageUpload(event, 'profile')">
+                                                </label>
+                                                <button type="button" class="adm-btn sm" onclick="document.getElementById('admProfileImg').value='profile.png'; updateHeroFromForm();" data-cursor-bound="1">
+                                                    <i class="fas fa-sync-alt"></i> Reset Default (profile.png)
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="adm-field">
                                     <label>Gambar Background Hero (Premiere Pro / Studio)</label>
                                     <input type="text" class="adm-input" id="admHeroBg" placeholder="https://images.unsplash.com/..." oninput="updateHeroFromForm()">
-                                    <label class="adm-btn" style="margin-top:8px; cursor:pointer; display:inline-flex;">
-                                        <i class="fas fa-upload"></i> Upload Background dari Perangkat
-                                        <input type="file" accept="image/*" style="display:none;" onchange="handleImageUpload(event, 'herobg')">
-                                    </label>
+                                    <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:8px;">
+                                        <label class="adm-btn sm" style="cursor:pointer;">
+                                            <i class="fas fa-upload"></i> Upload Background
+                                            <input type="file" accept="image/*" style="display:none;" onchange="handleImageUpload(event, 'herobg')">
+                                        </label>
+                                        <button type="button" class="adm-btn sm" onclick="document.getElementById('admHeroBg').value='https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80'; updateHeroFromForm();" data-cursor-bound="1">
+                                            <i class="fas fa-sync-alt"></i> Reset Default Background
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1446,7 +1476,7 @@
                                 </div>
                                 <div class="adm-field">
                                     <label>Link YouTube atau Video ID</label>
-                                    <input type="text" class="adm-input" id="newProjUrl" placeholder="Paste link YouTube di sini...">
+                                    <input type="text" class="adm-input" id="newProjUrl" placeholder="Paste link YouTube di sini..." oninput="updateNewProjThumbPreview()">
                                 </div>
                                 <div class="adm-field">
                                     <label>Kategori &amp; Posisi</label>
@@ -1459,17 +1489,36 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="adm-grid-2">
+                            <div class="adm-grid-2" style="align-items:center;">
                                 <div class="adm-field">
-                                    <label>Label Tag pada Kartu (Opsional)</label>
-                                    <input type="text" class="adm-input" id="newProjTag" placeholder="Kosongkan jika sama dengan nama Kategori">
+                                    <label>Pilihan Thumbnail Video (Default YouTube vs Custom)</label>
+                                    <input type="text" class="adm-input" id="newProjThumb" placeholder="Kosongkan untuk memakai Default Thumbnail YouTube..." oninput="updateNewProjThumbPreview()">
+                                    <div class="thumb-action-group">
+                                        <button type="button" class="adm-btn sm success" onclick="resetNewProjThumbToDefault()" data-cursor-bound="1">
+                                            <i class="fab fa-youtube"></i> Pakai Default YouTube
+                                        </button>
+                                        <label class="adm-btn sm blue" style="cursor:pointer;">
+                                            <i class="fas fa-upload"></i> Upload Custom Thumbnail
+                                            <input type="file" accept="image/*" style="display:none;" onchange="handleNewProjectThumbUpload(event)">
+                                        </label>
+                                    </div>
                                 </div>
-                                <div class="adm-field">
-                                    <label>Custom Thumbnail URL (Opsional — Otomatis ambil dari YouTube jika kosong)</label>
-                                    <input type="text" class="adm-input" id="newProjThumb" placeholder="Kosongkan untuk thumbnail otomatis YouTube">
+                                <div style="display:flex; gap:14px; align-items:center;">
+                                    <div class="adm-thumb-box">
+                                        <img id="newProjThumbPreviewImg" src="https://img.youtube.com/vi/JynhUiy4Tmg/hqdefault.jpg" class="adm-thumb-preview" alt="Preview">
+                                        <span class="adm-badge default-thumb" id="newProjThumbBadge">Default YouTube</span>
+                                    </div>
+                                    <div style="flex:1;">
+                                        <div class="adm-field" style="margin-bottom:8px;">
+                                            <label>Label Tag Kartu (Opsional)</label>
+                                            <input type="text" class="adm-input" id="newProjTag" placeholder="Otomatis ikuti Kategori">
+                                        </div>
+                                        <button class="adm-btn primary" style="width:100%; justify-content:center;" onclick="addNewProject()" data-cursor-bound="1">
+                                            <i class="fas fa-plus"></i> Tambahkan ke Portofolio
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <button class="adm-btn primary" onclick="addNewProject()" data-cursor-bound="1"><i class="fas fa-plus"></i> Tambahkan ke Portofolio</button>
                         </div>
 
                         <div class="adm-card">
@@ -1499,26 +1548,44 @@
 
                         <div class="adm-card">
                             <div class="adm-card-title">
-                                <span><i class="fas fa-list-ol"></i> Daftar &amp; Urutan Semua Proyek Video</span>
+                                <span><i class="fas fa-list-ol"></i> Daftar, Urutan &amp; Thumbnail Semua Proyek Video</span>
                                 <select class="adm-select" id="admFilterCategory" style="width:220px;" onchange="renderAdminProjectsList()"><option value="ALL">Semua Kategori (11)</option><option value="Video Pendek">Video Pendek</option><option value="Film Pendek">Film Pendek</option></select>
                             </div>
+                            <p style="font-size:0.81rem; color:#94a3b8; margin-bottom:14px;">
+                                Kamu bisa mengganti thumbnail setiap video dengan klik <strong>Upload Thumbnail</strong> atau menempelkan URL gambar, dan kapan saja bisa kembali ke gambar bawaan YouTube dengan klik <strong>Pakai Default YouTube</strong>.
+                            </p>
                             <div id="admProjectsList">
                     <div class="adm-list-item">
                         <div class="adm-list-header">
-                            <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                                 <span class="adm-badge">Posisi #1</span>
                                 <span style="font-size:0.82rem; color:#94a3b8;">Kategori: <strong>Video Pendek</strong></span>
+                                <span class="adm-badge default-thumb">
+                                    <i class="fab fa-youtube"></i>
+                                    Default YouTube
+                                </span>
                             </div>
                             <div class="adm-order-btns">
-                                <button class="adm-btn" style="padding:4px 9px; font-size:0.75rem;" onclick="moveProjectToFirst(0)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
+                                <button class="adm-btn sm" onclick="moveProjectToFirst(0)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
                                 <button class="adm-icon-btn" title="Geser Naik" onclick="moveProjectWithinCategory(0, -1)"><i class="fas fa-arrow-up"></i></button>
                                 <button class="adm-icon-btn" title="Geser Turun" onclick="moveProjectWithinCategory(0, 1)"><i class="fas fa-arrow-down"></i></button>
                                 <button class="adm-icon-btn" title="Hapus Proyek" onclick="deleteProject(0)"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>
-                        <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
-                            <img src="https://img.youtube.com/vi/JynhUiy4Tmg/hqdefault.jpg" class="adm-thumb-preview">
-                            <div style="flex:1; min-width:240px;" class="adm-grid-2">
+                        <div style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+                            <div class="adm-thumb-box">
+                                <img src="https://img.youtube.com/vi/JynhUiy4Tmg/hqdefault.jpg" class="adm-thumb-preview" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/JynhUiy4Tmg/hqdefault.jpg';">
+                                <div style="display:flex; gap:5px; width:100%; justify-content:center;">
+                                    <label class="adm-btn sm blue" style="flex:1; justify-content:center; cursor:pointer;" title="Upload gambar dari perangkat">
+                                        <i class="fas fa-upload"></i> Upload
+                                        <input type="file" accept="image/*" style="display:none;" onchange="handleExistingProjectThumbUpload(event, 0)">
+                                    </label>
+                                    <button type="button" class="adm-btn sm " onclick="resetProjectThumbToDefault(0)" title="Kembalikan ke Thumbnail Default YouTube">
+                                        <i class="fab fa-youtube"></i> Default
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
                                     <input type="text" class="adm-input" value="2025-UJIAN KOMPETENSI KEAHLIAN SMKN 1 KOTA PASURUAN-TOURISM PASURUAN" oninput="PORTFOLIO_DATA.portfolio.items[0].title=this.value; renderAll(); markDraftUnsaved();">
@@ -1534,8 +1601,10 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label style="font-size:0.74rem; color:#94a3b8;">Custom Thumbnail URL (Opsional)</label>
-                                    <input type="text" class="adm-input" value="" placeholder="Otomatis dari YouTube jika kosong" onchange="PORTFOLIO_DATA.portfolio.items[0].customThumb=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
+                                    <div style="display:flex; gap:6px;">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (JynhUiy4Tmg)" onchange="PORTFOLIO_DATA.portfolio.items[0].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1543,20 +1612,35 @@
                 
                     <div class="adm-list-item">
                         <div class="adm-list-header">
-                            <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                                 <span class="adm-badge">Posisi #2</span>
                                 <span style="font-size:0.82rem; color:#94a3b8;">Kategori: <strong>Video Pendek</strong></span>
+                                <span class="adm-badge default-thumb">
+                                    <i class="fab fa-youtube"></i>
+                                    Default YouTube
+                                </span>
                             </div>
                             <div class="adm-order-btns">
-                                <button class="adm-btn" style="padding:4px 9px; font-size:0.75rem;" onclick="moveProjectToFirst(1)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
+                                <button class="adm-btn sm" onclick="moveProjectToFirst(1)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
                                 <button class="adm-icon-btn" title="Geser Naik" onclick="moveProjectWithinCategory(1, -1)"><i class="fas fa-arrow-up"></i></button>
                                 <button class="adm-icon-btn" title="Geser Turun" onclick="moveProjectWithinCategory(1, 1)"><i class="fas fa-arrow-down"></i></button>
                                 <button class="adm-icon-btn" title="Hapus Proyek" onclick="deleteProject(1)"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>
-                        <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
-                            <img src="https://img.youtube.com/vi/lChZ86fDel0/hqdefault.jpg" class="adm-thumb-preview">
-                            <div style="flex:1; min-width:240px;" class="adm-grid-2">
+                        <div style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+                            <div class="adm-thumb-box">
+                                <img src="https://img.youtube.com/vi/lChZ86fDel0/hqdefault.jpg" class="adm-thumb-preview" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/lChZ86fDel0/hqdefault.jpg';">
+                                <div style="display:flex; gap:5px; width:100%; justify-content:center;">
+                                    <label class="adm-btn sm blue" style="flex:1; justify-content:center; cursor:pointer;" title="Upload gambar dari perangkat">
+                                        <i class="fas fa-upload"></i> Upload
+                                        <input type="file" accept="image/*" style="display:none;" onchange="handleExistingProjectThumbUpload(event, 1)">
+                                    </label>
+                                    <button type="button" class="adm-btn sm " onclick="resetProjectThumbToDefault(1)" title="Kembalikan ke Thumbnail Default YouTube">
+                                        <i class="fab fa-youtube"></i> Default
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
                                     <input type="text" class="adm-input" value="2026-KEGIATAN MOTOTRIL" oninput="PORTFOLIO_DATA.portfolio.items[1].title=this.value; renderAll(); markDraftUnsaved();">
@@ -1572,8 +1656,10 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label style="font-size:0.74rem; color:#94a3b8;">Custom Thumbnail URL (Opsional)</label>
-                                    <input type="text" class="adm-input" value="" placeholder="Otomatis dari YouTube jika kosong" onchange="PORTFOLIO_DATA.portfolio.items[1].customThumb=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
+                                    <div style="display:flex; gap:6px;">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (lChZ86fDel0)" onchange="PORTFOLIO_DATA.portfolio.items[1].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1581,20 +1667,35 @@
                 
                     <div class="adm-list-item">
                         <div class="adm-list-header">
-                            <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                                 <span class="adm-badge">Posisi #3</span>
                                 <span style="font-size:0.82rem; color:#94a3b8;">Kategori: <strong>Video Pendek</strong></span>
+                                <span class="adm-badge default-thumb">
+                                    <i class="fab fa-youtube"></i>
+                                    Default YouTube
+                                </span>
                             </div>
                             <div class="adm-order-btns">
-                                <button class="adm-btn" style="padding:4px 9px; font-size:0.75rem;" onclick="moveProjectToFirst(2)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
+                                <button class="adm-btn sm" onclick="moveProjectToFirst(2)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
                                 <button class="adm-icon-btn" title="Geser Naik" onclick="moveProjectWithinCategory(2, -1)"><i class="fas fa-arrow-up"></i></button>
                                 <button class="adm-icon-btn" title="Geser Turun" onclick="moveProjectWithinCategory(2, 1)"><i class="fas fa-arrow-down"></i></button>
                                 <button class="adm-icon-btn" title="Hapus Proyek" onclick="deleteProject(2)"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>
-                        <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
-                            <img src="https://img.youtube.com/vi/wka77D1-lpU/hqdefault.jpg" class="adm-thumb-preview">
-                            <div style="flex:1; min-width:240px;" class="adm-grid-2">
+                        <div style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+                            <div class="adm-thumb-box">
+                                <img src="https://img.youtube.com/vi/wka77D1-lpU/hqdefault.jpg" class="adm-thumb-preview" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/wka77D1-lpU/hqdefault.jpg';">
+                                <div style="display:flex; gap:5px; width:100%; justify-content:center;">
+                                    <label class="adm-btn sm blue" style="flex:1; justify-content:center; cursor:pointer;" title="Upload gambar dari perangkat">
+                                        <i class="fas fa-upload"></i> Upload
+                                        <input type="file" accept="image/*" style="display:none;" onchange="handleExistingProjectThumbUpload(event, 2)">
+                                    </label>
+                                    <button type="button" class="adm-btn sm " onclick="resetProjectThumbToDefault(2)" title="Kembalikan ke Thumbnail Default YouTube">
+                                        <i class="fab fa-youtube"></i> Default
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
                                     <input type="text" class="adm-input" value="2025-LOMBA HUT INDONESIA KE 80-TOURISM PASURUAN" oninput="PORTFOLIO_DATA.portfolio.items[2].title=this.value; renderAll(); markDraftUnsaved();">
@@ -1610,8 +1711,10 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label style="font-size:0.74rem; color:#94a3b8;">Custom Thumbnail URL (Opsional)</label>
-                                    <input type="text" class="adm-input" value="" placeholder="Otomatis dari YouTube jika kosong" onchange="PORTFOLIO_DATA.portfolio.items[2].customThumb=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
+                                    <div style="display:flex; gap:6px;">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (wka77D1-lpU)" onchange="PORTFOLIO_DATA.portfolio.items[2].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1619,20 +1722,35 @@
                 
                     <div class="adm-list-item">
                         <div class="adm-list-header">
-                            <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                                 <span class="adm-badge">Posisi #4</span>
                                 <span style="font-size:0.82rem; color:#94a3b8;">Kategori: <strong>Video Pendek</strong></span>
+                                <span class="adm-badge default-thumb">
+                                    <i class="fab fa-youtube"></i>
+                                    Default YouTube
+                                </span>
                             </div>
                             <div class="adm-order-btns">
-                                <button class="adm-btn" style="padding:4px 9px; font-size:0.75rem;" onclick="moveProjectToFirst(3)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
+                                <button class="adm-btn sm" onclick="moveProjectToFirst(3)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
                                 <button class="adm-icon-btn" title="Geser Naik" onclick="moveProjectWithinCategory(3, -1)"><i class="fas fa-arrow-up"></i></button>
                                 <button class="adm-icon-btn" title="Geser Turun" onclick="moveProjectWithinCategory(3, 1)"><i class="fas fa-arrow-down"></i></button>
                                 <button class="adm-icon-btn" title="Hapus Proyek" onclick="deleteProject(3)"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>
-                        <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
-                            <img src="https://img.youtube.com/vi/ZFBhkDm8E5g/hqdefault.jpg" class="adm-thumb-preview">
-                            <div style="flex:1; min-width:240px;" class="adm-grid-2">
+                        <div style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+                            <div class="adm-thumb-box">
+                                <img src="https://img.youtube.com/vi/ZFBhkDm8E5g/hqdefault.jpg" class="adm-thumb-preview" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/ZFBhkDm8E5g/hqdefault.jpg';">
+                                <div style="display:flex; gap:5px; width:100%; justify-content:center;">
+                                    <label class="adm-btn sm blue" style="flex:1; justify-content:center; cursor:pointer;" title="Upload gambar dari perangkat">
+                                        <i class="fas fa-upload"></i> Upload
+                                        <input type="file" accept="image/*" style="display:none;" onchange="handleExistingProjectThumbUpload(event, 3)">
+                                    </label>
+                                    <button type="button" class="adm-btn sm " onclick="resetProjectThumbToDefault(3)" title="Kembalikan ke Thumbnail Default YouTube">
+                                        <i class="fab fa-youtube"></i> Default
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
                                     <input type="text" class="adm-input" value="2025-TAMAN RIA SUROPATI-APA KATA MEREKA?" oninput="PORTFOLIO_DATA.portfolio.items[3].title=this.value; renderAll(); markDraftUnsaved();">
@@ -1648,8 +1766,10 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label style="font-size:0.74rem; color:#94a3b8;">Custom Thumbnail URL (Opsional)</label>
-                                    <input type="text" class="adm-input" value="" placeholder="Otomatis dari YouTube jika kosong" onchange="PORTFOLIO_DATA.portfolio.items[3].customThumb=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
+                                    <div style="display:flex; gap:6px;">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (ZFBhkDm8E5g)" onchange="PORTFOLIO_DATA.portfolio.items[3].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1657,20 +1777,35 @@
                 
                     <div class="adm-list-item">
                         <div class="adm-list-header">
-                            <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                                 <span class="adm-badge">Posisi #5</span>
                                 <span style="font-size:0.82rem; color:#94a3b8;">Kategori: <strong>Video Pendek</strong></span>
+                                <span class="adm-badge default-thumb">
+                                    <i class="fab fa-youtube"></i>
+                                    Default YouTube
+                                </span>
                             </div>
                             <div class="adm-order-btns">
-                                <button class="adm-btn" style="padding:4px 9px; font-size:0.75rem;" onclick="moveProjectToFirst(4)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
+                                <button class="adm-btn sm" onclick="moveProjectToFirst(4)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
                                 <button class="adm-icon-btn" title="Geser Naik" onclick="moveProjectWithinCategory(4, -1)"><i class="fas fa-arrow-up"></i></button>
                                 <button class="adm-icon-btn" title="Geser Turun" onclick="moveProjectWithinCategory(4, 1)"><i class="fas fa-arrow-down"></i></button>
                                 <button class="adm-icon-btn" title="Hapus Proyek" onclick="deleteProject(4)"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>
-                        <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
-                            <img src="https://img.youtube.com/vi/CRa5FznJtKg/hqdefault.jpg" class="adm-thumb-preview">
-                            <div style="flex:1; min-width:240px;" class="adm-grid-2">
+                        <div style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+                            <div class="adm-thumb-box">
+                                <img src="https://img.youtube.com/vi/CRa5FznJtKg/hqdefault.jpg" class="adm-thumb-preview" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/CRa5FznJtKg/hqdefault.jpg';">
+                                <div style="display:flex; gap:5px; width:100%; justify-content:center;">
+                                    <label class="adm-btn sm blue" style="flex:1; justify-content:center; cursor:pointer;" title="Upload gambar dari perangkat">
+                                        <i class="fas fa-upload"></i> Upload
+                                        <input type="file" accept="image/*" style="display:none;" onchange="handleExistingProjectThumbUpload(event, 4)">
+                                    </label>
+                                    <button type="button" class="adm-btn sm " onclick="resetProjectThumbToDefault(4)" title="Kembalikan ke Thumbnail Default YouTube">
+                                        <i class="fab fa-youtube"></i> Default
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
                                     <input type="text" class="adm-input" value="2025-LOMBA PROMOSI PERUMAHAN-PASURUAN GRAND CITY" oninput="PORTFOLIO_DATA.portfolio.items[4].title=this.value; renderAll(); markDraftUnsaved();">
@@ -1686,8 +1821,10 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label style="font-size:0.74rem; color:#94a3b8;">Custom Thumbnail URL (Opsional)</label>
-                                    <input type="text" class="adm-input" value="" placeholder="Otomatis dari YouTube jika kosong" onchange="PORTFOLIO_DATA.portfolio.items[4].customThumb=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
+                                    <div style="display:flex; gap:6px;">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (CRa5FznJtKg)" onchange="PORTFOLIO_DATA.portfolio.items[4].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1695,20 +1832,35 @@
                 
                     <div class="adm-list-item">
                         <div class="adm-list-header">
-                            <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                                 <span class="adm-badge">Posisi #6</span>
                                 <span style="font-size:0.82rem; color:#94a3b8;">Kategori: <strong>Video Pendek</strong></span>
+                                <span class="adm-badge default-thumb">
+                                    <i class="fab fa-youtube"></i>
+                                    Default YouTube
+                                </span>
                             </div>
                             <div class="adm-order-btns">
-                                <button class="adm-btn" style="padding:4px 9px; font-size:0.75rem;" onclick="moveProjectToFirst(5)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
+                                <button class="adm-btn sm" onclick="moveProjectToFirst(5)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
                                 <button class="adm-icon-btn" title="Geser Naik" onclick="moveProjectWithinCategory(5, -1)"><i class="fas fa-arrow-up"></i></button>
                                 <button class="adm-icon-btn" title="Geser Turun" onclick="moveProjectWithinCategory(5, 1)"><i class="fas fa-arrow-down"></i></button>
                                 <button class="adm-icon-btn" title="Hapus Proyek" onclick="deleteProject(5)"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>
-                        <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
-                            <img src="https://img.youtube.com/vi/Sui12qEU4I8/hqdefault.jpg" class="adm-thumb-preview">
-                            <div style="flex:1; min-width:240px;" class="adm-grid-2">
+                        <div style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+                            <div class="adm-thumb-box">
+                                <img src="https://img.youtube.com/vi/Sui12qEU4I8/hqdefault.jpg" class="adm-thumb-preview" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/Sui12qEU4I8/hqdefault.jpg';">
+                                <div style="display:flex; gap:5px; width:100%; justify-content:center;">
+                                    <label class="adm-btn sm blue" style="flex:1; justify-content:center; cursor:pointer;" title="Upload gambar dari perangkat">
+                                        <i class="fas fa-upload"></i> Upload
+                                        <input type="file" accept="image/*" style="display:none;" onchange="handleExistingProjectThumbUpload(event, 5)">
+                                    </label>
+                                    <button type="button" class="adm-btn sm " onclick="resetProjectThumbToDefault(5)" title="Kembalikan ke Thumbnail Default YouTube">
+                                        <i class="fab fa-youtube"></i> Default
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
                                     <input type="text" class="adm-input" value="2024-VIDEO COMPETITION-KOTA LAMA SURABAYA" oninput="PORTFOLIO_DATA.portfolio.items[5].title=this.value; renderAll(); markDraftUnsaved();">
@@ -1724,8 +1876,10 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label style="font-size:0.74rem; color:#94a3b8;">Custom Thumbnail URL (Opsional)</label>
-                                    <input type="text" class="adm-input" value="" placeholder="Otomatis dari YouTube jika kosong" onchange="PORTFOLIO_DATA.portfolio.items[5].customThumb=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
+                                    <div style="display:flex; gap:6px;">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (Sui12qEU4I8)" onchange="PORTFOLIO_DATA.portfolio.items[5].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1733,20 +1887,35 @@
                 
                     <div class="adm-list-item">
                         <div class="adm-list-header">
-                            <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                                 <span class="adm-badge">Posisi #7</span>
                                 <span style="font-size:0.82rem; color:#94a3b8;">Kategori: <strong>Video Pendek</strong></span>
+                                <span class="adm-badge default-thumb">
+                                    <i class="fab fa-youtube"></i>
+                                    Default YouTube
+                                </span>
                             </div>
                             <div class="adm-order-btns">
-                                <button class="adm-btn" style="padding:4px 9px; font-size:0.75rem;" onclick="moveProjectToFirst(6)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
+                                <button class="adm-btn sm" onclick="moveProjectToFirst(6)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
                                 <button class="adm-icon-btn" title="Geser Naik" onclick="moveProjectWithinCategory(6, -1)"><i class="fas fa-arrow-up"></i></button>
                                 <button class="adm-icon-btn" title="Geser Turun" onclick="moveProjectWithinCategory(6, 1)"><i class="fas fa-arrow-down"></i></button>
                                 <button class="adm-icon-btn" title="Hapus Proyek" onclick="deleteProject(6)"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>
-                        <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
-                            <img src="https://img.youtube.com/vi/ysvCdYin3WU/hqdefault.jpg" class="adm-thumb-preview">
-                            <div style="flex:1; min-width:240px;" class="adm-grid-2">
+                        <div style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+                            <div class="adm-thumb-box">
+                                <img src="https://img.youtube.com/vi/ysvCdYin3WU/hqdefault.jpg" class="adm-thumb-preview" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/ysvCdYin3WU/hqdefault.jpg';">
+                                <div style="display:flex; gap:5px; width:100%; justify-content:center;">
+                                    <label class="adm-btn sm blue" style="flex:1; justify-content:center; cursor:pointer;" title="Upload gambar dari perangkat">
+                                        <i class="fas fa-upload"></i> Upload
+                                        <input type="file" accept="image/*" style="display:none;" onchange="handleExistingProjectThumbUpload(event, 6)">
+                                    </label>
+                                    <button type="button" class="adm-btn sm " onclick="resetProjectThumbToDefault(6)" title="Kembalikan ke Thumbnail Default YouTube">
+                                        <i class="fab fa-youtube"></i> Default
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
                                     <input type="text" class="adm-input" value="2024-LOMBA HUT INDONESIA KE 79-TOURISM PASURUAN" oninput="PORTFOLIO_DATA.portfolio.items[6].title=this.value; renderAll(); markDraftUnsaved();">
@@ -1762,8 +1931,10 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label style="font-size:0.74rem; color:#94a3b8;">Custom Thumbnail URL (Opsional)</label>
-                                    <input type="text" class="adm-input" value="" placeholder="Otomatis dari YouTube jika kosong" onchange="PORTFOLIO_DATA.portfolio.items[6].customThumb=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
+                                    <div style="display:flex; gap:6px;">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (ysvCdYin3WU)" onchange="PORTFOLIO_DATA.portfolio.items[6].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1771,20 +1942,35 @@
                 
                     <div class="adm-list-item">
                         <div class="adm-list-header">
-                            <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                                 <span class="adm-badge">Posisi #8</span>
                                 <span style="font-size:0.82rem; color:#94a3b8;">Kategori: <strong>Film Pendek</strong></span>
+                                <span class="adm-badge default-thumb">
+                                    <i class="fab fa-youtube"></i>
+                                    Default YouTube
+                                </span>
                             </div>
                             <div class="adm-order-btns">
-                                <button class="adm-btn" style="padding:4px 9px; font-size:0.75rem;" onclick="moveProjectToFirst(7)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
+                                <button class="adm-btn sm" onclick="moveProjectToFirst(7)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
                                 <button class="adm-icon-btn" title="Geser Naik" onclick="moveProjectWithinCategory(7, -1)"><i class="fas fa-arrow-up"></i></button>
                                 <button class="adm-icon-btn" title="Geser Turun" onclick="moveProjectWithinCategory(7, 1)"><i class="fas fa-arrow-down"></i></button>
                                 <button class="adm-icon-btn" title="Hapus Proyek" onclick="deleteProject(7)"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>
-                        <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
-                            <img src="https://img.youtube.com/vi/-N4Ia7-W1uM/hqdefault.jpg" class="adm-thumb-preview">
-                            <div style="flex:1; min-width:240px;" class="adm-grid-2">
+                        <div style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+                            <div class="adm-thumb-box">
+                                <img src="https://img.youtube.com/vi/-N4Ia7-W1uM/hqdefault.jpg" class="adm-thumb-preview" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/-N4Ia7-W1uM/hqdefault.jpg';">
+                                <div style="display:flex; gap:5px; width:100%; justify-content:center;">
+                                    <label class="adm-btn sm blue" style="flex:1; justify-content:center; cursor:pointer;" title="Upload gambar dari perangkat">
+                                        <i class="fas fa-upload"></i> Upload
+                                        <input type="file" accept="image/*" style="display:none;" onchange="handleExistingProjectThumbUpload(event, 7)">
+                                    </label>
+                                    <button type="button" class="adm-btn sm " onclick="resetProjectThumbToDefault(7)" title="Kembalikan ke Thumbnail Default YouTube">
+                                        <i class="fab fa-youtube"></i> Default
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
                                     <input type="text" class="adm-input" value="2025-FILM COMPETITON-LANGEN BANYU" oninput="PORTFOLIO_DATA.portfolio.items[7].title=this.value; renderAll(); markDraftUnsaved();">
@@ -1800,8 +1986,10 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label style="font-size:0.74rem; color:#94a3b8;">Custom Thumbnail URL (Opsional)</label>
-                                    <input type="text" class="adm-input" value="" placeholder="Otomatis dari YouTube jika kosong" onchange="PORTFOLIO_DATA.portfolio.items[7].customThumb=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
+                                    <div style="display:flex; gap:6px;">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (-N4Ia7-W1uM)" onchange="PORTFOLIO_DATA.portfolio.items[7].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1809,20 +1997,35 @@
                 
                     <div class="adm-list-item">
                         <div class="adm-list-header">
-                            <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                                 <span class="adm-badge">Posisi #9</span>
                                 <span style="font-size:0.82rem; color:#94a3b8;">Kategori: <strong>Film Pendek</strong></span>
+                                <span class="adm-badge default-thumb">
+                                    <i class="fab fa-youtube"></i>
+                                    Default YouTube
+                                </span>
                             </div>
                             <div class="adm-order-btns">
-                                <button class="adm-btn" style="padding:4px 9px; font-size:0.75rem;" onclick="moveProjectToFirst(8)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
+                                <button class="adm-btn sm" onclick="moveProjectToFirst(8)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
                                 <button class="adm-icon-btn" title="Geser Naik" onclick="moveProjectWithinCategory(8, -1)"><i class="fas fa-arrow-up"></i></button>
                                 <button class="adm-icon-btn" title="Geser Turun" onclick="moveProjectWithinCategory(8, 1)"><i class="fas fa-arrow-down"></i></button>
                                 <button class="adm-icon-btn" title="Hapus Proyek" onclick="deleteProject(8)"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>
-                        <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
-                            <img src="https://img.youtube.com/vi/XFgKyNl7T80/hqdefault.jpg" class="adm-thumb-preview">
-                            <div style="flex:1; min-width:240px;" class="adm-grid-2">
+                        <div style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+                            <div class="adm-thumb-box">
+                                <img src="https://img.youtube.com/vi/XFgKyNl7T80/hqdefault.jpg" class="adm-thumb-preview" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/XFgKyNl7T80/hqdefault.jpg';">
+                                <div style="display:flex; gap:5px; width:100%; justify-content:center;">
+                                    <label class="adm-btn sm blue" style="flex:1; justify-content:center; cursor:pointer;" title="Upload gambar dari perangkat">
+                                        <i class="fas fa-upload"></i> Upload
+                                        <input type="file" accept="image/*" style="display:none;" onchange="handleExistingProjectThumbUpload(event, 8)">
+                                    </label>
+                                    <button type="button" class="adm-btn sm " onclick="resetProjectThumbToDefault(8)" title="Kembalikan ke Thumbnail Default YouTube">
+                                        <i class="fab fa-youtube"></i> Default
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
                                     <input type="text" class="adm-input" value="2024-AMIKOM VIDEO COMPETITION-ANTARA" oninput="PORTFOLIO_DATA.portfolio.items[8].title=this.value; renderAll(); markDraftUnsaved();">
@@ -1838,8 +2041,10 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label style="font-size:0.74rem; color:#94a3b8;">Custom Thumbnail URL (Opsional)</label>
-                                    <input type="text" class="adm-input" value="" placeholder="Otomatis dari YouTube jika kosong" onchange="PORTFOLIO_DATA.portfolio.items[8].customThumb=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
+                                    <div style="display:flex; gap:6px;">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (XFgKyNl7T80)" onchange="PORTFOLIO_DATA.portfolio.items[8].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1847,20 +2052,35 @@
                 
                     <div class="adm-list-item">
                         <div class="adm-list-header">
-                            <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                                 <span class="adm-badge">Posisi #10</span>
                                 <span style="font-size:0.82rem; color:#94a3b8;">Kategori: <strong>Film Pendek</strong></span>
+                                <span class="adm-badge default-thumb">
+                                    <i class="fab fa-youtube"></i>
+                                    Default YouTube
+                                </span>
                             </div>
                             <div class="adm-order-btns">
-                                <button class="adm-btn" style="padding:4px 9px; font-size:0.75rem;" onclick="moveProjectToFirst(9)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
+                                <button class="adm-btn sm" onclick="moveProjectToFirst(9)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
                                 <button class="adm-icon-btn" title="Geser Naik" onclick="moveProjectWithinCategory(9, -1)"><i class="fas fa-arrow-up"></i></button>
                                 <button class="adm-icon-btn" title="Geser Turun" onclick="moveProjectWithinCategory(9, 1)"><i class="fas fa-arrow-down"></i></button>
                                 <button class="adm-icon-btn" title="Hapus Proyek" onclick="deleteProject(9)"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>
-                        <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
-                            <img src="https://img.youtube.com/vi/cZUakY7kyng/hqdefault.jpg" class="adm-thumb-preview">
-                            <div style="flex:1; min-width:240px;" class="adm-grid-2">
+                        <div style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+                            <div class="adm-thumb-box">
+                                <img src="https://img.youtube.com/vi/cZUakY7kyng/hqdefault.jpg" class="adm-thumb-preview" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/cZUakY7kyng/hqdefault.jpg';">
+                                <div style="display:flex; gap:5px; width:100%; justify-content:center;">
+                                    <label class="adm-btn sm blue" style="flex:1; justify-content:center; cursor:pointer;" title="Upload gambar dari perangkat">
+                                        <i class="fas fa-upload"></i> Upload
+                                        <input type="file" accept="image/*" style="display:none;" onchange="handleExistingProjectThumbUpload(event, 9)">
+                                    </label>
+                                    <button type="button" class="adm-btn sm " onclick="resetProjectThumbToDefault(9)" title="Kembalikan ke Thumbnail Default YouTube">
+                                        <i class="fab fa-youtube"></i> Default
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
                                     <input type="text" class="adm-input" value="2023-NAFIFEST-A NGORMATI" oninput="PORTFOLIO_DATA.portfolio.items[9].title=this.value; renderAll(); markDraftUnsaved();">
@@ -1876,8 +2096,10 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label style="font-size:0.74rem; color:#94a3b8;">Custom Thumbnail URL (Opsional)</label>
-                                    <input type="text" class="adm-input" value="" placeholder="Otomatis dari YouTube jika kosong" onchange="PORTFOLIO_DATA.portfolio.items[9].customThumb=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
+                                    <div style="display:flex; gap:6px;">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (cZUakY7kyng)" onchange="PORTFOLIO_DATA.portfolio.items[9].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1885,20 +2107,35 @@
                 
                     <div class="adm-list-item">
                         <div class="adm-list-header">
-                            <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                                 <span class="adm-badge">Posisi #11</span>
                                 <span style="font-size:0.82rem; color:#94a3b8;">Kategori: <strong>Film Pendek</strong></span>
+                                <span class="adm-badge default-thumb">
+                                    <i class="fab fa-youtube"></i>
+                                    Default YouTube
+                                </span>
                             </div>
                             <div class="adm-order-btns">
-                                <button class="adm-btn" style="padding:4px 9px; font-size:0.75rem;" onclick="moveProjectToFirst(10)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
+                                <button class="adm-btn sm" onclick="moveProjectToFirst(10)" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
                                 <button class="adm-icon-btn" title="Geser Naik" onclick="moveProjectWithinCategory(10, -1)"><i class="fas fa-arrow-up"></i></button>
                                 <button class="adm-icon-btn" title="Geser Turun" onclick="moveProjectWithinCategory(10, 1)"><i class="fas fa-arrow-down"></i></button>
                                 <button class="adm-icon-btn" title="Hapus Proyek" onclick="deleteProject(10)"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>
-                        <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
-                            <img src="https://img.youtube.com/vi/rchFVJnkm0Y/hqdefault.jpg" class="adm-thumb-preview">
-                            <div style="flex:1; min-width:240px;" class="adm-grid-2">
+                        <div style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+                            <div class="adm-thumb-box">
+                                <img src="https://img.youtube.com/vi/rchFVJnkm0Y/hqdefault.jpg" class="adm-thumb-preview" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/rchFVJnkm0Y/hqdefault.jpg';">
+                                <div style="display:flex; gap:5px; width:100%; justify-content:center;">
+                                    <label class="adm-btn sm blue" style="flex:1; justify-content:center; cursor:pointer;" title="Upload gambar dari perangkat">
+                                        <i class="fas fa-upload"></i> Upload
+                                        <input type="file" accept="image/*" style="display:none;" onchange="handleExistingProjectThumbUpload(event, 10)">
+                                    </label>
+                                    <button type="button" class="adm-btn sm " onclick="resetProjectThumbToDefault(10)" title="Kembalikan ke Thumbnail Default YouTube">
+                                        <i class="fab fa-youtube"></i> Default
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
                                     <input type="text" class="adm-input" value="2023-AMIKOM VIDEO COMPETITION-TRIASIH" oninput="PORTFOLIO_DATA.portfolio.items[10].title=this.value; renderAll(); markDraftUnsaved();">
@@ -1914,8 +2151,10 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label style="font-size:0.74rem; color:#94a3b8;">Custom Thumbnail URL (Opsional)</label>
-                                    <input type="text" class="adm-input" value="" placeholder="Otomatis dari YouTube jika kosong" onchange="PORTFOLIO_DATA.portfolio.items[10].customThumb=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
+                                    <div style="display:flex; gap:6px;">
+                                        <input type="text" class="adm-input" value="" placeholder="Default Otomatis YouTube (rchFVJnkm0Y)" onchange="PORTFOLIO_DATA.portfolio.items[10].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2479,7 +2718,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                                     <input type="text" class="adm-input" value="https://alihaidar.site" readonly="" onclick="this.select()">
                                 </div>
                                 <div class="adm-field">
-                                    <label>Link Khusus Login Admin (Tetap Wajib Password)</label>
+                                    <label>Link Khusus Login Admin (Wajib Masukkan Sandi Setiap Kali Dibuka)</label>
                                     <input type="text" class="adm-input" value="https://alihaidar.site/#admin" readonly="" onclick="this.select()">
                                 </div>
                             </div>
@@ -2490,7 +2729,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                                 <span><i class="fab fa-github"></i> Integrasi Langsung ke GitHub (`ziuxyyy/alihaidar`)</span>
                             </div>
                             <p style="font-size:0.84rem; color:#94a3b8; margin-bottom:14px;">
-                                Repositori <strong>ziuxyyy/alihaidar</strong> dan Token GitHub kamu sudah terhubung dan dienkripsi menggunakan password <code>ziuxy_180</code>. Klik <strong>Publish &amp; Auto-Save</strong> untuk langsung meng-online-kan semua perubahan ke <strong>alihaidar.site</strong>.
+                                Repositori <strong>ziuxyyy/alihaidar</strong> dan Token GitHub kamu sudah terhubung dan dienkripsi menggunakan sandi <code>ziuxy_180</code>. Klik <strong>Publish &amp; Auto-Save</strong> untuk langsung meng-online-kan semua perubahan ke <strong>alihaidar.site</strong> dalam kondisi terkunci untuk pengunjung.
                             </p>
                             <div class="adm-grid-3">
                                 <div class="adm-field">
@@ -2510,7 +2749,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                                 </div>
                             </div>
                             <div class="adm-field">
-                                <label>GitHub Personal Access Token (Dienkripsi dengan Password Admin)</label>
+                                <label>GitHub Personal Access Token (Dienkripsi dengan Sandi Admin)</label>
                                 <input type="password" class="adm-input" id="ghToken" placeholder="ghp_xxxxxxxxxxxx" oninput="saveGitHubConfigLocal()">
                             </div>
                             <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
@@ -2522,18 +2761,18 @@ Produksi konten promosi untuk platform media sosial.</textarea>
 
                         <div class="adm-card">
                             <div class="adm-card-title">
-                                <span><i class="fas fa-user-lock"></i> Ganti Password Login Admin</span>
+                                <span><i class="fas fa-user-lock"></i> Ganti Sandi Login Admin</span>
                             </div>
                             <p style="font-size:0.83rem; color:#94a3b8; margin-bottom:12px;">
-                                Saat ini password kamu adalah <strong><code>ziuxy_180</code></strong>. Jika ingin mengubahnya, ketik password baru di bawah lalu klik Simpan.
+                                Saat ini sandi kamu adalah <strong><code>ziuxy_180</code></strong>. Jika ingin mengubahnya, ketik sandi baru di bawah lalu klik Simpan.
                             </p>
                             <div class="adm-grid-2">
                                 <div class="adm-field">
-                                    <label>Password Admin Baru</label>
-                                    <input type="password" class="adm-input" id="admNewPassInput" placeholder="Masukkan password baru...">
+                                    <label>Sandi Admin Baru</label>
+                                    <input type="password" class="adm-input" id="admNewPassInput" placeholder="Masukkan sandi baru...">
                                 </div>
                                 <div class="adm-field" style="display:flex; align-items:flex-end;">
-                                    <button class="adm-btn primary" onclick="changeAdminPassword()" data-cursor-bound="1"><i class="fas fa-key"></i> Ubah Password Admin</button>
+                                    <button class="adm-btn primary" onclick="changeAdminPassword()" data-cursor-bound="1"><i class="fas fa-key"></i> Ubah Sandi Admin</button>
                                 </div>
                             </div>
                         </div>
@@ -2565,7 +2804,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
 
     <script>
         // =========================================================================
-        // 1. DATA UTAMA PORTOFOLIO + TOKEN TERENKRIPSI DENGAN PASSWORD "ziuxy_180"
+        // 1. DATA UTAMA PORTOFOLIO + TOKEN TERENKRIPSI DENGAN SANDI "ziuxy_180"
         // =========================================================================
         /*__PORTFOLIO_DATA_START__*/
         const DEFAULT_PORTFOLIO_DATA = {
@@ -2911,14 +3150,15 @@ Produksi konten promosi untuk platform media sosial.</textarea>
 };
         /*__PORTFOLIO_DATA_END__*/
 
-        const STORAGE_KEY = 'ALI_HAIDAR_PORTFOLIO_DRAFT_V4';
-        const DRAFT_TIME_KEY = 'ALI_HAIDAR_DRAFT_TIME_V4';
+        const STORAGE_KEY = 'ALI_HAIDAR_PORTFOLIO_DRAFT_V5';
+        const DRAFT_TIME_KEY = 'ALI_HAIDAR_DRAFT_TIME_V5';
         let PORTFOLIO_DATA = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA));
+        let BACKUP_BEFORE_EDIT = null;
         let isAdminLoggedIn = false;
         let currentSessionPassword = '';
 
         // =========================================================================
-        // 2. ENKRIPSI & AUTENTIKASI ADMIN (PASSWORD: ziuxy_180)
+        // 2. ENKRIPSI & AUTENTIKASI ADMIN (WAJIB SANDI SETIAP KALI MASUK PANEL)
         // =========================================================================
         function xorCipher(text, pass) {
             if (!text || !pass) return [];
@@ -2942,6 +3182,18 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             if (!pass) return false;
             const authCheckArr = (PORTFOLIO_DATA.auth && PORTFOLIO_DATA.auth.authCheck) || [59, 45, 56, 49, 55, 0, 126, 115, 111];
             return xorDecipher(authCheckArr, pass) === 'ADMIN_OK_';
+        }
+
+        function forceLockAllAdminUI() {
+            isAdminLoggedIn = false;
+            currentSessionPassword = '';
+            document.body.classList.remove('is-admin', 'admin-open', 'login-open', 'quick-edit-active');
+            const adminModal = document.getElementById('adminModalOverlay');
+            if (adminModal) adminModal.classList.remove('active');
+            const loginModal = document.getElementById('adminLoginModal');
+            if (loginModal) loginModal.classList.remove('active');
+            const lockIcon = document.getElementById('footerLockIcon');
+            if (lockIcon) lockIcon.className = 'fas fa-lock';
         }
 
         function loadSavedData() {
@@ -2994,6 +3246,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                 const nowStr = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(PORTFOLIO_DATA));
                 localStorage.setItem(DRAFT_TIME_KEY, nowStr);
+                BACKUP_BEFORE_EDIT = JSON.parse(JSON.stringify(PORTFOLIO_DATA));
                 updateDraftPillDisplay(`<i class="fas fa-save"></i> Draft Tersimpan (${nowStr})`, false);
                 if (!silent) {
                     showToast('💾 Draft disimpan! Kamu bisa lanjut mengedit nanti sebelum di-publish.');
@@ -3003,6 +3256,21 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                 alert('Ukuran gambar terlalu besar untuk memori browser. Silakan langsung klik Publish & Auto-Save.');
                 return false;
             }
+        }
+
+        // TOMBOL CANCEL / BATAL EDIT (Kembalikan ke kondisi sebelum sesi edit dibuka & keluar)
+        function cancelAndRevertChanges() {
+            if (BACKUP_BEFORE_EDIT) {
+                PORTFOLIO_DATA = JSON.parse(JSON.stringify(BACKUP_BEFORE_EDIT));
+                renderAll();
+            }
+            logoutAdmin();
+            showToast('↩️ Editan dibatalkan & keluar dari Panel Admin.');
+        }
+
+        // Keluar hanya dari jendela modal Admin
+        function exitAdminPanelOnly() {
+            logoutAdmin();
         }
 
         function showToast(msg) {
@@ -3015,16 +3283,18 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             window._toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
         }
 
-        // Trigger Login Modal
         function onFooterLockClick() {
-            if (isAdminLoggedIn) {
-                openAdminModal();
-            } else {
-                openLoginModal();
-            }
+            openLoginModal();
+        }
+
+        function requestOpenAdminPanel() {
+            openLoginModal();
         }
 
         function openLoginModal() {
+            document.getElementById('adminModalOverlay').classList.remove('active');
+            document.body.classList.remove('admin-open');
+
             document.getElementById('loginErrorMsg').style.display = 'none';
             document.getElementById('adminLoginPassInput').value = '';
             document.getElementById('adminLoginModal').classList.add('active');
@@ -3044,8 +3314,8 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             if (verifyAdminPassword(pass)) {
                 activateAdminSession(pass);
                 closeLoginModal();
-                openAdminModal();
-                showToast('Selamat datang, Ali Haidar!');
+                openAdminModalDirectly();
+                showToast('🔓 Sandi benar! Selamat datang di Admin Studio.');
             } else {
                 document.getElementById('loginErrorMsg').style.display = 'block';
             }
@@ -3054,11 +3324,11 @@ Produksi konten promosi untuk platform media sosial.</textarea>
         function activateAdminSession(pass) {
             isAdminLoggedIn = true;
             currentSessionPassword = pass;
+            BACKUP_BEFORE_EDIT = JSON.parse(JSON.stringify(PORTFOLIO_DATA));
             document.body.classList.add('is-admin');
             const lockIcon = document.getElementById('footerLockIcon');
             if (lockIcon) lockIcon.className = 'fas fa-unlock';
 
-            // Buka kunci Token GitHub secara otomatis dengan password
             if (PORTFOLIO_DATA.auth && Array.isArray(PORTFOLIO_DATA.auth.encryptedToken)) {
                 const decryptedToken = xorDecipher(PORTFOLIO_DATA.auth.encryptedToken, pass);
                 const cfg = {
@@ -3073,22 +3343,17 @@ Produksi konten promosi untuk platform media sosial.</textarea>
         }
 
         function logoutAdmin() {
-            isAdminLoggedIn = false;
-            currentSessionPassword = '';
-            document.body.classList.remove('is-admin', 'quick-edit-active', 'admin-open');
-            document.getElementById('adminModalOverlay').classList.remove('active');
-            const lockIcon = document.getElementById('footerLockIcon');
-            if (lockIcon) lockIcon.className = 'fas fa-lock';
+            forceLockAllAdminUI();
             if (window.location.hash === '#admin') {
                 history.replaceState(null, null, window.location.pathname);
             }
-            showToast('🔒 Mode Admin dikunci kembali.');
+            showToast('🔒 Keluar dari Panel Admin (Mode Pengunjung).');
         }
 
         function changeAdminPassword() {
             const newPass = document.getElementById('admNewPassInput').value.trim();
             if (!newPass || newPass.length < 4) {
-                alert('Password baru minimal 4 karakter!');
+                alert('Sandi baru minimal 4 karakter!');
                 return;
             }
             const currentToken = document.getElementById('ghToken').value.trim();
@@ -3100,7 +3365,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             currentSessionPassword = newPass;
             document.getElementById('admNewPassInput').value = '';
             saveDraftForLater(true);
-            showToast('Password Admin diubah! Klik Publish & Auto-Save untuk menyimpan ke GitHub.');
+            showToast('Sandi Admin diubah! Klik Publish & Auto-Save untuk menyimpan ke GitHub.');
         }
 
         // =========================================================================
@@ -3121,6 +3386,11 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
             const match = trimmed.match(regExp);
             return match ? match[1] : trimmed;
+        }
+
+        function getDefaultYouTubeThumb(videoId) {
+            const cleanId = extractYouTubeId(videoId) || 'JynhUiy4Tmg';
+            return `https://img.youtube.com/vi/${cleanId}/hqdefault.jpg`;
         }
 
         function renderAll() {
@@ -3216,9 +3486,10 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                     .filter(item => item.category === catName);
 
                 const cardsHtml = catProjects.map((proj) => {
-                    const thumbUrl = proj.customThumb && proj.customThumb.trim() !== ''
-                        ? proj.customThumb
-                        : `https://img.youtube.com/vi/${proj.videoId}/hqdefault.jpg`;
+                    const defaultYtThumb = getDefaultYouTubeThumb(proj.videoId);
+                    const thumbUrl = (proj.customThumb && proj.customThumb.trim() !== '')
+                        ? proj.customThumb.trim()
+                        : defaultYtThumb;
                     const safeTitleJs = proj.title.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 
                     return `
@@ -3230,7 +3501,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                                 <button class="quick-btn del" title="Hapus Video" onclick="deleteProject(${proj.globalIdx})"><i class="fas fa-trash"></i></button>
                             </div>
                             <div class="video-preview-wrapper">
-                                <img src="${escapeHtml(thumbUrl)}" alt="Thumbnail">
+                                <img src="${escapeHtml(thumbUrl)}" alt="Thumbnail" onerror="this.onerror=null; this.src='${escapeHtml(defaultYtThumb)}';">
                                 <div class="play-trigger-overlay">
                                     <div class="play-button-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
                                     <span class="play-text"><i class="fas fa-expand" style="margin-right: 5px;"></i> Putar Layar Besar</span>
@@ -3455,7 +3726,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
         }
 
         // =========================================================================
-        // 5. FUNGSI PANEL ADMIN CMS & KONTROL POSISI
+        // 5. FUNGSI PANEL ADMIN CMS, THUMBNAIL SWITCHER & KONTROL POSISI
         // =========================================================================
         function toggleQuickEditMode() {
             if (!isAdminLoggedIn) { openLoginModal(); return; }
@@ -3466,16 +3737,20 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             showToast(isActive ? 'Mode Atur Posisi Aktif: Klik panah di tiap kartu!' : 'Mode Atur Posisi Selesai');
         }
 
-        function openAdminModal() {
+        function openAdminModalDirectly() {
             if (!isAdminLoggedIn) { openLoginModal(); return; }
             populateAdminForms();
             document.getElementById('adminModalOverlay').classList.add('active');
             document.body.classList.add('admin-open');
         }
 
-        function closeAdminModal() {
+        function closeAdminToQuickPreview() {
             document.getElementById('adminModalOverlay').classList.remove('active');
             document.body.classList.remove('admin-open');
+            document.body.classList.add('quick-edit-active');
+            const btn = document.getElementById('quickEditToggleBtn');
+            if (btn) btn.classList.add('active-mode');
+            showToast('Mode Preview & Atur Posisi. Klik Keluar Admin jika sudah selesai.');
         }
 
         function switchAdminTab(tabId, btnEl) {
@@ -3513,6 +3788,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             // Portfolio
             renderAdminCategoriesManager();
             renderAdminProjectsList();
+            updateNewProjThumbPreview();
 
             // Experience & Awards
             renderAdminExperienceList();
@@ -3544,15 +3820,12 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             markDraftUnsaved();
         }
 
-        function handleImageUpload(event, targetType) {
-            const file = event.target.files[0];
-            if (!file) return;
+        function compressImageFile(file, maxDim, callback) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 const img = new Image();
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
-                    const maxDim = targetType === 'profile' ? 500 : 1600;
                     let w = img.width, h = img.height;
                     if (w > maxDim || h > maxDim) {
                         if (w > h) { h = Math.round(h * (maxDim / w)); w = maxDim; }
@@ -3561,22 +3834,85 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                     canvas.width = w; canvas.height = h;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, w, h);
-                    const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
-                    if (targetType === 'profile') {
-                        PORTFOLIO_DATA.hero.profileImg = dataUrl;
-                        document.getElementById('admProfileImg').value = dataUrl;
-                        document.getElementById('admPreviewProfile').src = dataUrl;
-                    } else if (targetType === 'herobg') {
-                        PORTFOLIO_DATA.settings.heroBg = dataUrl;
-                        document.getElementById('admHeroBg').value = dataUrl;
-                    }
-                    renderAll();
-                    markDraftUnsaved();
-                    showToast('Gambar berhasil dimuat! Klik Save atau Publish.');
+                    callback(canvas.toDataURL('image/jpeg', 0.85));
                 };
                 img.src = e.target.result;
             };
             reader.readAsDataURL(file);
+        }
+
+        function handleImageUpload(event, targetType) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const maxDim = targetType === 'profile' ? 500 : 1600;
+            compressImageFile(file, maxDim, function(dataUrl) {
+                if (targetType === 'profile') {
+                    PORTFOLIO_DATA.hero.profileImg = dataUrl;
+                    document.getElementById('admProfileImg').value = dataUrl;
+                    document.getElementById('admPreviewProfile').src = dataUrl;
+                } else if (targetType === 'herobg') {
+                    PORTFOLIO_DATA.settings.heroBg = dataUrl;
+                    document.getElementById('admHeroBg').value = dataUrl;
+                }
+                renderAll();
+                markDraftUnsaved();
+                showToast('Gambar berhasil dimuat! Klik Save atau Publish.');
+            });
+        }
+
+        // --- THUMBNAIL HANDLERS UNTUK PROYEK BARU & PROYEK LAMA ---
+        function updateNewProjThumbPreview() {
+            const rawUrl = document.getElementById('newProjUrl').value.trim();
+            const customThumb = document.getElementById('newProjThumb').value.trim();
+            const previewImg = document.getElementById('newProjThumbPreviewImg');
+            const badge = document.getElementById('newProjThumbBadge');
+
+            if (customThumb) {
+                previewImg.src = customThumb;
+                badge.className = 'adm-badge custom-thumb';
+                badge.textContent = 'Custom Thumbnail';
+            } else {
+                const vid = extractYouTubeId(rawUrl) || 'JynhUiy4Tmg';
+                previewImg.src = getDefaultYouTubeThumb(vid);
+                badge.className = 'adm-badge default-thumb';
+                badge.textContent = 'Default YouTube';
+            }
+        }
+
+        function resetNewProjThumbToDefault() {
+            document.getElementById('newProjThumb').value = '';
+            updateNewProjThumbPreview();
+            showToast('Menggunakan Default Thumbnail YouTube.');
+        }
+
+        function handleNewProjectThumbUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            compressImageFile(file, 800, function(dataUrl) {
+                document.getElementById('newProjThumb').value = dataUrl;
+                updateNewProjThumbPreview();
+                showToast('Custom Thumbnail siap digunakan untuk video baru!');
+            });
+        }
+
+        function handleExistingProjectThumbUpload(event, projIdx) {
+            const file = event.target.files[0];
+            if (!file) return;
+            compressImageFile(file, 800, function(dataUrl) {
+                PORTFOLIO_DATA.portfolio.items[projIdx].customThumb = dataUrl;
+                renderAdminProjectsList();
+                renderAll();
+                markDraftUnsaved();
+                showToast('Thumbnail portofolio berhasil diganti!');
+            });
+        }
+
+        function resetProjectThumbToDefault(projIdx) {
+            PORTFOLIO_DATA.portfolio.items[projIdx].customThumb = '';
+            renderAdminProjectsList();
+            renderAll();
+            markDraftUnsaved();
+            showToast('Thumbnail dikembalikan ke Default YouTube!');
         }
 
         // --- CV BUTTONS ---
@@ -3751,6 +4087,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             document.getElementById('newProjUrl').value = '';
             document.getElementById('newProjTag').value = '';
             document.getElementById('newProjThumb').value = '';
+            updateNewProjThumbPreview();
 
             renderAdminCategoriesManager();
             renderAdminProjectsList();
@@ -3769,27 +4106,42 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                 .filter(item => filterCat === 'ALL' || item.category === filterCat);
 
             listEl.innerHTML = filtered.map((proj, displayOrder) => {
-                const thumb = proj.customThumb && proj.customThumb.trim() !== ''
-                    ? proj.customThumb
-                    : `https://img.youtube.com/vi/${proj.videoId}/hqdefault.jpg`;
+                const isCustom = Boolean(proj.customThumb && proj.customThumb.trim() !== '');
+                const defaultThumb = getDefaultYouTubeThumb(proj.videoId);
+                const thumb = isCustom ? proj.customThumb.trim() : defaultThumb;
 
                 return `
                     <div class="adm-list-item">
                         <div class="adm-list-header">
-                            <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                                 <span class="adm-badge">Posisi #${displayOrder + 1}</span>
                                 <span style="font-size:0.82rem; color:#94a3b8;">Kategori: <strong>${escapeHtml(proj.category)}</strong></span>
+                                <span class="adm-badge ${isCustom ? 'custom-thumb' : 'default-thumb'}">
+                                    <i class="${isCustom ? 'fas fa-image' : 'fab fa-youtube'}"></i>
+                                    ${isCustom ? 'Thumbnail Custom' : 'Default YouTube'}
+                                </span>
                             </div>
                             <div class="adm-order-btns">
-                                <button class="adm-btn" style="padding:4px 9px; font-size:0.75rem;" onclick="moveProjectToFirst(${proj.idx})" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
+                                <button class="adm-btn sm" onclick="moveProjectToFirst(${proj.idx})" title="Taruh di Paling Atas"><i class="fas fa-angle-double-up"></i> Ke #1</button>
                                 <button class="adm-icon-btn" title="Geser Naik" onclick="moveProjectWithinCategory(${proj.idx}, -1)"><i class="fas fa-arrow-up"></i></button>
                                 <button class="adm-icon-btn" title="Geser Turun" onclick="moveProjectWithinCategory(${proj.idx}, 1)"><i class="fas fa-arrow-down"></i></button>
                                 <button class="adm-icon-btn" title="Hapus Proyek" onclick="deleteProject(${proj.idx})"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>
-                        <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
-                            <img src="${escapeHtml(thumb)}" class="adm-thumb-preview">
-                            <div style="flex:1; min-width:240px;" class="adm-grid-2">
+                        <div style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+                            <div class="adm-thumb-box">
+                                <img src="${escapeHtml(thumb)}" class="adm-thumb-preview" onerror="this.onerror=null; this.src='${escapeHtml(defaultThumb)}';">
+                                <div style="display:flex; gap:5px; width:100%; justify-content:center;">
+                                    <label class="adm-btn sm blue" style="flex:1; justify-content:center; cursor:pointer;" title="Upload gambar dari perangkat">
+                                        <i class="fas fa-upload"></i> Upload
+                                        <input type="file" accept="image/*" style="display:none;" onchange="handleExistingProjectThumbUpload(event, ${proj.idx})">
+                                    </label>
+                                    <button type="button" class="adm-btn sm ${isCustom ? 'amber' : ''}" onclick="resetProjectThumbToDefault(${proj.idx})" title="Kembalikan ke Thumbnail Default YouTube">
+                                        <i class="fab fa-youtube"></i> Default
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="flex:1; min-width:250px;" class="adm-grid-2">
                                 <div>
                                     <label style="font-size:0.74rem; color:#94a3b8;">Judul Proyek</label>
                                     <input type="text" class="adm-input" value="${escapeHtml(proj.title)}" oninput="PORTFOLIO_DATA.portfolio.items[${proj.idx}].title=this.value; renderAll(); markDraftUnsaved();">
@@ -3805,8 +4157,10 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                                     </select>
                                 </div>
                                 <div>
-                                    <label style="font-size:0.74rem; color:#94a3b8;">Custom Thumbnail URL (Opsional)</label>
-                                    <input type="text" class="adm-input" value="${escapeHtml(proj.customThumb || '')}" placeholder="Otomatis dari YouTube jika kosong" onchange="PORTFOLIO_DATA.portfolio.items[${proj.idx}].customThumb=this.value; renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    <label style="font-size:0.74rem; color:#94a3b8;">Thumbnail (Kosong = Default YouTube / Isi URL / Upload)</label>
+                                    <div style="display:flex; gap:6px;">
+                                        <input type="text" class="adm-input" value="${escapeHtml(proj.customThumb || '')}" placeholder="Default Otomatis YouTube (${escapeHtml(proj.videoId)})" onchange="PORTFOLIO_DATA.portfolio.items[${proj.idx}].customThumb=this.value.trim(); renderAdminProjectsList(); renderAll(); markDraftUnsaved();">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -4045,7 +4399,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
         }
 
         // =========================================================================
-        // 6. PUBLISH & AUTO-SAVE KE GITHUB (ziuxyyy/alihaidar -> alihaidar.site)
+        // 6. CLEAN DOM CLONING UNTUK PUBLISH KE GITHUB (100% TERKUNCI SAAT DIBUKA)
         // =========================================================================
         function buildUpdatedHtmlString() {
             const passToUse = currentSessionPassword || 'ziuxy_180';
@@ -4059,16 +4413,45 @@ Produksi konten promosi untuk platform media sosial.</textarea>
                 PORTFOLIO_DATA.auth.encryptedToken = xorCipher(ghCfg.token, passToUse);
             }
 
-            const currentFullHtml = document.documentElement.outerHTML;
+            const clone = document.documentElement.cloneNode(true);
+
+            const bodyClone = clone.querySelector('body');
+            if (bodyClone) {
+                bodyClone.classList.remove('is-admin', 'admin-open', 'login-open', 'quick-edit-active');
+                bodyClone.removeAttribute('class');
+            }
+
+            const adminOverlayClone = clone.querySelector('#adminModalOverlay');
+            if (adminOverlayClone) adminOverlayClone.classList.remove('active');
+
+            const loginOverlayClone = clone.querySelector('#adminLoginModal');
+            if (loginOverlayClone) loginOverlayClone.classList.remove('active');
+
+            const videoModalClone = clone.querySelector('#videoModal');
+            if (videoModalClone) videoModalClone.classList.remove('active');
+
+            const toastClone = clone.querySelector('#admToast');
+            if (toastClone) toastClone.classList.remove('show');
+
+            const lockIconClone = clone.querySelector('#footerLockIcon');
+            if (lockIconClone) lockIconClone.className = 'fas fa-lock';
+
+            const quickBtnClone = clone.querySelector('#quickEditToggleBtn');
+            if (quickBtnClone) quickBtnClone.classList.remove('active-mode');
+
+            ['#adminLoginPassInput', '#ghToken', '#admNewPassInput'].forEach(sel => {
+                const el = clone.querySelector(sel);
+                if (el) {
+                    el.value = '';
+                    el.removeAttribute('value');
+                }
+            });
+
+            const cleanOuterHtml = clone.outerHTML;
             const dataReplacement = `/*__PORTFOLIO_DATA_START__*/\n        const DEFAULT_PORTFOLIO_DATA = ${JSON.stringify(PORTFOLIO_DATA, null, 4)};\n        /*__PORTFOLIO_DATA_END__*/`;
             const regex = /\/\*__PORTFOLIO_DATA_START__\*\/[\s\S]*?\/\*__PORTFOLIO_DATA_END__\*\//;
-            let updated = '<!DOCTYPE html>\n<html lang="id">\n' + currentFullHtml.slice(currentFullHtml.indexOf('<head>'));
+            let updated = '<!DOCTYPE html>\n<html lang="id">\n' + cleanOuterHtml.slice(cleanOuterHtml.indexOf('<head>'));
             updated = updated.replace(regex, dataReplacement);
-
-            // Bersihkan class sesi admin agar tampilan publik di alihaidar.site bersih untuk pengunjung
-            updated = updated.replace(/class="([^"]*)\b(admin-open|login-open|quick-edit-active|is-admin)\b([^"]*)"/g, (m, p1, p2, p3) => `class="${(p1 + ' ' + p3).trim()}"`);
-            updated = updated.replace(/id="adminModalOverlay" class="admin-overlay"/g, 'id="adminModalOverlay" class="admin-overlay"');
-            updated = updated.replace(/id="adminLoginModal" class="admin-login-overlay"/g, 'id="adminLoginModal" class="admin-login-overlay"');
             return updated;
         }
 
@@ -4119,7 +4502,6 @@ Produksi konten promosi untuk platform media sosial.</textarea>
         async function saveAndPublishToGitHub() {
             if (!isAdminLoggedIn) { openLoginModal(); return; }
 
-            // 1. Otomatis Save semua perubahan lokal terlebih dahulu
             saveDraftForLater(true);
             loadGitHubConfigLocal();
             saveGitHubConfigLocal();
@@ -4175,9 +4557,9 @@ Produksi konten promosi untuk platform media sosial.</textarea>
 
                 localStorage.removeItem(DRAFT_TIME_KEY);
                 const nowStr = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-                if (statusEl) statusEl.textContent = `✅ Berhasil di-publish ke alihaidar.site (${nowStr})!`;
+                if (statusEl) statusEl.textContent = `✅ Berhasil di-publish & dikunci di alihaidar.site (${nowStr})!`;
                 updateDraftPillDisplay(`<i class="fas fa-check-circle"></i> Live di alihaidar.site (${nowStr})`, true);
-                showToast('🚀 Berhasil di-save & di-publish ke alihaidar.site!');
+                showToast('🚀 Berhasil di-publish ke alihaidar.site!');
             } catch (err) {
                 if (statusEl) statusEl.textContent = '❌ Gagal: ' + err.message;
                 updateDraftPillDisplay('<i class="fas fa-exclamation-triangle"></i> Gagal Publish (Draft Aman)', false);
@@ -4185,7 +4567,7 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             }
         }
 
-        // Shortcut & Deteksi URL #admin / ?admin (TETAP WAJIB LOGIN PASSWORD)
+        // Shortcut & Deteksi URL #admin / ?admin
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeVideoModal();
@@ -4193,25 +4575,22 @@ Produksi konten promosi untuk platform media sosial.</textarea>
             }
             if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
                 e.preventDefault();
-                if (isAdminLoggedIn) openAdminModal();
-                else openLoginModal();
+                openLoginModal();
             }
         });
 
         window.addEventListener('hashchange', function() {
             if (window.location.hash === '#admin') {
-                if (isAdminLoggedIn) openAdminModal();
-                else openLoginModal();
+                openLoginModal();
             }
         });
 
-        // Init
         document.addEventListener("DOMContentLoaded", function() {
+            forceLockAllAdminUI();
             loadSavedData();
             renderAll();
             setTimeout(typeEffect, 1000);
 
-            // Jika dibuka melalui link alihaidar.site/#admin atau ?admin, tetap wajib masukkan password!
             const urlParams = new URLSearchParams(window.location.search);
             if (window.location.hash === '#admin' || urlParams.has('admin')) {
                 openLoginModal();
